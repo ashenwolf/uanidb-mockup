@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="description" content="" />
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/kickstart.js"></script>                                  <!-- KICKSTART -->
 <link rel="stylesheet" type="text/css" href="css/kickstart.css" media="all" />                  <!-- KICKSTART -->
 <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />                      <!-- CUSTOM STYLES -->
 </head><body>
 
-<div class="grid">
-	<div class="col_12">
+<div class="grid flex">
+	<header class="col_12">
 		<div class="col_4">
 			<h1>UAnidb<sub style="font-size: 0.4em;">.tk</sub></h1>	
 		</div>
@@ -19,25 +19,25 @@
 		<div class="col_4">
 			<form action="search" method="get" accept-charset="utf-8">
 				<input class="col_12" type="text" name="" value="" placeholder="Назва аніме, персонаж, сейю, режисер, тощо...">
-				<button class="pull-right small" style="margin: 0.4em 0.4em 0 0;"><i class="icon-search"></i> Шукати!</button>
+				<div class="col_12 clearfix">
+					<button class="pull-right small"><i class="icon-search"></i> Шукати!</button>	
+				</div>
 			</form>
 		</div>
-	</div>
+	</header>
 
-	<div class="col_8">
+	<article class="col_8">
 		<div class="block-content clearfix">
+			<h2 style="font-size: 2em;">Shinsekai Yori</h2>
 			<div class="col_5">
 				<div class="gallery">
-					<a href="images/anime-1.jpg" title=""><img src="images/anime-1.jpg" alt="Anime screenshot"></a>
+					<a href="images/anime-1.jpg" style="max-width: 100%;"><img src="images/anime-1.jpg" alt="Anime screenshot"></a>
 				</div>
+				<!--<img src="images/anime-1.jpg" alt="Anime screenshot">-->
 			</div>
 			<div class="col_7">
 				<table>
 					<tbody>
-						<tr>
-							<th style="width: 140px;">Основна назва:</th>
-							<td>Shinsekai Yori</td>
-						</tr>
 						<tr>
 							<th style="width: 140px;">Офіційна назва:</th>
 							<td><span class="pull-right" style="line-height: 14px;"><img src="images/flags/jp.png" alt="jp"></span>
@@ -94,7 +94,9 @@
 				<p>After a certain incident, Saki and the others come to realize the true nature of their world. Before long, they learn everything, including the bloody history that brought humanity to this state. The five throw themselves into life-threatening adventure and fight to protect friends and a world on the brink of collapse.</p>
 
 				<h6>Трейлер</h6>
-				<iframe width="640" height="360" src="http://www.youtube.com/embed/NGDV_jiJSHE" frameborder="0" allowfullscreen></iframe>
+				<div>
+					<iframe width="640" height="360" style="max-width: 100%;" src="http://www.youtube.com/embed/NGDV_jiJSHE"></iframe>	
+				</div>
 
 				<hr>
 				<div  class="pull-right">
@@ -120,10 +122,9 @@
 		    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 		    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 		</div>
-	</div>
+	</article>
 
-	<div class="col_4">
-
+	<aside class="col_4">
 		<ul class="tabs left">
 		<li><a href="#anime-cast">Основні персонажі</a></li>
 		<li><a href="#anime-production">Виробництво</a></li>
@@ -141,7 +142,6 @@
 					<tr>
 						<th class="char">Asahina Satoru</th>
 						<td class="creator"><a href="#">Toujou Kanako</a>, <a href="animedb.pl?show=creator&amp;creatorid=1678">Kaji Yuuki</a></td>
-						</td>
 					</tr>
 					<tr class="g_odd">
 						<th class="creator">Watanabe Saki</th>
@@ -162,27 +162,27 @@
 			<table class="striped">
 				<tbody>
 					<tr>
-						<th class="credit">Original Work:</td>
+						<th class="credit">Original Work:</th>
 						<td class="creator"><a href="animedb.pl?show=creator&amp;creatorid=30705">Kishi Yuusuke</a></td>
 					</tr>
 					<tr>
-						<th class="credit">Direction:</td>
+						<th class="credit">Direction:</th>
 						<td class="creator"><a href="animedb.pl?show=creator&amp;creatorid=3754">Ishihama Masashi</a></td>
 					</tr>
 					<tr>
-						<th class="credit">Series Composition:</td>
+						<th class="credit">Series Composition:</th>
 						<td class="creator"><a href="animedb.pl?show=creator&amp;creatorid=1411">Sogo Masashi</a></td>
 					</tr>
 					<tr>
-						<th class="credit">Main Character Design:</td>
+						<th class="credit">Main Character Design:</th>
 						<td class="creator"><a href="animedb.pl?show=creator&amp;creatorid=671">Kubota Chikashi</a></td>
 					</tr>
 					<tr>
-						<th class="credit">Music:</td>
+						<th class="credit">Music:</th>
 						<td class="creator"><a href="animedb.pl?show=creator&amp;creatorid=2422">Komori Shigeo</a></td>
 					</tr>
 					<tr>
-						<th class="credit">Work:</td>
+						<th class="credit">Work:</th>
 						<td class="creator"><a href="animedb.pl?show=creator&amp;creatorid=1303">A-1 Pictures</a></td>
 					</tr>
 				</tbody>
@@ -200,7 +200,6 @@
 					<tr><td><i class="icon-file-alt"></i> <a href="#">UAnime</a></td></tr>
 				</tbody>
 			</table>
-			</ul>
 		</div>
 
 		<div id="anime-voice" class="tab-content">
@@ -220,15 +219,14 @@
 				</tbody>
 			</table>
 		</div>
+	</aside>
 
-	</div>
-
-	<div class="col_12">
+	<footer class="col_12">
 		<div style="font-size: small;">
 			<p class="pull-left">Sensetivity &copy; 2013</p>
 			<p class="pull-right"><a href="#" title="">Про сайт</a> &nbsp; <a href="#" title="">Приватність</a> &nbsp; <a href="#" title="">Допомога</a></p>
 		</div>
-	</div>
+	</footer>
 <!-- ===================================== START FOOTER ===================================== -->
 </div><!-- END GRID-->
 
