@@ -1,0 +1,333 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"html",
+				"html	html"
+			],
+			[
+				"Obj",
+				"ObjectId"
+			],
+			[
+				"dis",
+				"display_name"
+			],
+			[
+				"user",
+				"userinfo"
+			],
+			[
+				"lda",
+				"ldap_url"
+			],
+			[
+				"ldap_",
+				"ldap_user"
+			],
+			[
+				"ld",
+				"ldap_base"
+			],
+			[
+				"input",
+				"input	input - text"
+			],
+			[
+				"a",
+				"a	<a>"
+			],
+			[
+				"link",
+				"link	link - stylesheet"
+			],
+			[
+				"c",
+				"currency"
+			],
+			[
+				"cla",
+				"classmethod"
+			],
+			[
+				"re",
+				"request"
+			],
+			[
+				"sele",
+				"selected"
+			],
+			[
+				"border",
+				"border-top"
+			],
+			[
+				"text",
+				"text-decoration"
+			],
+			[
+				"font",
+				"font-family"
+			],
+			[
+				"n",
+				"no-repeat  (value)"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 380.0,
+		"selected_items":
+		[
+			[
+				"repl",
+				"SublimeREPL: CoffeScript"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"ics",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"uui",
+				"Generate UUID v4"
+			],
+			[
+				"packa",
+				"Package Control: Remove Package"
+			],
+			[
+				"upgra",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"up",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"upgr",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"pac",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"hg",
+				"Set Syntax: HTML (Erlang)"
+			],
+			[
+				"subl",
+				"SublimeHg: Open CLI"
+			],
+			[
+				"sub",
+				"SublimeHg: Open Menu"
+			]
+		],
+		"width": 416.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/D/Skoll/web/teamwall/src-cljs/base.cljs",
+		"/D/Skoll/web/teamwall/src-cljs/index.html",
+		"/D/Skoll/web/teamwall/src-cljs/out/index.html",
+		"/D/Skoll/web/teamwall/src-cljs/out/UrgT5.js",
+		"/D/Skoll/web/teamwall/src-server/templates/index.html",
+		"/D/Skoll/web/teamwall/src-cljs/index.cljs",
+		"/D/Skoll/web/teamwall/src-server/static/stylesheets/app.css",
+		"/D/Skoll/web/teamwall/src-server/app.py",
+		"/D/Skoll/web/teamwall/src-server/config/auth.yaml",
+		"/D/Skoll/web/teamwall/src-server/templates/base.html",
+		"/C/Users/gulenok/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/D/Skoll/web/teamwall/src-server/main.py",
+		"/D/Skoll/web/teamwall/src-server/views/index.py",
+		"/D/Skoll/web/teamwall/mockup/feed.html",
+		"/D/Skoll/web/teamwall/server/main.py",
+		"/D/Skoll/web/tck/mockup/js/app.js",
+		"/D/Skoll/web/tck/mockup/css/style.css",
+		"/D/Skoll/web/tck/mockup/index.html",
+		"/D/Skoll/web/toscanycountry/mockup/js/jani.js",
+		"/D/Skoll/web/toscanycountry/mockup/js/hotspot.js",
+		"/D/Skoll/web/vik-mebel/woody/shop/trans.py",
+		"/D/Skoll/web/vik-mebel/woody/main.py",
+		"/D/Skoll/web/vik-mebel/woody/templates/manage_settings.html",
+		"/D/Skoll/web/vik-mebel/woody/templates/product-add.html",
+		"/D/Skoll/web/vik-mebel/woody/templates/mebel-individual-add.html",
+		"/D/Skoll/web/vik-mebel/woody/templates/mebel-individual-view.html",
+		"/D/Skoll/web/vik-mebel/project.sublime-project",
+		"/D/Skoll/web/vik-mebel/woody/shop/views.py",
+		"/D/Skoll/web/vik-mebel/woody/stylesheets/app.css",
+		"/D/Skoll/web/vik-mebel/woody/templates/base.html",
+		"/D/Skoll/web/vik-mebel/woody/templates/search.html",
+		"/D/Skoll/web/vik-mebel/woody/shop/models.py",
+		"/D/Skoll/web/vik-mebel/woody/shop/mebel_views.py",
+		"/D/Skoll/web/vik-mebel/woody/templates/product-view.html",
+		"/D/Skoll/web/vik-mebel/woody/templates/image-preview.html",
+		"/D/Skoll/web/vik-mebel/woody/templates/mebel-individual-view.html.orig",
+		"/D/Skoll/web/vik-mebel/woody/shop/product_views.py",
+		"/D/Skoll/web/vik-mebel/woody/templates/mebel-individual-list.html",
+		"/D/Skoll/web/vik-mebel/woody/templates/index.html",
+		"/D/Skoll/web/vik-mebel/woody/appengine_config.py",
+		"/C/Work/vik-mebel/woody/templates/base.html",
+		"/C/Users/Sergii/Downloads/SublimeText-SublimeHg-pre-simple-client-11-gdcebdb9/SublimeHg.sublime-package",
+		"/C/Users/Sergii/Downloads/SublimeHg.sublime-package",
+		"/C/Users/Sergii/Downloads/Mercurial.sublime-package",
+		"/C/Work/vik-mebel/woody/templates/index.html"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"left",
+			"-red",
+			"cleart",
+			"hei",
+			".price",
+			"\" \"",
+			"import trans",
+			"trans",
+			"dotted",
+			"dotted 1",
+			"\n    ",
+			"text-",
+			"-ali",
+			"self.request.get",
+			"gsc-co",
+			"searc",
+			"is_handheld()",
+			"description",
+			"columns",
+			"columns\ncolumns",
+			"columns",
+			"viewport"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"-brown"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.sftp":
+	{
+		"height": 100.0
+	},
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 204.0,
+	"status_bar_visible": true
+}
