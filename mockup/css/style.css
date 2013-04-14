@@ -164,3 +164,18 @@ margin: 0 0 40px 0;
 ul.tabs {
 	margin-top: 0;
 }
+
+table th {
+	width: 25%;
+	min-width: 160px;
+}
+
+#anime-info-box .tab-content {
+	border: none;
+	margin-bottom: 0;
+}
+
+h1 {
+	color: #333;
+	text-shadow: 0 -1px 1px #fff, 0 1px 1px #666;
+}
