@@ -44,7 +44,7 @@ body{
 margin:0;
 padding:0 0 0 0;
 color:#000;
-background:#efefef url(img/debut_light.png);
+background:#efefef url(img/noise-white.png);
 font:normal 0.9em/150% 'Arimo', arial, verdana, sans-serif;
 text-shadow: 0px 0px 1px transparent; /* google font pixelation fix */
 }
@@ -184,7 +184,11 @@ h1 {
 
 .head-menu{
 	width:100%;
-	background:#efefef url(img/debut_dark.png);
+	background:rgb(129, 112, 155) url(img/random_grey_variations.png) repeat;
+	box-shadow: inset 0px 0px 10px rgba(0,0,0,0.2);
+	text-shadow: 0px 1px 3px rgba(0,0,0,0.3);
+	display: block;
+	text-decoration: none;
 	max-width:100%;
 	min-width:960px;
 	height:65px;
@@ -209,6 +213,8 @@ h1 {
 
 .block-content {
 	width:960px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 }
 
 .block-content h2{
@@ -227,5 +233,5 @@ h1 {
 
 .gallery a img{
 	width:275px;
-	height:320px;
+	height:337px;
 }
