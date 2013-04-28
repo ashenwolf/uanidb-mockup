@@ -179,3 +179,9 @@ h1 {
 	color: #333;
 	text-shadow: 0 -1px 1px #fff, 0 1px 1px #666;
 }
+
+.column p{
+	font-size:16px;
+	line-height:26px;
+	 margin-bottom:20px;
+}
