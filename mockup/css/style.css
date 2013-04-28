@@ -190,6 +190,12 @@ h1 {
 	height:80px;
 }
 
+.head-div{
+	width:960px;
+	min-width:960px;
+	margin:0 auto;
+}
+
 .head-text, .head-text h1{
 	margin-top:-2px;
 }
