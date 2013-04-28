@@ -190,7 +190,7 @@ h1 {
 	height:80px;
 }
 
-.head-text{
+.head-text, .head-text h1{
 	margin-top:0px;
 }
 
