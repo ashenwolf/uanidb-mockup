@@ -183,5 +183,5 @@ h1 {
 .column p{
 	font-size:16px;
 	line-height:26px;
-	 margin-bottom:20px;
+	margin: 0px auto 20px auto;
 }
