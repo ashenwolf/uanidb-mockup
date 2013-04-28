@@ -180,6 +180,13 @@ h1 {
 	text-shadow: 0 -1px 1px #fff, 0 1px 1px #666;
 }
 
+/* robounohito */
+
+.head-menu{
+	width:100%;
+	background-color:white;
+}
+
 .block-content {
 	width:960px;
 }
