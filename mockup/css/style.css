@@ -44,7 +44,7 @@ body{
 margin:0;
 padding:0 0 0 0;
 color:#000;
-background:#efefef url(img/gray_jean.png);
+background:#efefef url(img/debut_light.png);
 font:normal 0.9em/150% 'Arimo', arial, verdana, sans-serif;
 text-shadow: 0px 0px 1px transparent; /* google font pixelation fix */
 }
@@ -176,7 +176,7 @@ table th {
 }
 
 h1 {
-	color: #333;
+	color: #ddd;
 	text-shadow: 0 -1px 1px #fff, 0 1px 1px #666;
 }
 
@@ -184,10 +184,12 @@ h1 {
 
 .head-menu{
 	width:100%;
-	background-color:white;
+	background:#efefef url(img/debut_dark.png);
 	max-width:100%;
 	min-width:960px;
-	height:80px;
+	height:65px;
+	border-bottom:0px #dedede solid;
+	margin-bottom:50px;
 }
 
 .head-div{
@@ -197,7 +199,12 @@ h1 {
 }
 
 .head-text, .head-text h1{
-	margin-top:2px;
+	margin-top:0px;
+	line-height:50px;
+}
+
+.head-search{
+	margin-top:10px;
 }
 
 .block-content {
@@ -205,13 +212,20 @@ h1 {
 }
 
 .block-content h2{
-	font-size:2.5em;
-	margin:16px auto 16px auto;
+	font-size:41px;
+	font-weight:normal;
+	font-weight:lighter;
+	margin:12px auto 14px 10px;
 	letter-spacing: -1px;
 }
 
 .column p{
 	font-size:16px;
 	line-height:25px;
-	margin: 0px auto 15px auto;
+	margin: 0px 15px 15px 10px;
+}
+
+.gallery a img{
+	width:275px;
+	height:320px;
 }
