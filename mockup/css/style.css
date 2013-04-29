@@ -229,6 +229,7 @@ h1 {
 	max-width:960px;
 	min-width:960px;
 	width:960px;
+	padding:0;
 }
 
 .column p{
