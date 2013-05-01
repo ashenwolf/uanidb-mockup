@@ -245,7 +245,7 @@ h1 {
 }
 
 .head-search{
-	margin:10px 0 0 0;
+	margin:11px 0 0 52px;
 	padding:0;
 }
 
@@ -265,6 +265,11 @@ h1 {
 	height:24px;
 	display:inline-block;
 	float:left;
+}
+
+.head-signout{
+	margin:12px 0 auto auto;
+	width:20px;
 }
 
 .block-content {
@@ -318,6 +323,7 @@ h1 {
 #main-image a img{
 	width:270px;
 	height:320px;
+	max-width: 100%;
 }
 
 .foot-menu{
@@ -344,4 +350,12 @@ h1 {
 
 .foot-div, .foot-div a {
 	color:white;
+}
+
+.foot-div .pull-left{
+	margin:20px auto auto 20px;
+}
+
+.foot-div .pull-right{
+	margin:20px 0px auto auto;
 }
