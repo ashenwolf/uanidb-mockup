@@ -291,6 +291,21 @@ h1 {
 	font-family: 'Roboto', sans-serif;
 }
 
+#anime-title{
+	border:none;
+	box-shadow:none;
+	background:none;
+	font-family: inherit;
+	font-size: 45px;
+	line-height:60px;
+	letter-spacing: -1px;
+	color: black;
+	text-indent:inherit;
+	margin:0;
+	padding:0;
+	vertical-align: inherit;
+}
+
 .grid{
 	max-width:960px;
 	min-width:960px;
