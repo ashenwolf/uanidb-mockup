@@ -28,7 +28,7 @@
 			<li><a href=""><i class="icon-film"></i> Аніме</a>
 				<ul>
 				<li><a href=""><i class="icon-plus-sign"></i> Додати нове</a></li>
-				<li><a href=""><i class="icon-edit"></i> Редагувати</a></li>
+				<li><a href="#" onclick="$('#anime-edit').trigger('click');"><i class="icon-edit"></i> Редагувати</a></li>
 				<li class="divider"><a href=""><i class="icon-trash"></i> Вилучити</a></li>
 				</ul>
 			</li>
@@ -240,7 +240,7 @@
 
 </body></html>
 <script>
-    $("#anime-edit").click(function () {
+    $("#anime-edit").click(function (e) {
 		if($("#anime-title").attr('readonly')){
 			$("#anime-title").attr('readonly', false);
 			$(this).html( '<i class="icon-edit"></i> Закінчити редагування');
