@@ -213,6 +213,19 @@ h1 {
 	padding: 10px 20px;
 }
 
+.head-div  .menu li a:hover, .head-div  .menu li.hover>a  {
+	background:none;
+}
+
+.head-div  .menu li  ul li a:hover, .head-div  .menu li ul li.hover>a  {
+	background:#f5f5f5;
+}
+
+/*
+.head-div  .menu li.hover>a {
+	background: #f5f5f5;
+}*/
+
 .head-text, .head-text h1{
 	margin-top:0px;
 	line-height:43px;
