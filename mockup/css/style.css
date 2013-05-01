@@ -304,6 +304,7 @@ h1 {
 	margin:0;
 	padding:0;
 	vertical-align: inherit;
+	cursor:text;
 }
 
 .grid{

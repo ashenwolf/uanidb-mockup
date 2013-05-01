@@ -55,7 +55,7 @@
 <div class="grid">
 	<article class="col_12">
 		<div class="block-content clearfix">
-			<h2><input id="anime-title" type="З Нового світу" value="З Нового світу" /></h2> 
+			<h2><input id="anime-title" readonly type="text" value="З Нового світу" /></h2> 
 			<div class="col_4">
 				<div id="main-image" class="gallery">
 					<a href="images/anime-1.jpg" style="max-width: 100%;"><img src="images/anime-1-240.jpg" alt="Anime screenshot"></a>
@@ -203,7 +203,7 @@
 			</div>			
 			<div class="pull-right">
 				<button class="small"><i class="icon-exclamation-sign"></i> Повідомити про помилку</button>
-				<button class="small"><i class="icon-edit"></i> Редагувати інформацію</button>
+				<button id="anime-edit" class="small"><i class="icon-edit"></i> Редагувати інформацію</button>
 			</div>
 		</div>
 	</article>
@@ -239,3 +239,14 @@
 </div>
 
 </body></html>
+<script>
+    $("#anime-edit").click(function () {
+		if($("#anime-title").attr('readonly')){
+			$("#anime-title").attr('readonly', false);
+			$(this).html( '<i class="icon-edit"></i> Закінчити редагування');
+		}else{
+			$("#anime-title").attr('readonly', true);
+			$(this).html( '<i class="icon-edit"></i> Редагувати інформацію');		
+		}
+    });
+</script>
