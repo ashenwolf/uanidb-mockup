@@ -73,9 +73,9 @@ left:0;
 background:#fff;
 }
 
-	#link-top{
+#link-top{
 	display:none;
-	}
+}
 	
 /* NAV BAR*/
 .navbar{
@@ -175,6 +175,10 @@ table th {
 	border: none;
 	margin-bottom: 0;
 	padding-bottom: 0;
+}
+
+#anime-info-box .tab-content  table{
+	margin-bottom:0;
 }
 
 h1 {
@@ -290,7 +294,7 @@ h1 {
 }
 
 #synopsis{
-	margin: 15px auto 0px auto;
+	margin: 20px auto 0px auto;
 }
 
 #synopsis p{
