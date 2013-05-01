@@ -55,7 +55,7 @@
 <div class="grid">
 	<article class="col_12">
 		<div class="block-content clearfix">
-			<h2><input id="anime-title" readonly value="З Нового світу" /></h2> 
+			<div id="info-title"><h2><input id="anime-title" readonly value="З Нового світу" /></h2></div><div id="info-edit" class="pull-right"><a title="Почати/закінчити редагування цього аніме (поки що працює тільки на Титулі)" href="#" onclick="$('#anime-edit').trigger('click');"><i class="icon-large icon-edit"></i></a><a title="Заповнити поля інформацією з Anidb" href="#" onclick="alert('Ага, розбіглися... не паше ще воно! :)');"><i class="icon-large icon-magic pull-right"></i></a></div>
 			<div class="col_4">
 				<div id="main-image" class="gallery">
 					<a href="images/anime-1.jpg" style="max-width: 100%;"><img src="images/anime-1-240.jpg" alt="Anime screenshot"></a>
@@ -244,9 +244,11 @@
 		if($("#anime-title").attr('readonly')){
 			$("#anime-title").attr('readonly', false);
 			$(this).html( '<i class="icon-edit"></i> Закінчити редагування');
+			$("#info-edit .icon-edit").css('color', 'rgb(223, 34, 34)');
 		}else{
 			$("#anime-title").attr('readonly', true);
-			$(this).html( '<i class="icon-edit"></i> Редагувати інформацію');		
+			$(this).html( '<i class="icon-edit"></i> Редагувати інформацію');
+			$("#info-edit .icon-edit").css('color', 'inherit');			
 		}
     });
 </script>

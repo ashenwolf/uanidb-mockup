@@ -291,6 +291,24 @@ h1 {
 	font-family: 'Roboto', sans-serif;
 }
 
+#info-title{
+	display:inline-block;
+	float:left;
+	width:700px;
+}
+
+#info-edit{
+	display:inline-block;
+	float:right;
+	width:54px;
+	margin:25px 10px 0 0;
+}
+
+#info-edit .icon-magic{
+	margin-left:10px;
+	color:rgb(190, 188, 197);
+}
+
 #anime-title{
 	border:none;
 	box-shadow:none;
