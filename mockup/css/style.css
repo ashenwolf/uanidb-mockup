@@ -231,6 +231,15 @@ h1 {
 	background: #f5f5f5;
 }*/
 
+#uanidb-logo a{
+	background:url(img/totoro.png) 0px 0px no-repeat;
+	display: block;
+	float: left;
+	width:56px;
+	height:45px;
+	text-indent: -1999px;
+}
+
 .head-text, .head-text h1{
 	margin-top:0px;
 	line-height:43px;
@@ -284,7 +293,7 @@ h1 {
 	font-size:45px;
 	font-weight:normal;
 	font-weight:lighter;
-	margin:0px auto 20px 10px;
+	margin:0px auto 16px 10px;
 	padding-top:0;
 	line-height:60px;
 	letter-spacing: -1px;	
@@ -316,16 +325,22 @@ h1 {
 	background:none;
 	font-family: inherit;
 	font-size: 45px;
-	line-height:60px;
+	line-height:48px;
 	letter-spacing: -1px;
 	color: black;
 	text-indent:inherit;
-	margin:0;
+	margin:6px 0 0 0;
 	padding:0;
-	vertical-align: inherit;
+	vertical-align: top;
 	cursor:text;
+	overflow:hidden;
 	text-overflow:ellipsis;
 	width:777px;
+	height:40px;
+	resize: none;
+/*	-webkit-transition: height 0.2s;
+	-moz-transition: height 0.2s;
+	transition: height 0.2s;	*/
 }
 
 .grid{

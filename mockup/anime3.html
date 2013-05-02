@@ -6,6 +6,7 @@
 <meta name="description" content="" />
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/kickstart.js"></script> 	                               <!-- KICKSTART -->
+<script type="text/javascript" src="js/jquery.autosize-min.js"></script> 	
 <link rel="stylesheet" type="text/css" href="css/kickstart.css" media="all" />                  <!-- KICKSTART -->
 <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />                      <!-- CUSTOM STYLES -->
 </head>
@@ -13,7 +14,7 @@
 <div class="head-menu">
 	<header class="head-div">
 		<div class="col_2 head-text">
-			<h1><a href="http://ashenwolf.github.io/uanidb-mockup/mockup/anime3.html">UAnidb</a></h1>	
+			<h1 id="uanidb-logo2"><a href="http://ashenwolf.github.io/uanidb-mockup/mockup/anime3.html">UAnidb</a></h1>	
 		</div>
 		<div class="col_6">
 			<ul class="menu">
@@ -61,7 +62,7 @@
 <div class="grid">
 	<article class="col_12">
 		<div class="block-content clearfix">
-			<div id="info-title"><h2><input title="Моя молодша сестра не така вже й гарненька" id="anime-title" readonly value="Моя молодша сестра не така вже й гарненька" /></h2></div><div id="info-edit" class="pull-right"><a title="Почати/закінчити редагування цього аніме (поки що працює тільки на Титулі)" href="#" onclick="$('#anime-edit').trigger('click');"><i class="icon-large icon-edit"></i></a><a title="Заповнити поля інформацією з ANN" href="#" onclick="alert('Ага, розбіглися... не паше ще воно! :)');"><i class="icon-large icon-magic pull-right"></i></a></div>
+			<div id="info-title"><h2><textarea maxlength="66" rows="2" cols="50" title="Моя молодша сестра не така вже й гарненька" id="anime-title" readonly>Моя молодша сестра не така вже й гарненька</textarea></h2></div><div id="info-edit" class="pull-right"><a title="Почати/закінчити редагування цього аніме (поки що працює тільки на Титулі)" href="#" onclick="$('#anime-edit').trigger('click');"><i class="icon-large icon-edit"></i></a><a title="Заповнити поля інформацією з ANN" href="#" onclick="alert('Ага, розбіглися... не паше ще воно! :)');"><i class="icon-large icon-magic pull-right"></i></a></div>
 			<div class="col_4">
 				<div id="main-image" class="gallery">
 					<a href="images/anime-1.jpg" style="max-width: 100%;"><img src="images/anime-1-240.jpg" alt="Anime screenshot"></a>
@@ -263,4 +264,5 @@
 			$(".block-content").css('box-shadow', 'none');			
 		}
     });
+	$('#anime-title').autosize();
 </script>
