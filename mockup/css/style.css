@@ -360,6 +360,7 @@ input.anime-info{
 	vertical-align: top;
 	cursor:text;
 	overflow:hidden;
+	text-overflow:ellipsis;
 	width:310px;
 	height:21px;
 	resize: none;
