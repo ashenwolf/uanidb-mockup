@@ -82,8 +82,8 @@
 					<table>
 						<tbody>
 							<tr>
-								<th title="Вводіть альтернативні назви через кому">Відоме як:</th>
-								<td title="Вводіть альтернативні назви через кому">Shinsekai Yori</td>
+								<th title="Найбільш відома назва цього аніме">Відоме як:</th>
+								<td title="Вводіть альтернативні назви через кому"><input name="" maxlength="68" title="" class="anime-info" readonly="" value="Shinsekai Yori" /></td>
 							</tr>
 							<tr>
 								<th style="width: 140px;">Офіційна назва:</th>
@@ -247,24 +247,28 @@
 </div>
 
 </body></html>
-<script>
+<script type="text/javascript">
     $("#anime-edit").click(function (e) {
 		if($(".anime-title").attr('readonly')){
 			$(".anime-title").attr('readonly', false);
+			$(".anime-info").attr('readonly', false);
 			$(this).html( '<i class="icon-edit"></i> Закінчити редагування');
 			$("#info-edit .icon-edit").css('color', 'rgb(238, 86, 15)');
 			$(".block-content").css('-moz-box-shadow', '0 0 8px rgb(255, 144, 42)');
 			$(".block-content").css('-webkit-box-shadow', '0 0 8px rgb(255, 144, 42)');			
 			$(".block-content").css('box-shadow', '0 0 8px rgb(255, 144, 42)');
 			$(".anime-title").addClass('info-focused');
+			$(".anime-info").addClass('info-focused');
 		}else{
 			$(".anime-title").attr('readonly', true);
+			$(".anime-info").attr('readonly', true);
 			$(this).html( '<i class="icon-edit"></i> Редагувати інформацію');
 			$("#info-edit .icon-edit").css('color', 'inherit');	
 			$(".block-content").css('-moz-box-shadow', 'none');
 			$(".block-content").css('-webkit-box-shadow', 'none');	
 			$(".block-content").css('box-shadow', 'none');	
-			$(".anime-title").removeClass('info-focused');			
+			$(".anime-title").removeClass('info-focused');
+			$(".anime-info").removeClass('info-focused');			
 		}
     });
 	if ($.browser.msie && $.browser.version == 10) { 	<!-- ========= I'M FUCKING AT A LOSS HERE... =============== -->
