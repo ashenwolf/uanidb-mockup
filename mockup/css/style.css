@@ -271,7 +271,8 @@ h1 {
 	border-radius: 5px 0px 0px 5px;
 	width:144px;
 	height:24px;
-	display:inline-block;
+	line-height:14px;
+	display:block;
 	float:left;
 }
 
@@ -340,6 +341,9 @@ h1 {
 /*	-webkit-transition: height 0.2s;
 	-moz-transition: height 0.2s;
 	transition: height 0.2s;	*/
+}
+#anime-title:focus{
+	outline: auto 5px -webkit-focus-ring-color;
 }
 
 .grid{
