@@ -298,7 +298,6 @@ h1 {
 	line-height:60px;
 	letter-spacing: -1px;	
 	font-family: 'Roboto', sans-serif;
-
 }
 
 #info-title{
@@ -319,7 +318,7 @@ h1 {
 	color:rgb(190, 188, 197);
 }
 
-#anime-title{
+textarea.anime-title{
 	border:none;
 	box-shadow:none;
 	background:none;
@@ -330,7 +329,7 @@ h1 {
 	color: black;
 	text-indent:inherit;
 	margin:6px 0 0 0;
-	padding:0;
+	padding:0;	
 	vertical-align: top;
 	cursor:text;
 	overflow:hidden;
@@ -342,8 +341,11 @@ h1 {
 	-moz-transition: height 0.2s;
 	transition: height 0.2s;	*/
 }
-#anime-title:focus{
-	outline: auto 5px -webkit-focus-ring-color;
+
+.info-focused:focus{
+	outline:none;
+	box-shadow:0 0 5px rgb(255, 144, 42);
+	border-radius: 4px;	
 }
 
 .grid{

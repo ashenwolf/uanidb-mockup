@@ -59,11 +59,11 @@
 		</div>
 	</header>
 </div>
-<div style="width:944px; margin:-40px auto 30px auto;" class="notice warning">Тепер назва аніме в один-два рядки (66 символів макс.), з авторозміром<a href="#close" class="icon-remove"></a></div>
+<div style="width:944px; margin:-40px auto 30px auto;" class="notice warning">Тепер назва аніме в один-два рядки (66 символів макс.), з авторозміром + підсвітка в режимі редагування<a href="#close" class="icon-remove"></a></div>
 <div class="grid">
 	<article class="col_12">		
 		<div class="block-content clearfix">
-			<div id="info-title"><h2><textarea name="" maxlength="66" rows="2" cols="50" title="Моя молодша сестра не така вже й гарненька" id="anime-title" readonly>Моя молодша сестра не така вже й гарненька</textarea></h2></div><div id="info-edit" class="pull-right"><a title="Почати/закінчити редагування цього аніме (поки що працює тільки на Титулі)" href="#" onclick="$('#anime-edit').trigger('click');"><i class="icon-large icon-edit"></i></a><a title="Заповнити поля інформацією з ANN" href="#" onclick="alert('Ага, розбіглися... не паше ще воно! :)');"><i class="icon-large icon-magic pull-right"></i></a></div>
+			<div id="info-title"><h2><textarea name="" maxlength="66" rows="2" cols="50" title="Моя молодша сестра не настільки вже й гарненька" class="anime-title" readonly="">Моя молодша сестра не настільки вже й гарненька</textarea></h2></div><div id="info-edit" class="pull-right"><a title="Почати/закінчити редагування цього аніме (поки що працює тільки на Титулі)" href="#" onclick="$('#anime-edit').trigger('click');"><i class="icon-large icon-edit"></i></a><a title="Заповнити поля інформацією з ANN" href="#" onclick="alert('Ага, розбіглися... не паше ще воно! :)');"><i class="icon-large icon-magic pull-right"></i></a></div>
 			<div class="col_4">
 				<div id="main-image" class="gallery">
 					<a href="images/anime-1.jpg" style="max-width: 100%;"><img src="images/anime-1-240.jpg" alt="Anime screenshot"></a>
@@ -98,7 +98,7 @@
 							<tr>
 								<th>Українська назва:</th>
 								<td><span class="pull-right" style="line-height: 14px;"><img src="images/flags/ua.png" alt="ua"></span>
-									Моя молодша сестра не така вже й гарненька</td>
+									Моя молодша сестра не настільки вже й гарненька</td>
 							</tr>
 							<tr>
 								<th>Виробництво:</th>
@@ -249,21 +249,24 @@
 </body></html>
 <script>
     $("#anime-edit").click(function (e) {
-		if($("#anime-title").attr('readonly')){
-			$("#anime-title").attr('readonly', false);
+		if($(".anime-title").attr('readonly')){
+			$(".anime-title").attr('readonly', false);
 			$(this).html( '<i class="icon-edit"></i> Закінчити редагування');
 			$("#info-edit .icon-edit").css('color', 'rgb(238, 86, 15)');
 			$(".block-content").css('-moz-box-shadow', '0 0 8px rgb(255, 144, 42)');
 			$(".block-content").css('-webkit-box-shadow', '0 0 8px rgb(255, 144, 42)');			
 			$(".block-content").css('box-shadow', '0 0 8px rgb(255, 144, 42)');
+			$(".anime-title").addClass('info-focused');
 		}else{
-			$("#anime-title").attr('readonly', true);
+			$(".anime-title").attr('readonly', true);
 			$(this).html( '<i class="icon-edit"></i> Редагувати інформацію');
 			$("#info-edit .icon-edit").css('color', 'inherit');	
 			$(".block-content").css('-moz-box-shadow', 'none');
 			$(".block-content").css('-webkit-box-shadow', 'none');	
-			$(".block-content").css('box-shadow', 'none');			
+			$(".block-content").css('box-shadow', 'none');	
+			$(".anime-title").removeClass('info-focused');			
 		}
     });
-	$('#anime-title').autosize();
+	if ($.browser.msie) $(".anime-title").css("padding-bottom","8px"); <!-- ========= I'M FUCKING AT A LOSS HERE... =============== -->
+	$('.anime-title').autosize();	
 </script>
