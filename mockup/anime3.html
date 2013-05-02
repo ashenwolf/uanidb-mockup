@@ -267,6 +267,9 @@
 			$(".anime-title").removeClass('info-focused');			
 		}
     });
-	if ($.browser.msie) $(".anime-title").css("padding-bottom","8px"); <!-- ========= I'M FUCKING AT A LOSS HERE... =============== -->
+	if ($.browser.msie && $.browser.version == 10) { 	<!-- ========= I'M FUCKING AT A LOSS HERE... =============== -->
+		$(".anime-title").css("padding-bottom","10px");
+		$(".anime-title").css("margin-top","0px");
+	}	
 	$('.anime-title').autosize();	
 </script>
