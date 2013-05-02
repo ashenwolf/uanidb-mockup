@@ -318,7 +318,7 @@ h1 {
 	color:rgb(190, 188, 197);
 }
 
-textarea.anime-title, input.anime-info{
+textarea.anime-title{
 	border:none;
 	box-shadow:none;
 	background:none;
@@ -346,17 +346,22 @@ textarea.anime-title, input.anime-info{
 }
 
 input.anime-info{
-	font-size: inherit;
-	line-height:inherit;
+	border:none;
+	box-shadow:none;
+	background:none;
+	color: #444;
+	text-indent:inherit;
+	font-size: 13px;
+	font-weight:normal;
+	line-height:21px;
 	letter-spacing: 0px;
 	margin:0px 0 0 0;
 	padding:0;	
 	vertical-align: top;
 	cursor:text;
 	overflow:hidden;
-	text-overflow:ellipsis;
 	width:310px;
-	height:auto;
+	height:21px;
 	resize: none;
 }
 
