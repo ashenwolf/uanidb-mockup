@@ -211,7 +211,7 @@
 				<hr>
 			</div>			
 			<div class="pull-right">
-				<button class="small"><i class="icon-exclamation-sign"></i> Повідомити про помилку</button>
+				<button id="anime-error" class="small"><i class="icon-exclamation-sign"></i> Повідомити про помилку</button>
 				<button id="anime-edit" class="small"><i class="icon-edit"></i> Редагувати інформацію</button>
 			</div>
 		</div>
@@ -295,6 +295,27 @@
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				alert(textStatus, errorThrown);
+			}
+		});
+	}
+	$("#anime-error").click(function (e) {
+		update_anime(4);
+	});
+	function update_anime(id){
+		var myData={"anime_id":id,"anime_name_ukr":"Берсерк-тест"};
+		$.ajax({ 
+			type: 'POST', 
+			crossDomain:true,
+			url: 'http://sensetivity-raws.site90.net/anime.php', 
+			data: {"anime_update":JSON.stringify(myData)}, 
+			dataType: 'json',
+			success: function (data) { 
+				alert("success!");
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				alert(jqXHR);
+				alert(textStatus);
+				alert(errorThrown);
 			}
 		});
 	}
