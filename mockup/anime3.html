@@ -6,7 +6,8 @@
 <meta name="description" content="" />
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/kickstart.js"></script> 	                               <!-- KICKSTART -->
-<script type="text/javascript" src="js/jquery.autosize-min.js"></script> 	
+<script type="text/javascript" src="js/jquery.autosize-min.js"></script> 
+<script type="text/javascript">anime_id=1;</script> 	
 <link rel="stylesheet" type="text/css" href="css/kickstart.css" media="all" />                  <!-- KICKSTART -->
 <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />                      <!-- CUSTOM STYLES -->
 </head>
@@ -63,7 +64,7 @@
 <div class="grid">
 	<article class="col_12">		
 		<div class="block-content clearfix">
-			<div id="info-title"><h2><textarea name="" maxlength="64" rows="2" cols="50" title="Моя молодша сестра не настільки вже й гарненька" class="anime-title" readonly="">Моя молодша сестра не настільки вже й гарненька</textarea></h2></div><div id="info-edit" class="pull-right"><a title="Почати/закінчити редагування цього аніме" href="#" onclick="$('#anime-edit').trigger('click');"><i class="icon-large icon-edit"></i></a><a title="Заповнити поля інформацією з ANN" href="#" onclick="alert('Ага, розбіглися... не паше ще воно! :)');"><i class="icon-large icon-magic pull-right"></i></a></div>
+			<div id="info-title"><h2><textarea name="" maxlength="64" rows="2" cols="50" title="Моя молодша сестра не настільки вже й гарненька" class="anime-title" readonly="">Моя молодша сестра не настільки вже й гарненька</textarea></h2></div><div id="info-edit" class="pull-right"><a title="Почати/закінчити редагування цього аніме" href="#" onclick="$('#anime-edit').trigger('click');"><i class="icon-large icon-edit"></i></a><a title="Заповнити поля інформацією з ANN" href="#" onclick="if(anime_id<6)get_anime(anime_id++); else {get_anime(anime_id); anime_id=1;}"><i class="icon-large icon-magic pull-right"></i></a></div>
 			<div class="col_4">
 				<div id="main-image" class="gallery">
 					<a href="images/anime-1.jpg" style="max-width: 100%;"><img src="images/anime-1-240.jpg" alt="Anime screenshot"></a>
@@ -274,7 +275,25 @@
 		$(".anime-title").css("padding-bottom","10px");
 		$(".anime-title").css("margin-top","0px");
 	}	
-	$('.anime-title').autosize();	
+	$('.anime-title').autosize();
+	//$.getJSON("http://sensetivity-raws.site90.net/anime.php?aid=3", function(data) { alert(data); });
+	function get_anime(id){
+		$.ajax({ 
+			type: 'GET', 
+			url: 'http://sensetivity-raws.site90.net/anime.php', 
+			data: { aid: id }, 
+			dataType: 'json',
+			success: function (data) { 
+				//alert("fucking success!!");
+				//$.each(data, function(i, item) {
+				$(".anime-title").html(data.anime_name_ukr).trigger('autosize');
+				//});
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				alert(textStatus, errorThrown);
+			}
+		});
+	}
 </script>
 
 </body></html>
