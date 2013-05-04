@@ -60,7 +60,7 @@
 		</div>
 	</header>
 </div>
-<div style="width:944px; margin:-40px auto 30px auto;" class="notice warning">Редаговні укрназви (зі збереженням)! (Тільки перейдіть магічною паличкою на базу хоча б раз, "Моя молодша сестра..." не з бази)<a href="#close" class="icon-remove"></a></div>
+<div style="width:944px; margin:-40px auto 30px auto;" class="notice warning">Редаговні укр. і англоназви (зі збереженням)! (Тільки перейдіть магічною паличкою на базу хоча б раз, "Молодша сестра..." не з бд)<a href="#close" class="icon-remove"></a></div>
 <div class="grid">
 	<article class="col_12">		
 		<div class="block-content clearfix">
@@ -250,7 +250,10 @@
 <script type="text/javascript">
 	$(".anime-title").on("input", function() {
 		$(".anime-title").attr("changed","1");
-	});
+	});	
+	$(".anime-info[name='anime_title_eng']").on("input", function() {
+		$(".anime-info[name='anime_title_eng']").attr("changed","1");
+	});		
 	$(".anime-info[name='anime_title_ukr']").on("input", function() {
 		$(".anime-title").attr("changed","1");
 	});
@@ -275,6 +278,10 @@
 			if($(".anime-title").attr('changed')){
 				if($(".anime-title").attr('anime_id'))update_anime($(".anime-title").attr('anime_id'));
 				$(".anime-title").removeAttr("changed").trigger('autosize');
+			}
+			if($(".anime-info[name='anime_title_eng']").attr('changed')){
+				if($(".anime-title").attr('anime_id'))update_anime($(".anime-title").attr('anime_id'));
+				$(".anime-info[name='anime_title_eng']").removeAttr("changed");
 			}
 			$(".anime-title").attr('readonly', true);
 			$(".anime-info").attr('readonly', true);
@@ -331,7 +338,11 @@
 		update_anime(4);
 	});
 	function update_anime(id){
-		myData={"anime_id":id,"anime_name_ukr":$(".anime-title").val()};
+		if($(".anime-info[name='anime_title_eng']").attr('changed')){
+			myData={"anime_id":id,"anime_name_ukr":$(".anime-title").val(), "anime_name_eng":$(".anime-info[name='anime_title_eng']").val()};
+		}else{
+			myData={"anime_id":id,"anime_name_ukr":$(".anime-title").val()};
+		}
 		$.ajax({ 
 			type: 'POST', 
 			crossDomain:true,
