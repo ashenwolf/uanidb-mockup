@@ -253,8 +253,9 @@ h1 {
 }
 
 .head-search{
-	margin:11px 0 0 52px;
+	margin:11px 0 0 12px;
 	padding:0;
+	width:255px;;
 }
 
 .head-search button{
@@ -262,18 +263,24 @@ h1 {
 	-webkit-border-radius: 0px 5px 5px 0px;
 	border-radius: 0px 5px 5px 0px;
 	display:inline-block;
-	float:left;
+	float:right;
 }
 
 .head-search input{
 	-moz-border-radius: 5px 0px 0px 5px;
 	-webkit-border-radius: 5px 0px 0px 5px;
 	border-radius: 5px 0px 0px 5px;
-	width:144px;
+	width:140px;
 	height:24px;
 	line-height:14px;
 	display:block;
-	float:left;
+	float:right;
+	transition: width 0.1s;
+	-webkit-transition: width 0.1s;
+}
+
+.head-search input:focus{
+	width:154px;
 }
 
 .head-signout{

@@ -51,8 +51,8 @@
 		</div>
 		<div class="col_3 head-search">
 			<form action="search" method="get" accept-charset="utf-8">
-				<input type="text" name="" value="" placeholder="Аніме, персонаж...">
-				<button class="pull-right small"><i class="icon-search"></i> Знайти!</button>	
+				<button class="pull-right small"><i class="icon-search"></i> Знайти!</button>
+				<input type="text" name="" value="" placeholder="Аніме, персонаж...">					
 			</form>
 		</div>
 		<div class="col_1 pull-right head-signout">
@@ -302,15 +302,15 @@
 		update_anime(4);
 	});
 	function update_anime(id){
-		var myData={"anime_id":id,"anime_name_ukr":"Берсерк-тест"};
+		var myData={"anime_id":id,"anime_name_ukr":"Берсерк-тест о'лапка"};
 		$.ajax({ 
 			type: 'POST', 
 			crossDomain:true,
 			url: 'http://sensetivity-raws.site90.net/anime.php', 
-			data: {"anime_update":JSON.stringify(myData)}, 
+			data: {anime_update:JSON.stringify(myData)}, 
 			dataType: 'json',
 			success: function (data) { 
-				alert("success!");
+				//alert("success!");
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				alert(jqXHR);
