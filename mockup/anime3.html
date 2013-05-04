@@ -64,7 +64,7 @@
 <div class="grid">
 	<article class="col_12">		
 		<div class="block-content clearfix">
-			<div id="info-title"><h2><textarea anime_id="" name="" maxlength="64" rows="2" cols="50" title="Моя молодша сестра не настільки вже й гарненька" class="anime-title" readonly="">Моя молодша сестра не настільки вже й гарненька</textarea></h2></div><div id="info-edit" class="pull-right"><a title="Почати/закінчити редагування цього аніме" href="#" onclick="$('#anime-edit').trigger('click'); return false;"><i class="icon-large icon-edit"></i></a><a title="Заповнити поля інформацією з ANN" href="#" onclick="if(anime_id<6){get_anime(anime_id++);return false;} else {get_anime(anime_id); anime_id=1; return false;}"><i class="icon-large icon-magic pull-right"></i></a></div>
+			<div id="info-title"><h2><textarea anime_id="" name="" maxlength="64" rows="2" cols="50" title="Моя молодша сестра не настільки вже й гарненька" class="anime-title" readonly="">Моя молодша сестра не настільки вже й гарненька</textarea></h2></div><div id="info-edit" class="pull-right"><a title="Почати/закінчити редагування цього аніме" href="#" onclick="$('#anime-edit').trigger('click'); return false;"><i class="icon-large icon-edit"></i></a><a id="ANN_info" title="Заповнити поля інформацією з ANN" href="#"><i class="icon-large icon-magic pull-right"></i></a></div>
 			<div class="col_4">
 				<div id="main-image" class="gallery">
 					<a href="images/anime-1.jpg" style="max-width: 100%;"><img src="images/anime-1-240.jpg" alt="Anime screenshot"></a>
@@ -287,6 +287,18 @@
 			$(".anime-info").removeClass('info-focused');			
 		}
     });
+	$("#ANN_info").click(function (e) {
+		if($(".anime-title").attr('readonly')){
+			if(anime_id<6){
+				get_anime(anime_id++);
+				return false;
+			}else{
+				get_anime(anime_id); 
+				anime_id=1; 
+				return false;
+			}
+		}else return false;
+	});	
 	if ($.browser.msie && $.browser.version == 10) { 	<!-- ========= I'M FUCKING AT A LOSS HERE... =============== -->
 		$(".anime-title").css("padding-bottom","10px");
 		$(".anime-title").css("margin-top","0px");
