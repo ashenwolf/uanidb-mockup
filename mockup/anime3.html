@@ -359,6 +359,10 @@
 			}
 		});
 	}
+	$( document ).ready(function() {
+		var txt=$(".anime-title");
+		txt.scrollTop(txt[0].scrollHeight - txt.height());
+	});
 </script>
 
 </body></html>

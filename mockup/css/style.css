@@ -301,10 +301,9 @@ h1 {
 
 .block-content h2{
 	font-size:45px;
-	font-weight:normal;
 	font-weight:lighter;
 	margin:0px auto 16px 10px;
-	padding-top:0;
+	padding-top:0px;
 	line-height:60px;
 	letter-spacing: -1px;	
 	font-family: 'Roboto', sans-serif;
@@ -339,7 +338,7 @@ textarea.anime-title{
 	color: black;
 	text-indent:inherit;
 	margin:6px 0 0 0;
-	padding:0;	
+	padding:0 0 0 0;	
 	vertical-align: top;
 	cursor:text;
 	overflow:hidden;
@@ -347,21 +346,6 @@ textarea.anime-title{
 	width:777px;
 	height:40px;
 	resize: none;
-}
-
-textarea.anime-title:focus{
-	vertical-align: top;
-	border:none;
-	box-shadow:none;
-	outline:none;
-outline-offset:-2px;
-}
-
-textarea.anime-title:active{
-	vertical-align: top;
-	border:none;
-	box-shadow:none;
-	outline:none;
 }
 
 .info-focused:focus{
@@ -422,7 +406,7 @@ input.anime-info{
 
 #main-image a img{
 	width:265px;
-	height:320px;
+	height:323px;
 	max-width: 100%;
 }
 
