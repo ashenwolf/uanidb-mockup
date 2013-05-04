@@ -255,15 +255,17 @@ h1 {
 .head-search{
 	margin:11px 0 0 12px;
 	padding:0;
-	width:255px;;
+	width:255px;
 }
 
-.head-search button{
+.head-search button.small{
 	-moz-border-radius: 0px 5px 5px 0px;
 	-webkit-border-radius: 0px 5px 5px 0px;
 	border-radius: 0px 5px 5px 0px;
 	display:inline-block;
 	float:right;
+	height:24px;
+	padding:4px 10px;
 }
 
 .head-search input{
@@ -272,11 +274,12 @@ h1 {
 	border-radius: 5px 0px 0px 5px;
 	width:140px;
 	height:24px;
-	line-height:14px;
+	font-size:13px;
 	display:block;
 	float:right;
 	transition: width 0.1s;
 	-webkit-transition: width 0.1s;
+	padding:3px auto;
 }
 
 .head-search input:focus{
@@ -344,6 +347,21 @@ textarea.anime-title{
 	width:777px;
 	height:40px;
 	resize: none;
+}
+
+textarea.anime-title:focus{
+	vertical-align: top;
+	border:none;
+	box-shadow:none;
+	outline:none;
+outline-offset:-2px;
+}
+
+textarea.anime-title:active{
+	vertical-align: top;
+	border:none;
+	box-shadow:none;
+	outline:none;
 }
 
 .info-focused:focus{

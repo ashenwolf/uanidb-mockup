@@ -322,11 +322,11 @@
 				//alert("fucking success!!");
 				//$.each(data, function(i, item) {
 				$(".anime-title").attr('anime_id', data.anime_id);
-				$(".anime-title").val(data.anime_name_ukr).trigger('autosize');
-				$(".anime-info[name='anime_title_known']").attr('value', data.anime_name_rom);
-				$(".anime-info[name='anime_title_eng']").attr('value', data.anime_name_eng);
-				$(".anime-info[name='anime_title_kan']").attr('value', data.anime_name_kan);
-				$(".anime-info[name='anime_title_ukr']").attr('value', data.anime_name_ukr);
+				$(".anime-title").val(data.ukr_name_1).trigger('autosize');
+				$(".anime-info[name='anime_title_known']").attr('value', data.jap_name_rom_1);
+				$(".anime-info[name='anime_title_eng']").attr('value', data.eng_name_1);
+				$(".anime-info[name='anime_title_kan']").attr('value', data.jap_name_kan_1);
+				$(".anime-info[name='anime_title_ukr']").attr('value', data.ukr_name_1);
 				//});
 			},
 			error: function(jqXHR, textStatus, errorThrown){
@@ -339,9 +339,9 @@
 	});
 	function update_anime(id){
 		if($(".anime-info[name='anime_title_eng']").attr('changed')){
-			myData={"anime_id":id,"anime_name_ukr":$(".anime-title").val(), "anime_name_eng":$(".anime-info[name='anime_title_eng']").val()};
+			myData={"anime_id":id,"ukr_name_1":$(".anime-title").val(), "eng_name_1":$(".anime-info[name='anime_title_eng']").val()};
 		}else{
-			myData={"anime_id":id,"anime_name_ukr":$(".anime-title").val()};
+			myData={"anime_id":id,"ukr_name_1":$(".anime-title").val()};
 		}
 		$.ajax({ 
 			type: 'POST', 
