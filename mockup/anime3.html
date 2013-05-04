@@ -60,11 +60,11 @@
 		</div>
 	</header>
 </div>
-<div style="width:944px; margin:-40px auto 30px auto;" class="notice warning">Магічна паличка справа поки крутить по колу назви перших 6 аніме з бд (пруф аякса), потім буде імпорт з ANN<a href="#close" class="icon-remove"></a></div>
+<div style="width:944px; margin:-40px auto 30px auto;" class="notice warning">Редаговні укрназви (зі збереженням)! (Тільки перейдіть магічною паличкою на базу хоча б раз, "Моя молодша сестра..." не з бази)<a href="#close" class="icon-remove"></a></div>
 <div class="grid">
 	<article class="col_12">		
 		<div class="block-content clearfix">
-			<div id="info-title"><h2><textarea name="" maxlength="64" rows="2" cols="50" title="Моя молодша сестра не настільки вже й гарненька" class="anime-title" readonly="">Моя молодша сестра не настільки вже й гарненька</textarea></h2></div><div id="info-edit" class="pull-right"><a title="Почати/закінчити редагування цього аніме" href="#" onclick="$('#anime-edit').trigger('click');"><i class="icon-large icon-edit"></i></a><a title="Заповнити поля інформацією з ANN" href="#" onclick="if(anime_id<6){get_anime(anime_id++);return false;} else {get_anime(anime_id); anime_id=1; return false;}"><i class="icon-large icon-magic pull-right"></i></a></div>
+			<div id="info-title"><h2><textarea anime_id="" name="" maxlength="64" rows="2" cols="50" title="Моя молодша сестра не настільки вже й гарненька" class="anime-title" readonly="">Моя молодша сестра не настільки вже й гарненька</textarea></h2></div><div id="info-edit" class="pull-right"><a title="Почати/закінчити редагування цього аніме" href="#" onclick="$('#anime-edit').trigger('click'); return false;"><i class="icon-large icon-edit"></i></a><a title="Заповнити поля інформацією з ANN" href="#" onclick="if(anime_id<6){get_anime(anime_id++);return false;} else {get_anime(anime_id); anime_id=1; return false;}"><i class="icon-large icon-magic pull-right"></i></a></div>
 			<div class="col_4">
 				<div id="main-image" class="gallery">
 					<a href="images/anime-1.jpg" style="max-width: 100%;"><img src="images/anime-1-240.jpg" alt="Anime screenshot"></a>
@@ -248,6 +248,18 @@
 </div>
 
 <script type="text/javascript">
+	$(".anime-title").on("input", function() {
+		$(".anime-title").attr("changed","1");
+	});
+	$(".anime-info[name='anime_title_ukr']").on("input", function() {
+		$(".anime-title").attr("changed","1");
+	});
+	$(".anime-title").keyup(function() {
+		$(".anime-info[name='anime_title_ukr']").val($(this).val());
+	});
+	$(".anime-info[name='anime_title_ukr']").keyup(function() {
+		$(".anime-title").val($(this).val()).trigger('autosize');
+	});
     $("#anime-edit").click(function (e) {
 		if($(".anime-title").attr('readonly')){
 			$(".anime-title").attr('readonly', false);
@@ -260,6 +272,10 @@
 			$(".anime-title").addClass('info-focused');
 			$(".anime-info").addClass('info-focused');
 		}else{
+			if($(".anime-title").attr('changed')){
+				if($(".anime-title").attr('anime_id'))update_anime($(".anime-title").attr('anime_id'));
+				$(".anime-title").removeAttr("changed").trigger('autosize');
+			}
 			$(".anime-title").attr('readonly', true);
 			$(".anime-info").attr('readonly', true);
 			$(this).html( '<i class="icon-edit"></i> Редагувати інформацію');
@@ -286,7 +302,8 @@
 			success: function (data) { 
 				//alert("fucking success!!");
 				//$.each(data, function(i, item) {
-				$(".anime-title").html(data.anime_name_ukr).trigger('autosize');
+				$(".anime-title").attr('anime_id', data.anime_id);
+				$(".anime-title").val(data.anime_name_ukr).trigger('autosize');
 				$(".anime-info[name='anime_title_known']").attr('value', data.anime_name_rom);
 				$(".anime-info[name='anime_title_eng']").attr('value', data.anime_name_eng);
 				$(".anime-info[name='anime_title_kan']").attr('value', data.anime_name_kan);
@@ -302,7 +319,7 @@
 		update_anime(4);
 	});
 	function update_anime(id){
-		var myData={"anime_id":id,"anime_name_ukr":"Берсерк-тест о'лапка"};
+		myData={"anime_id":id,"anime_name_ukr":$(".anime-title").val()};
 		$.ajax({ 
 			type: 'POST', 
 			crossDomain:true,
