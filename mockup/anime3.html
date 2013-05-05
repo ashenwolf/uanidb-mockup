@@ -249,15 +249,15 @@
 
 <script type="text/javascript">
 	$(".anime-title").on("input", function() {
-		$(".anime-title").attr("changed","1");
-		$(".anime-info[name='ukr_name_1']").attr("changed","1");
+		$(".anime-title").attr("data-changed","1");
+		$(".anime-info[name='ukr_name_1']").attr("data-changed","1");
 	});	
 	$(".anime-info").on("input", function() {
-		$(this).attr("changed","1");
-		if(!$(".anime-title").attr("changed")) $(".anime-title").attr("changed","1");
+		$(this).attr("data-changed","1");
+		if(!$(".anime-title").attr("data-changed")) $(".anime-title").attr("data-changed","1");
 	});		
 	$(".anime-info[name='ukr_name_1']").on("input", function() {
-		$(".anime-title").attr("changed","1");
+		$(".anime-title").attr("data-changed","1");
 	});
 	$(".anime-title").keyup(function() {
 		$(".anime-info[name='ukr_name_1']").val($(this).val());
@@ -265,9 +265,9 @@
 	$(".anime-info[name='ukr_name_1']").keyup(function() {
 		$(".anime-title").val($(this).val()).trigger('autosize');		
 	});
-	$("#synopsis").on("input", function() {
-		if(!$(".anime-title").attr("changed")) $(".anime-title").attr("changed","1");
-		$("#synopsis").attr("changed","1");
+	$("#synopsis").on("keyup", function() {
+		if(!$(".anime-title").attr("data-changed")) $(".anime-title").attr("data-changed","1");
+		if(!$("#synopsis").attr("data-changed")) $("#synopsis").attr("data-changed","1");
 	});	
     $("#anime-edit").click(function (e) {
 		if($(".anime-title").attr('readonly')){
@@ -282,7 +282,7 @@
 			$(".anime-title").addClass('info-focused');
 			$(".anime-info").addClass('info-focused');
 		}else{
-			if($(".anime-title").attr('changed')){
+			if($(".anime-title").attr('data-changed')){
 				if($(".anime-title").attr('data-anime-id')){
 					if(update_anime($(".anime-title").attr('data-anime-id'))){
 						alert ("something is fucked!");
@@ -345,12 +345,12 @@
 		var myData={};
 		myData['anime_id']=id;
 		$('.anime-info').each(function(i, obj) {
-			if($(this).attr("name") && $(this).attr("changed")){
+			if($(this).attr("name") && $(this).attr("data-changed")){
 				myData[$(this).attr("name")]=$(this).val().replace(/'/g,"\\'");
-				$(this).removeAttr("changed");
+				$(this).removeAttr("data-changed");
 			}
 		});	
-		if($("#synopsis").attr("changed")){
+		if($("#synopsis").attr("data-changed")){
 			myData['sinopsis']=$("#synopsis").html().replace(/'/g,"\\'");
 		}
 		$.ajax({ 
@@ -361,12 +361,12 @@
 			dataType: 'json',
 			success: function (data) {
 				$('.anime-info').each(function(i, obj) {	
-					if($(this).attr("name") && $(this).attr("changed")){
-						$(this).removeAttr("changed");
+					if($(this).attr("name") && $(this).attr("data-changed")){
+						$(this).removeAttr("data-changed");
 					}					
 				});
-				if($("#synopsis").attr("changed"))$("#synopsis").removeAttr("changed");
-				$(".anime-title").removeAttr("changed").trigger('autosize');
+				if($("#synopsis").attr("data-changed"))$("#synopsis").removeAttr("data-changed");
+				$(".anime-title").removeAttr("data-changed").trigger('autosize');
 				return 0;
 				//alert("success!");
 			},
