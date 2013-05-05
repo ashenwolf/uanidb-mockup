@@ -200,10 +200,10 @@
 				</div>
 			</div>
 
-			<div id="synopsis" class="col_12">
+			<div id="synopsis" class="col_12" contenteditable="false">				
 				<p>Манга Paradise Kiss публікувалася в одному з популярних японських журналів моди. В аніме Paradise Kiss – назва бренду одягу, який розробляє група студентів школи мистецтв. А мова піде про досить посередню, хоча і гарну, ученицю старшої школи, якій не пощастило з ними зв'язатися. Чи, може, навпаки – пощастило?.</p>
 				<p>Цей дуже короткий фільм фактично був анонсом до телевізійного серіалу Азуманґа Даіо. Вдала екранізація низки оповідань Рьоґо Наріти. Він містить кілька сцен, які надалі увійшли у серіал.</p>
-				<p>Сакакібара Коічі переїжджає в містечко Йоміяма (Пекельна гора) до своїх дідуся і бабусі. Через хворобу, яка скосила його незабаром після приїзду, він пропускає місяць навчання і приходить до школи лишень в травні. Клас зустрічає його привітно, але в повітрі витає якась таємниця. Одну з його однокласниць, Місакі Мей, з якою він познайомився у лікарні, здається, ніхто окрім нього не помічає. Яка ж таємниця нависла над школою?</p>				
+				<p>Сакакібара Коічі переїжджає в містечко Йоміяма (Пекельна гора) до своїх дідуся і бабусі. Через хворобу, яка скосила його незабаром після приїзду, він пропускає місяць навчання і приходить до школи лишень в травні. Клас зустрічає його привітно, але в повітрі витає якась таємниця. Одну з його однокласниць, Місакі Мей, з якою він познайомився у лікарні, здається, ніхто окрім нього не помічає. Яка ж таємниця нависла над школою?</p>
 			</div>			
 			<div id="under-synopsis" class="col_12">
 				<hr>
@@ -265,10 +265,15 @@
 	$(".anime-info[name='ukr_name_1']").keyup(function() {
 		$(".anime-title").val($(this).val()).trigger('autosize');		
 	});
+	$("#synopsis").on("input", function() {
+		if(!$(".anime-title").attr("changed")) $(".anime-title").attr("changed","1");
+		$("#synopsis").attr("changed","1");
+	});	
     $("#anime-edit").click(function (e) {
 		if($(".anime-title").attr('readonly')){
 			$(".anime-title").attr('readonly', false);
 			$(".anime-info").attr('readonly', false);
+			$("#synopsis").attr('contenteditable', true);
 			$(this).html( '<i class="icon-edit"></i> Закінчити редагування');
 			$("#info-edit .icon-edit").css('color', 'rgb(238, 86, 15)');
 			$(".block-content").css('-moz-box-shadow', '0 0 8px rgb(255, 144, 42)');
@@ -287,6 +292,7 @@
 			}
 			$(".anime-title").attr('readonly', true);
 			$(".anime-info").attr('readonly', true);
+			$("#synopsis").attr('contenteditable', false);
 			$(this).html( '<i class="icon-edit"></i> Редагувати інформацію');
 			$("#info-edit .icon-edit").css('color', 'inherit');	
 			$(".block-content").css('-moz-box-shadow', 'none');
@@ -325,6 +331,7 @@
 				$(".anime-info[name='eng_name_1']").attr('value', data.eng_name_1);
 				$(".anime-info[name='jap_name_kan_1']").attr('value', data.jap_name_kan_1);
 				$(".anime-info[name='ukr_name_1']").attr('value', data.ukr_name_1);
+				$("#synopsis").html(data.sinopsis);
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				alert(textStatus, errorThrown);
@@ -332,24 +339,20 @@
 		});
 	}
 	$("#anime-error").click(function (e) {
-		//update_anime(4);
+		alert($("#synopsis").html());
 	});
 	function update_anime(id){
-		//json_str='"anime_id":"'+id+'"';
 		var myData={};
 		myData['anime_id']=id;
-		//myData.push(json_str);
 		$('.anime-info').each(function(i, obj) {
-			/*json_str+=', "';
-			json_str+=$(this).attr("name");
-			json_str+='":"';
-			json_str+=$(this).val();
-			json_str+='"';*/
 			if($(this).attr("name") && $(this).attr("changed")){
 				myData[$(this).attr("name")]=$(this).val();
 				$(this).removeAttr("changed");
 			}
 		});	
+		if($("#synopsis").attr("changed")){
+			myData['sinopsis']=$("#synopsis").html();
+		}
 		$.ajax({ 
 			type: 'POST', 
 			crossDomain:true,
@@ -362,6 +365,7 @@
 						$(this).removeAttr("changed");
 					}					
 				});
+				if($("#synopsis").attr("changed"))$("#synopsis").removeAttr("changed");
 				$(".anime-title").removeAttr("changed").trigger('autosize');
 				return 0;
 				//alert("success!");

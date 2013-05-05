@@ -398,6 +398,25 @@ input.anime-info{
 	margin: 0px 10px 18px 10px;
 }
 
+textarea.anime-synopsis{
+	width:100%;
+	border:none;
+	box-shadow:none;
+	background:none;
+	color: black;
+	text-indent:inherit;
+	margin:0 0 0 0;
+	padding:0 0 0 0;	
+	vertical-align: top;
+	cursor:text;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	resize: none;
+	font-size:16px;
+	line-height:25px;
+	margin: 0px 10px 18px 10px;
+}
+
 #under-synopsis{
 	margin-bottom:25px;
 }
