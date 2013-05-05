@@ -339,19 +339,19 @@
 		});
 	}
 	$("#anime-error").click(function (e) {
-		alert($("#synopsis").html());
+		alert($("#synopsis").html().replace(/'/g,"\\'"));
 	});
 	function update_anime(id){
 		var myData={};
 		myData['anime_id']=id;
 		$('.anime-info').each(function(i, obj) {
 			if($(this).attr("name") && $(this).attr("changed")){
-				myData[$(this).attr("name")]=$(this).val();
+				myData[$(this).attr("name")]=$(this).val().replace(/'/g,"\\'");
 				$(this).removeAttr("changed");
 			}
 		});	
 		if($("#synopsis").attr("changed")){
-			myData['sinopsis']=$("#synopsis").html();
+			myData['sinopsis']=$("#synopsis").html().replace(/'/g,"\\'");
 		}
 		$.ajax({ 
 			type: 'POST', 
