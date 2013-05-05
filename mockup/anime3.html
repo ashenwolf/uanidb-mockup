@@ -64,7 +64,7 @@
 <div class="grid">
 	<article class="col_12">		
 		<div class="block-content clearfix">
-			<div id="info-title"><h2><textarea anime_id="" name="" maxlength="64" rows="2" cols="50" title="Моя молодша сестра не настільки вже й гарненька" class="anime-title" readonly="">Моя молодша сестра не настільки вже й гарненька</textarea></h2></div><div id="info-edit" class="pull-right"><a title="Почати/закінчити редагування цього аніме" href="#" onclick="$('#anime-edit').trigger('click'); return false;"><i class="icon-large icon-edit"></i></a><a id="ANN_info" title="Заповнити поля інформацією з ANN" href="#"><i class="icon-large icon-magic pull-right"></i></a></div>
+			<div id="info-title"><h2><textarea data-anime-id="" name="" maxlength="64" rows="2" cols="50" title="Моя молодша сестра не настільки вже й гарненька" class="anime-title" readonly="">Моя молодша сестра не настільки вже й гарненька</textarea></h2></div><div id="info-edit" class="pull-right"><a title="Почати/закінчити редагування цього аніме" href="#" onclick="$('#anime-edit').trigger('click'); return false;"><i class="icon-large icon-edit"></i></a><a id="ANN_info" title="Заповнити поля інформацією з ANN" href="#"><i class="icon-large icon-magic pull-right"></i></a></div>
 			<div class="col_4">
 				<div id="main-image" class="gallery">
 					<a href="images/anime-1.jpg" style="max-width: 100%;"><img src="images/anime-1-240.jpg" alt="Anime screenshot"></a>
@@ -83,23 +83,23 @@
 					<table>
 						<tbody>
 							<tr>
-								<th title="Найбільш відома назва цього аніме">Відоме як:</th>
-								<td title="Вводіть альтернативні назви через кому"><input name="anime_title_known" maxlength="68" title="" class="anime-info" readonly="" value="Shinsekai Yori" /></td>
+								<th title="Вводіть альтернативні назви через кому">Ромаджі:</th>
+								<td title="Вводіть альтернативні назви через кому"><input name="jap_name_rom_1" maxlength="68" title="" class="anime-info" readonly="" value="Shinsekai Yori" /></td>
 							</tr>
 							<tr>
 								<th style="width: 140px;">Офіційна назва:</th>
 								<td><span class="pull-right" style="line-height: 14px;"><img src="images/flags/jp.png" alt="jp"></span>
-									<input name="anime_title_kan" maxlength="68" title="" class="anime-info" readonly="" value="新世界より" /></td>
+									<input name="jap_name_kan_1" maxlength="68" title="" class="anime-info" readonly="" value="新世界より" /></td>
 							</tr>
 							<tr>
 								<th>Офіційна назва:</th>
 								<td><span class="pull-right" style="line-height: 14px;"><img src="images/flags/gb.png" alt="gb"></span>
-									<input name="anime_title_eng" maxlength="68" title="" class="anime-info" readonly="" value="From the New World" /></td>
+									<input name="eng_name_1" maxlength="68" title="" class="anime-info" readonly="" value="From the New World" /></td>
 							</tr>
 							<tr>
 								<th>Українська назва:</th>
 								<td><span class="pull-right" style="line-height: 14px;"><img src="images/flags/ua.png" alt="ua"></span>
-									<input name="anime_title_ukr" maxlength="68" title="" class="anime-info" readonly="" value="Моя молодша сестра не настільки вже й гарненька" /></td>
+									<input name="ukr_name_1" maxlength="68" title="" class="anime-info" readonly="" value="Моя молодша сестра не настільки вже й гарненька" /></td>
 							</tr>
 							<tr>
 								<th>Виробництво:</th>
@@ -250,17 +250,19 @@
 <script type="text/javascript">
 	$(".anime-title").on("input", function() {
 		$(".anime-title").attr("changed","1");
+		$(".anime-info[name='ukr_name_1']").attr("changed","1");
 	});	
-	$(".anime-info[name='anime_title_eng']").on("input", function() {
-		$(".anime-info[name='anime_title_eng']").attr("changed","1");
+	$(".anime-info").on("input", function() {
+		$(this).attr("changed","1");
+		if(!$(".anime-title").attr("changed")) $(".anime-title").attr("changed","1");
 	});		
-	$(".anime-info[name='anime_title_ukr']").on("input", function() {
+	$(".anime-info[name='ukr_name_1']").on("input", function() {
 		$(".anime-title").attr("changed","1");
 	});
 	$(".anime-title").keyup(function() {
-		$(".anime-info[name='anime_title_ukr']").val($(this).val());
+		$(".anime-info[name='ukr_name_1']").val($(this).val());
 	});
-	$(".anime-info[name='anime_title_ukr']").keyup(function() {
+	$(".anime-info[name='ukr_name_1']").keyup(function() {
 		$(".anime-title").val($(this).val()).trigger('autosize');
 	});
     $("#anime-edit").click(function (e) {
@@ -276,12 +278,12 @@
 			$(".anime-info").addClass('info-focused');
 		}else{
 			if($(".anime-title").attr('changed')){
-				if($(".anime-title").attr('anime_id'))update_anime($(".anime-title").attr('anime_id'));
-				$(".anime-title").removeAttr("changed").trigger('autosize');
-			}
-			if($(".anime-info[name='anime_title_eng']").attr('changed')){
-				if($(".anime-title").attr('anime_id'))update_anime($(".anime-title").attr('anime_id'));
-				$(".anime-info[name='anime_title_eng']").removeAttr("changed");
+				if($(".anime-title").attr('data-anime-id')){
+					if(update_anime($(".anime-title").attr('data-anime-id'))){
+						alert ("something is fucked!");
+						return;
+					}
+				}	
 			}
 			$(".anime-title").attr('readonly', true);
 			$(".anime-info").attr('readonly', true);
@@ -320,13 +322,13 @@
 			success: function (data) { 
 				//alert("fucking success!!");
 				//$.each(data, function(i, item) {
-				$(".anime-title").attr('anime_id', data.anime_id);
+				$(".anime-title").attr('data-anime-id', data.anime_id);
 				$(".anime-title").val(data.ukr_name_1).trigger('autosize');
 				text_area_height_opera();
-				$(".anime-info[name='anime_title_known']").attr('value', data.jap_name_rom_1);
-				$(".anime-info[name='anime_title_eng']").attr('value', data.eng_name_1);
-				$(".anime-info[name='anime_title_kan']").attr('value', data.jap_name_kan_1);
-				$(".anime-info[name='anime_title_ukr']").attr('value', data.ukr_name_1);
+				$(".anime-info[name='jap_name_rom_1']").attr('value', data.jap_name_rom_1);
+				$(".anime-info[name='eng_name_1']").attr('value', data.eng_name_1);
+				$(".anime-info[name='jap_name_kan_1']").attr('value', data.jap_name_kan_1);
+				$(".anime-info[name='ukr_name_1']").attr('value', data.ukr_name_1);
 				//});
 			},
 			error: function(jqXHR, textStatus, errorThrown){
@@ -338,24 +340,42 @@
 		update_anime(4);
 	});
 	function update_anime(id){
-		if($(".anime-info[name='anime_title_eng']").attr('changed')){
-			myData={"anime_id":id,"ukr_name_1":$(".anime-title").val(), "eng_name_1":$(".anime-info[name='anime_title_eng']").val()};
-		}else{
-			myData={"anime_id":id,"ukr_name_1":$(".anime-title").val()};
-		}
+		//json_str='"anime_id":"'+id+'"';
+		var myData={};
+		myData['anime_id']=id;
+		//myData.push(json_str);
+		$('.anime-info').each(function(i, obj) {
+			/*json_str+=', "';
+			json_str+=$(this).attr("name");
+			json_str+='":"';
+			json_str+=$(this).val();
+			json_str+='"';*/
+			if($(this).attr("name") && $(this).attr("changed")){
+				myData[$(this).attr("name")]=$(this).val();
+				$(this).removeAttr("changed");
+			}
+		});	
 		$.ajax({ 
 			type: 'POST', 
 			crossDomain:true,
 			url: 'http://sensetivity-raws.site90.net/anime.php', 
 			data: {anime_update:JSON.stringify(myData)}, 
 			dataType: 'json',
-			success: function (data) { 
+			success: function (data) {
+				$('.anime-info').each(function(i, obj) {	
+					if($(this).attr("name") && $(this).attr("changed")){
+						$(this).removeAttr("changed");
+					}					
+				});
+				$(".anime-title").removeAttr("changed").trigger('autosize');
+				return 0;
 				//alert("success!");
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				alert(jqXHR);
 				alert(textStatus);
 				alert(errorThrown);
+				return 1;
 			}
 		});
 	}
