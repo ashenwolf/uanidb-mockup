@@ -324,6 +324,9 @@
 			url: 'http://sensetivity-raws.site90.net/anime.php', 
 			data: { aid: id }, 
 			dataType: 'json',
+			beforeSend: function (){
+				$('.notice').html('Працюю з базою...');
+			},
 			success: function (data) { 
 				$(".anime-title").attr('data-anime-id', data.anime_id);
 				$(".anime-title").val(data.ukr_name_1).trigger('autosize');
@@ -332,6 +335,7 @@
 				$(".anime-info[name='jap_name_kan_1']").attr('value', data.jap_name_kan_1);
 				$(".anime-info[name='ukr_name_1']").attr('value', data.ukr_name_1);
 				$("#synopsis").html(data.sinopsis);
+				$('.notice').html('Все ок!');
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				alert(textStatus, errorThrown);
@@ -359,6 +363,9 @@
 			url: 'http://sensetivity-raws.site90.net/anime.php', 
 			data: {anime_update:JSON.stringify(myData)}, 
 			dataType: 'json',
+			beforeSend: function (){
+				$('.notice').html('Працюю з базою...');
+			},
 			success: function (data) {
 				$('.anime-info').each(function(i, obj) {	
 					if($(this).attr("name") && $(this).attr("data-changed")){
@@ -367,8 +374,8 @@
 				});
 				if($("#synopsis").attr("data-changed"))$("#synopsis").removeAttr("data-changed");
 				$(".anime-title").removeAttr("data-changed").trigger('autosize');
+				$('.notice').html('Всі зміни записано!');
 				return 0;
-				//alert("success!");
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				alert(jqXHR);
