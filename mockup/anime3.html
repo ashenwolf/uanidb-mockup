@@ -263,7 +263,7 @@
 		$(".anime-info[name='ukr_name_1']").val($(this).val());
 	});
 	$(".anime-info[name='ukr_name_1']").keyup(function() {
-		$(".anime-title").val($(this).val()).trigger('autosize');
+		$(".anime-title").val($(this).val()).trigger('autosize');		
 	});
     $("#anime-edit").click(function (e) {
 		if($(".anime-title").attr('readonly')){
@@ -311,8 +311,7 @@
 	if ($.browser.msie && $.browser.version == 10) { 	<!-- ========= I'M FUCKING AT A LOSS HERE... =============== -->
 		$(".anime-title").css("padding-bottom","10px");
 		$(".anime-title").css("margin-top","0px");
-	}	
-	$('.anime-title').autosize();	
+	}		
 	function get_anime(id){
 		$.ajax({ 
 			type: 'GET', 
@@ -320,16 +319,12 @@
 			data: { aid: id }, 
 			dataType: 'json',
 			success: function (data) { 
-				//alert("fucking success!!");
-				//$.each(data, function(i, item) {
 				$(".anime-title").attr('data-anime-id', data.anime_id);
 				$(".anime-title").val(data.ukr_name_1).trigger('autosize');
-				text_area_height_opera();
 				$(".anime-info[name='jap_name_rom_1']").attr('value', data.jap_name_rom_1);
 				$(".anime-info[name='eng_name_1']").attr('value', data.eng_name_1);
 				$(".anime-info[name='jap_name_kan_1']").attr('value', data.jap_name_kan_1);
 				$(".anime-info[name='ukr_name_1']").attr('value', data.ukr_name_1);
-				//});
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				alert(textStatus, errorThrown);
@@ -379,7 +374,7 @@
 			}
 		});
 	}
-	function text_area_height_opera(){	
+	function text_area_height_opera(){	<!-- ========= I'M FUCKING AT A LOSS HERE... =============== -->
 		if ($.browser.opera){
 			var txt=$(".anime-title");
 			//txt.scrollTop(txt[0].scrollHeight - txt.height());
@@ -388,9 +383,9 @@
 		}
 	}
 	$( document ).ready(function() {
-		text_area_height_opera()	
-	});
-	
+		$('.anime-title').autosize();
+		text_area_height_opera();	
+	});	
 </script>
 
 </body></html>
