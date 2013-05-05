@@ -333,6 +333,7 @@ textarea.anime-title{
 	background:none;
 	font-family: inherit;
 	font-size: 45px;
+	font-style:inherit;
 	line-height:48px;
 	letter-spacing: -1px;
 	color: black;
@@ -346,6 +347,11 @@ textarea.anime-title{
 	width:777px;
 	height:40px;
 	resize: none;
+}
+
+input[type="text"]:focus, textarea:focus, button:focus, a.button:focus, select:focus, input[type="file"]:focus, input[type="password"]:focus {
+	outline:0px none #fff;
+	border:0px none #fff;
 }
 
 .info-focused:focus{

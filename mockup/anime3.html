@@ -295,9 +295,9 @@
 		}
     });
 	$("#ANN_info").click(function (e) {
-		if($(".anime-title").attr('readonly')){
+		if($(".anime-title").attr('readonly')){			
 			if(anime_id<6){
-				get_anime(anime_id++);
+				get_anime(anime_id++);				
 				return false;
 			}else{
 				get_anime(anime_id); 
@@ -310,8 +310,7 @@
 		$(".anime-title").css("padding-bottom","10px");
 		$(".anime-title").css("margin-top","0px");
 	}	
-	$('.anime-title').autosize();
-	//$.getJSON("http://sensetivity-raws.site90.net/anime.php?aid=3", function(data) { alert(data); });
+	$('.anime-title').autosize();	
 	function get_anime(id){
 		$.ajax({ 
 			type: 'GET', 
@@ -323,6 +322,7 @@
 				//$.each(data, function(i, item) {
 				$(".anime-title").attr('anime_id', data.anime_id);
 				$(".anime-title").val(data.ukr_name_1).trigger('autosize');
+				text_area_height_opera();
 				$(".anime-info[name='anime_title_known']").attr('value', data.jap_name_rom_1);
 				$(".anime-info[name='anime_title_eng']").attr('value', data.eng_name_1);
 				$(".anime-info[name='anime_title_kan']").attr('value', data.jap_name_kan_1);
@@ -359,10 +359,18 @@
 			}
 		});
 	}
+	function text_area_height_opera(){	
+		if ($.browser.opera){
+			var txt=$(".anime-title");
+			//txt.scrollTop(txt[0].scrollHeight - txt.height());
+			txt.height( txt[0].scrollHeight);
+			txt.css("margin-top","0px");
+		}
+	}
 	$( document ).ready(function() {
-		var txt=$(".anime-title");
-		txt.scrollTop(txt[0].scrollHeight - txt.height());
+		text_area_height_opera()	
 	});
+	
 </script>
 
 </body></html>
