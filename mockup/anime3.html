@@ -7,6 +7,7 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/kickstart.js"></script> 	                               <!-- KICKSTART -->
 <script type="text/javascript" src="js/jquery.autosize-min.js"></script> 
+<script type="text/javascript" src="js/jquery.tokeninput.js"></script> 
 <script type="text/javascript">anime_id=1;</script> 	
 <link rel="stylesheet" type="text/css" href="css/kickstart.css" media="all" />                  <!-- KICKSTART -->
 <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />                      <!-- CUSTOM STYLES -->
@@ -111,7 +112,7 @@
 							</tr>
 							<tr>
 								<th>Жанри:</th>
-								<td><a href='#'>Пригоди</a>, <a href='#'>Фентезі</a>, <a href='#'>Драма</a></td>
+								<td id="td-genres"><input id="anime-genres" name="" maxlength="68" title="" class="anime-info" readonly="" value="Пригоди, Фентезі, Драма" /></td>
 							</tr>
 							<tr>
 								<th>Прем'єра:</th>
@@ -248,6 +249,9 @@
 </div>
 
 <script type="text/javascript">
+	$(document).on("click", ".token-input-selected-token-facebook", function() {
+		alert($(this).text());
+	});	
 	$(".anime-title").on("input", function() {
 		$(".anime-title").attr("data-changed","1");
 		$(".anime-info[name='ukr_name_1']").attr("data-changed","1");
@@ -396,6 +400,20 @@
 	$( document ).ready(function() {
 		$('.anime-title').autosize();
 		text_area_height_opera();	
+		$('#anime-genres').tokenInput("http://shell.loopj.com/tokeninput/tvshows.php", {
+                prePopulate: [
+                    {id: 1, name: "Пригоди"},
+                    {id: 2, name: "Фентезі"},
+                    {id: 3, name: "Драма"}
+                ],
+				preventDuplicates: true,
+				tokenLimit: 10,
+                theme: "facebook",
+				hintText: "Текст+пошук або текст+Enter: додати новий",
+				searchingText: "Шукаю...",
+				noResultsText: "Такого ще нема",
+				allowFreeTagging: true
+        });
 	});	
 </script>
 
