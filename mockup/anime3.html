@@ -278,6 +278,7 @@
 			$(".anime-title").attr('readonly', false);
 			$(".anime-info").attr('readonly', false);
 			$("#synopsis").attr('contenteditable', true);
+			$('#anime-genres').tokenInput("toggleDisabled");
 			$(this).html( '<i class="icon-edit"></i> Закінчити редагування');
 			$("#info-edit .icon-edit").css('color', 'rgb(238, 86, 15)');
 			$(".block-content").css('-moz-box-shadow', '0 0 8px rgb(255, 144, 42)');
@@ -294,6 +295,7 @@
 					}
 				}	
 			}
+			$('#anime-genres').tokenInput("toggleDisabled");
 			$(".anime-title").attr('readonly', true);
 			$(".anime-info").attr('readonly', true);
 			$("#synopsis").attr('contenteditable', false);
@@ -442,9 +444,9 @@
 				hintText: "Текст+пошук або текст+Enter: додати новий",
 				searchingText: "Шукаю...",
 				noResultsText: "Не знайдено",
+				disabled: true,
 				allowFreeTagging: true
         });	
-		$('.token-input-list-facebook').attr('readonly',"");
 	}
 	
 	function text_area_height_opera(){	<!-- ========= I'M FUCKING AT A LOSS HERE... =============== -->
