@@ -309,10 +309,12 @@
 	$("#ANN_info").click(function (e) {
 		if($(".anime-title").attr('readonly')){			
 			if(anime_id<6){
-				get_anime(anime_id++);				
+				get_anime(anime_id);
+				get_anime_genres(anime_id++);
 				return false;
 			}else{
 				get_anime(anime_id); 
+				get_anime_genres(anime_id);
 				anime_id=1; 
 				return false;
 			}
@@ -346,9 +348,7 @@
 			}
 		});
 	}
-	$("#anime-error").click(function (e) {
-		alert($("#synopsis").html().replace(/'/g,"\\'"));
-	});
+
 	function update_anime(id){
 		var myData={};
 		myData['anime_id']=id;
@@ -389,6 +389,64 @@
 			}
 		});
 	}
+
+	function get_anime_genres(id){
+		$.ajax({ 
+			type: 'GET', 
+			url: 'http://sensetivity-raws.site90.net/genres.php', 
+			data: { aid: id }, 
+			dataType: 'json',
+			beforeSend: function (){
+				$('.notice').html('Працюю з базою...');
+			},
+			success: function (data) { 
+				//$(".anime-title").attr('data-anime-id', data.anime_id);
+				//$(".anime-title").val(data.ukr_name_1).trigger('autosize');
+				//$(".anime-info[name='jap_name_rom_1']").attr('value', data.jap_name_rom_1);
+				//$(".anime-info[name='eng_name_1']").attr('value', data.eng_name_1);
+				//$(".anime-info[name='jap_name_kan_1']").attr('value', data.jap_name_kan_1);
+				//$(".anime-info[name='ukr_name_1']").attr('value', data.ukr_name_1);
+				//$("#synopsis").html(data.sinopsis);
+				genres_all=[];
+				genres_populate=[];
+				for (var i = 0; i < data.length; i++) {
+					if(data[i].flag==1){
+						genres_populate.push(data[i]);
+						genres_all.push(data[i]);
+					}
+					else genres_all.push(data[i]);
+				}
+				$('#anime-genres').tokenInput('destroy');
+				init_genres();
+				$('.notice').html('Все ок!');
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				alert(textStatus, errorThrown);
+			}
+		});
+	}
+
+	$("#anime-error").click(function (e) {
+		get_anime_genres(4);
+	});
+	
+	var genres_all=[];
+	var genres_populate=[];
+	
+	function init_genres(){
+		$('#anime-genres').tokenInput(genres_all, {
+                prePopulate: genres_populate,
+				preventDuplicates: true,
+				tokenLimit: 10,
+                theme: "facebook",
+				hintText: "Текст+пошук або текст+Enter: додати новий",
+				searchingText: "Шукаю...",
+				noResultsText: "Не знайдено",
+				allowFreeTagging: true
+        });	
+		$('.token-input-list-facebook').attr('readonly',"");
+	}
+	
 	function text_area_height_opera(){	<!-- ========= I'M FUCKING AT A LOSS HERE... =============== -->
 		if ($.browser.opera){
 			var txt=$(".anime-title");
@@ -397,23 +455,11 @@
 			txt.css("margin-top","0px");
 		}
 	}
+	
 	$( document ).ready(function() {
 		$('.anime-title').autosize();
 		text_area_height_opera();	
-		$('#anime-genres').tokenInput("http://shell.loopj.com/tokeninput/tvshows.php", {
-                prePopulate: [
-                    {id: 1, name: "Пригоди"},
-                    {id: 2, name: "Фентезі"},
-                    {id: 3, name: "Драма"}
-                ],
-				preventDuplicates: true,
-				tokenLimit: 10,
-                theme: "facebook",
-				hintText: "Текст+пошук або текст+Enter: додати новий",
-				searchingText: "Шукаю...",
-				noResultsText: "Такого ще нема",
-				allowFreeTagging: true
-        });
+		init_genres();
 	});	
 </script>
 
