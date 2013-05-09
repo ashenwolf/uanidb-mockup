@@ -642,7 +642,7 @@ $.TokenList = function (input, url_or_data, settings) {
         var callback = $(input).data("settings").onAdd;
 
         // See if the token already exists and select it if we don't want duplicates
-        if(token_count > 0 && $(input).data("settings").preventDuplicates) {
+        if(token_count > 0 && $(input).data("settings").preventDuplicates)  {
             var found_existing_token = null;
             token_list.children().each(function () {
                 var existing_token = $(this);
@@ -654,7 +654,7 @@ $.TokenList = function (input, url_or_data, settings) {
             });
 
             if(found_existing_token) {
-               // select_token(found_existing_token);
+                //select_token(found_existing_token);
                 //input_token.insertAfter(found_existing_token);
                 //focus_with_timeout(input_box);
                 return;
