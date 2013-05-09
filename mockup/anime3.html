@@ -249,9 +249,9 @@
 </div>
 
 <script type="text/javascript">
-	$(document).on("click", ".token-input-selected-token-facebook", function() {
+	/*$(document).on("click", ".token-input-selected-token-facebook", function() {
 		alert($(this).text());
-	});	
+	});*/	
 	$(".anime-title").on("input", function() {
 		$(".anime-title").attr("data-changed","1");
 		$(".anime-info[name='ukr_name_1']").attr("data-changed","1");
@@ -402,21 +402,14 @@
 				$('.notice').html('Працюю з базою...');
 			},
 			success: function (data) { 
-				//$(".anime-title").attr('data-anime-id', data.anime_id);
-				//$(".anime-title").val(data.ukr_name_1).trigger('autosize');
-				//$(".anime-info[name='jap_name_rom_1']").attr('value', data.jap_name_rom_1);
-				//$(".anime-info[name='eng_name_1']").attr('value', data.eng_name_1);
-				//$(".anime-info[name='jap_name_kan_1']").attr('value', data.jap_name_kan_1);
-				//$(".anime-info[name='ukr_name_1']").attr('value', data.ukr_name_1);
-				//$("#synopsis").html(data.sinopsis);
-				genres_all=[];
+				//genres_all=[];
 				genres_populate=[];
 				for (var i = 0; i < data.length; i++) {
 					if(data[i].flag==1){
 						genres_populate.push(data[i]);
-						genres_all.push(data[i]);
+						//genres_all.push(data[i]);
 					}
-					else genres_all.push(data[i]);
+					//else genres_all.push(data[i]);
 				}
 				$('#anime-genres').tokenInput('destroy');
 				init_genres();
@@ -436,10 +429,12 @@
 	var genres_populate=[];
 	
 	function init_genres(){
-		$('#anime-genres').tokenInput(genres_all, {
+		$('#anime-genres').tokenInput("http://sensetivity-raws.site90.net/genres.php", {
                 prePopulate: genres_populate,
 				preventDuplicates: true,
 				tokenLimit: 10,
+				minChars: 2,
+				crossDomain: false,
                 theme: "facebook",
 				hintText: "Текст+пошук або текст+Enter: додати новий",
 				searchingText: "Шукаю...",

@@ -565,7 +565,7 @@ $.TokenList = function (input, url_or_data, settings) {
         input_resizer.html(_escapeHTML(input_val));
         // Get maximum width, minimum the size of input and maximum the widget's width
         input_box.width(Math.min(token_list.width(),
-                                 Math.max(width_left, input_resizer.width() + 30)));
+                                 Math.max(width_left, input_resizer.width() + 20)));
     }
 
     function is_printable_character(keycode) {
@@ -579,7 +579,7 @@ $.TokenList = function (input, url_or_data, settings) {
         var value = $.trim(input_box.val());
         var tokens = value.split($(input).data("settings").tokenDelimiter);
         $.each(tokens, function(i, token) {
-          if (!token) {
+          if (!token || token.length<= $(input).data("settings").minChars) {
             return;
           }
 
@@ -654,9 +654,9 @@ $.TokenList = function (input, url_or_data, settings) {
             });
 
             if(found_existing_token) {
-                select_token(found_existing_token);
+                /*select_token(found_existing_token);
                 input_token.insertAfter(found_existing_token);
-                focus_with_timeout(input_box);
+                focus_with_timeout(input_box);*/
                 return;
             }
         }
