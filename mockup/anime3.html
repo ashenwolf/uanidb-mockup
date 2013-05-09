@@ -249,9 +249,9 @@
 </div>
 
 <script type="text/javascript">
-	/*$(document).on("click", ".token-input-selected-token-facebook", function() {
+	$(document).on("click", ".token-input-selected-token-facebook", function() {
 		alert($(this).text());
-	});*/	
+	});	
 	$(".anime-title").on("input", function() {
 		$(".anime-title").attr("data-changed","1");
 		$(".anime-info[name='ukr_name_1']").attr("data-changed","1");
@@ -440,6 +440,7 @@
 				searchingText: "Шукаю...",
 				noResultsText: "Не знайдено",
 				disabled: true,
+				allowTabOut: true,
 				allowFreeTagging: true
         });	
 	}

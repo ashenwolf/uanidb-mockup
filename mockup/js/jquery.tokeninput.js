@@ -579,7 +579,7 @@ $.TokenList = function (input, url_or_data, settings) {
         var value = $.trim(input_box.val());
         var tokens = value.split($(input).data("settings").tokenDelimiter);
         $.each(tokens, function(i, token) {
-          if (!token || token.length<= $(input).data("settings").minChars) {
+          if (!token) {
             return;
           }
 
@@ -654,9 +654,9 @@ $.TokenList = function (input, url_or_data, settings) {
             });
 
             if(found_existing_token) {
-                /*select_token(found_existing_token);
-                input_token.insertAfter(found_existing_token);
-                focus_with_timeout(input_box);*/
+               // select_token(found_existing_token);
+                //input_token.insertAfter(found_existing_token);
+                //focus_with_timeout(input_box);
                 return;
             }
         }
@@ -937,6 +937,9 @@ $.TokenList = function (input, url_or_data, settings) {
 
     // Do the actual search
     function run_search(query) {
+		if (selected_dropdown_item) {
+			deselect_dropdown_item($(selected_dropdown_item));
+		}
         var cache_key = query + computeURL();
         var cached_results = cache.get(cache_key);
         if(cached_results) {
