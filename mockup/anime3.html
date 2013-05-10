@@ -290,7 +290,7 @@
 			$(".anime-title").attr('readonly', false);
 			$(".anime-info").attr('readonly', false);
 			$("#synopsis").attr('contenteditable', true);
-			$('#anime-genres').tokenInput("toggleDisabled");
+			$('#anime-genres').tokenInput("toggleDisabled");			
 			$(this).html( '<i class="icon-edit"></i> Закінчити редагування');
 			$("#info-edit .icon-edit").css('color', 'rgb(238, 86, 15)');
 			$(".block-content").css('-moz-box-shadow', '0 0 8px rgb(255, 144, 42)');
@@ -307,9 +307,8 @@
 					}					
 				}	
 			}
-			if($("#anime-genres").attr("data-changed") && $(".anime-title").attr('data-anime-id')) {
-				update_genres($(".anime-title").attr('data-anime-id'));	
-				$(".anime-genres").removeAttr("data-changed");
+			if($("#anime-genres").attr("data-changed") && $(".anime-title").attr('data-anime-id')) {				
+				update_genres($(".anime-title").attr('data-anime-id'));												
 			}
 			$(document).on("click", ".token-input-token-facebook p", function() {
 				alert("Перехід на "+$(this).text());
@@ -417,7 +416,7 @@
 		});
 	}
 
-	function get_anime_genres(id){
+	function get_anime_genres(id){		
 		$.ajax({ 
 			type: 'GET', 
 			url: 'http://oilreview.x10.mx/genres.php', 
@@ -463,8 +462,10 @@
 			beforeSend: function (){
 				$('.notice').html('Працюю з базою...');
 			},
-			success: function (data) {				
-				$('.notice').html('Всі зміни записано!');
+			success: function (data) {	
+				$("#anime-genres").removeAttr("data-changed");
+				if (data=="0")$('.notice').html('Всі зміни записано!');
+				else $('.notice').html(data);
 				return 0;
 			},
 			error: function(jqXHR, textStatus, errorThrown){
@@ -499,12 +500,14 @@
 				onAdd: genres_change,
 				onDelete: genres_change,
 				allowFreeTagging: true
-        });	
+        });		
+		if($("#anime-genres").attr("data-changed"))$("#anime-genres").removeAttr("data-changed");
 	}
 	
 	function genres_change(){
-		//if(!$(".anime-title").attr("data-changed")) $(".anime-title").attr("data-changed","1");
-		if(!$("#anime-genres").attr("data-changed")) $("#anime-genres").attr("data-changed","1");
+		if(!$("#anime-genres").attr("data-changed")) {
+			$("#anime-genres").attr("data-changed","1");
+		}
 	}
 	
 	function text_area_height_opera(){	<!-- ========= I'M FUCKING AT A LOSS HERE... =============== -->
