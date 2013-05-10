@@ -406,7 +406,8 @@
 				});
 				if($("#synopsis").attr("data-changed"))$("#synopsis").removeAttr("data-changed");
 				$(".anime-title").removeAttr("data-changed").trigger('autosize');
-				$('.notice').html('Всі зміни записано!');
+				if (data=="0")$('.notice').html('Всі зміни записано!');
+				else $('.notice').html(data);
 				return 0;
 			},
 			error: function(jqXHR, textStatus, errorThrown){
