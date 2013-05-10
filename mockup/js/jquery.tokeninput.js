@@ -278,7 +278,7 @@ $.TokenList = function (input, url_or_data, settings) {
             var next_token;
 
             switch(event.keyCode) {
-                case KEY.LEFT:
+                /*case KEY.LEFT:
                 case KEY.RIGHT:
                 case KEY.UP:
                 case KEY.DOWN:
@@ -334,7 +334,7 @@ $.TokenList = function (input, url_or_data, settings) {
                         // set a timeout just long enough to let this function finish.
                         setTimeout(function(){do_search();}, 5);
                     }
-                    break;
+                    break;*/
 
                 case KEY.TAB:
                 case KEY.ENTER:
@@ -556,8 +556,8 @@ $.TokenList = function (input, url_or_data, settings) {
         }
     }
 
-    function resize_input() {
-        if(input_val === (input_val = input_box.val())) {return;}
+    function resize_input() { 
+		if(input_val === (input_val = input_box.val())) {return;}
 
         // Get width left on the current line
         var width_left = token_list.width() - input_box.offset().left - token_list.offset().left;
@@ -647,7 +647,7 @@ $.TokenList = function (input, url_or_data, settings) {
             token_list.children().each(function () {
                 var existing_token = $(this);
                 var existing_data = $.data(existing_token.get(0), "tokeninput");
-                if(existing_data && existing_data[settings.tokenValue] === item[settings.tokenValue]) {
+                if(existing_data && existing_data[settings.propertyToSearch].toLowerCase() == item[settings.propertyToSearch].toLowerCase()) {
                     found_existing_token = existing_token;
                     return false;
                 }
@@ -668,7 +668,7 @@ $.TokenList = function (input, url_or_data, settings) {
         if($(input).data("settings").tokenLimit == null || token_count < $(input).data("settings").tokenLimit) {
             insert_token(item);
             // Remove the placeholder so it's not seen after you've added a token
-            input_box.attr("placeholder", null)
+            input_box.attr("placeholder", null);
             checkTokenLimit();
         }
 
@@ -686,16 +686,16 @@ $.TokenList = function (input, url_or_data, settings) {
 
     // Select a token in the token list
     function select_token (token) {
-        if (!$(input).data("settings").disabled) {
+        /*if (!$(input).data("settings").disabled) {
             token.addClass($(input).data("settings").classes.selectedToken);
             selected_token = token.get(0);
 
-            // Hide input box
+            // Hide input box			
             input_box.val("");
 
             // Hide dropdown if it is visible (eg if we clicked to select token)
             hide_dropdown();
-        }
+        }*/
     }
 
     // Deselect a token in the token list
