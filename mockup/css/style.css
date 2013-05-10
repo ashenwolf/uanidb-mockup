@@ -544,11 +544,12 @@ li.token-input-input-token-facebook {
 
 li.token-input-input-token-facebook  input{
 	box-shadow:none;
+	outline:none;
 	margin-left:3px;
 }
 
 li.token-input-input-token-facebook  input:focus{
-	outline:none;	
+	outline:none;
 	box-shadow:none;
 	border:none;
 }
@@ -566,7 +567,7 @@ div.token-input-dropdown-facebook {
     -webkit-border-radius: 0px 0px 4px 4px;
     cursor: default;
     font-size: 11px;
-    font-family: Verdana;
+    font-family: inherit;
     z-index: 1;
 }
 

@@ -109,7 +109,7 @@
 							</tr>
 							<tr>
 								<th>Жанри:</th>
-								<td id="td-genres"><input id="anime-genres" name="" maxlength="68" title="" class="anime-info" readonly="" value="Пригоди, Фентезі, Драма" /></td><td><a href="#" class="icon-plus lightbox pull-right"></a></td>
+								<td id="td-genres"><input id="anime-genres" name="" maxlength="68" title="" class="anime-info" readonly="" value="Пригоди, Фентезі, Драма" /></td><td><a title="Додати новий жанр" onclick="$('#add_genre').show(); return false;" href="#add_genre" class="icon-plus lightbox pull-right"></a></td>
 							</tr>
 							<tr>
 								<th>Прем'єра:</th>
@@ -118,6 +118,7 @@
 						</tbody>
 					</table>
 				</div>
+				<div id="add_genre" style="display:none;overflow:hidden;"><h4>Додати новий жанр</h4><textarea title="Додати новий жанр" style="overflow:hidden; width:220px; height:300px;">Ваш жанр</textarea></div>
 				<div id="anime-cast" class="tab-content">
 					<table class="striped">
 						<tbody>
@@ -246,6 +247,9 @@
 </div>
 
 <script type="text/javascript">
+	$(document).on("click","#fancybox-close", function() {
+		$('#add_genre').css("display","none");
+	});	
 	$(document).on("click", ".token-input-token-facebook p", function() {
 		alert("Перехід на "+$(this).text());
 	});
@@ -300,8 +304,12 @@
 					if(update_anime($(".anime-title").attr('data-anime-id'))){
 						alert ("something is fucked!");
 						return;
-					}
+					}					
 				}	
+			}
+			if($("#anime-genres").attr("data-changed") && $(".anime-title").attr('data-anime-id')) {
+				update_genres($(".anime-title").attr('data-anime-id'));	
+				$(".anime-genres").removeAttr("data-changed");
 			}
 			$(document).on("click", ".token-input-token-facebook p", function() {
 				alert("Перехід на "+$(this).text());
@@ -403,9 +411,7 @@
 				return 0;
 			},
 			error: function(jqXHR, textStatus, errorThrown){
-				alert(jqXHR);
-				alert(textStatus);
-				alert(errorThrown);
+				$('.notice').html(jqXHR+' '+textStatus+' '+errorThrown);
 				return 1;
 			}
 		});
@@ -440,6 +446,35 @@
 			}
 		});
 	}
+	
+	function update_genres(id){
+		var myData={};
+		myData['anime_id']=id;
+		var genres=$('#anime-genres').tokenInput("get");
+		for(var i=0;i<genres.length;i++){
+			myData[genres[i].id]=genres[i].name;
+		}
+		$.ajax({ 
+			type: 'POST', 
+			crossDomain:true,
+			url: 'http://sensetivity-raws.site90.net/genres.php', 
+			data: {genres_update:JSON.stringify(myData)}, 
+			dataType: 'json',
+			beforeSend: function (){
+				$('.notice').html('Працюю з базою...');
+			},
+			success: function (data) {				
+				$('.notice').html('Всі зміни записано!');
+				return 0;
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				alert(jqXHR);
+				alert(textStatus);
+				alert(errorThrown);
+				return 1;
+			}
+		});
+	}
 
 	$("#anime-error").click(function (e) {
 		alert(JSON.stringify($('#anime-genres').tokenInput("get")));
@@ -461,8 +496,15 @@
 				noResultsText: "Не знайдено",
 				disabled: true,
 				searchDelay: 0,
+				onAdd: genres_change,
+				onDelete: genres_change,
 				allowFreeTagging: true
         });	
+	}
+	
+	function genres_change(){
+		//if(!$(".anime-title").attr("data-changed")) $(".anime-title").attr("data-changed","1");
+		if(!$("#anime-genres").attr("data-changed")) $("#anime-genres").attr("data-changed","1");
 	}
 	
 	function text_area_height_opera(){	<!-- ========= I'M FUCKING AT A LOSS HERE... =============== -->
