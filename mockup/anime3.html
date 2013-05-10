@@ -356,7 +356,7 @@
 	function get_anime(id){
 		$.ajax({ 
 			type: 'GET', 
-			url: 'http://sensetivity-raws.site90.net/anime.php', 
+			url: 'http://oilreview.x10.mx/anime.php', 
 			data: { aid: id }, 
 			dataType: 'json',
 			beforeSend: function (){
@@ -393,7 +393,7 @@
 		$.ajax({ 
 			type: 'POST', 
 			crossDomain:true,
-			url: 'http://sensetivity-raws.site90.net/anime.php', 
+			url: 'http://oilreview.x10.mx/anime.php', 
 			data: {anime_update:JSON.stringify(myData)}, 
 			dataType: 'json',
 			beforeSend: function (){
@@ -420,7 +420,7 @@
 	function get_anime_genres(id){
 		$.ajax({ 
 			type: 'GET', 
-			url: 'http://sensetivity-raws.site90.net/genres.php', 
+			url: 'http://oilreview.x10.mx/genres.php', 
 			data: { aid: id }, 
 			dataType: 'json',
 			beforeSend: function (){
@@ -457,7 +457,7 @@
 		$.ajax({ 
 			type: 'POST', 
 			crossDomain:true,
-			url: 'http://sensetivity-raws.site90.net/genres.php', 
+			url: 'http://oilreview.x10.mx/genres.php', 
 			data: {genres_update:JSON.stringify(myData)}, 
 			dataType: 'json',
 			beforeSend: function (){
@@ -484,14 +484,14 @@
 	var genres_populate=[];
 	
 	function init_genres(){
-		$('#anime-genres').tokenInput("http://sensetivity-raws.site90.net/genres.php", {
+		$('#anime-genres').tokenInput("http://oilreview.x10.mx/genres.php", {
                 prePopulate: genres_populate,
 				preventDuplicates: true,
 				tokenLimit: 10,
 				minChars: 2,
 				crossDomain: false,
                 theme: "facebook",
-				hintText: "Текст+пошук або текст+Enter: додати новий",
+				hintText: "Текст+Пошук існуючих або Текст+Enter: додати новий",
 				searchingText: "Шукаю...",
 				noResultsText: "Не знайдено",
 				disabled: true,
