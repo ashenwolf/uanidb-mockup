@@ -76,7 +76,7 @@
 					<li><a href="#anime-info">Інформація</a></li>
 					<li><a href="#anime-cast">Персонажі</a></li>
 					<li><a href="#anime-production">Виробництво</a></li>
-					<li><a href="#anime-subs">Дивитись українською</a></li>
+					<li><a href="#anime-subs">Українською</a></li>
 					<li><a href="#anime-similar">Схоже аніме</a></li>
 				</ul>
 
@@ -105,7 +105,7 @@
 							</tr>
 							<tr>
 								<th>Тип:</th>
-								<td colspan="2"><input name="" maxlength="68" title="" class="anime-info" readonly="" value="Телевізійний серіал, 25 серій" /></td>
+								<td style="padding-right:0;"><select style="display:none;" selected="0" id="select-type"><option value="0">Телевізійний серіал</option><option value="1">ОВА</option><option value="2">Кіно</option></select><input id="input-type" name="" maxlength="68" title="" class="anime-info" readonly=""  style="width:250px" value="Телевізійний серіал" /><span class="pull-right"><em>Серій:</em></span></td><td><input maxlength="4" id="spinner" class="anime-info pull-right" style="width:32px;text-align:right;font-size:14px;" readonly="" value="25" /></td>
 							</tr>
 							<tr>
 								<th>Жанри:</th>
@@ -305,6 +305,8 @@
 	});	
     $("#anime-edit").click(function (e) {
 		if($(".anime-title").attr('readonly')){
+			$("#select-type").show();
+			$("#input-type").hide();			
 			$(document).off('click', '.token-input-token-facebook p');
 			$(document).off('mouseenter', '.token-input-token-facebook');
 			$(document).off('mouseleave', '.token-input-token-facebook');
@@ -342,6 +344,9 @@
 				$("p",this).css("text-decoration","none");
 				$("p",this).css('cursor', 'auto');
 			});	
+			$("#input-type").val($("#select-type").find(":selected").text());
+			$("#select-type").hide();
+			$("#input-type").show();	
 			$('#anime-genres').tokenInput("toggleDisabled");
 			$(".anime-title").attr('readonly', true);
 			$(".anime-info").attr('readonly', true);

@@ -494,6 +494,12 @@ textarea.anime-synopsis{
     -webkit-border-radius: 5px;
 }
 
+#select-type{
+	vertical-align: top;
+	height: 21px;
+	padding:1px;
+}
+
 /* tokeninput style: Facebook style */
 
 ul.token-input-list-facebook {
