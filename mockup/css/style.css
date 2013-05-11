@@ -349,11 +349,6 @@ textarea.anime-title{
 	resize: none;
 }
 
-input[type="text"]:focus, textarea:focus, button:focus, a.button:focus, select:focus, input[type="file"]:focus, input[type="password"]:focus {
-	outline:0px none #fff;
-	border:0px none #fff;
-}
-
 .info-focused:focus{
 	outline:none;
 	box-shadow:0 0 5px rgb(255, 144, 42);
@@ -471,6 +466,32 @@ textarea.anime-synopsis{
 
 .foot-div .pull-right{
 	margin:20px 15px auto auto;
+}
+
+#add_genre{
+	margin-left:20px;
+}
+
+#add_genre .form-input, #add_genre label{
+	width:400px;
+}
+
+#add_genre .form-input{
+	margin-bottom:15px;
+}
+
+#add_genre .form-textarea{
+	height:120px;
+}
+
+#add_genre .form-textarea, #add_genre label{
+	width:400px;	
+}
+
+#fancybox-content, #fancybox-outer{
+	border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
 
 /* tokeninput style: Facebook style */
