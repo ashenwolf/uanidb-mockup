@@ -497,7 +497,7 @@ textarea.anime-synopsis{
 #select-type{
 	vertical-align: top;
 	height: 21px;
-	padding:1px;
+	padding:0px;
 }
 
 /* tokeninput style: Facebook style */
@@ -631,6 +631,6 @@ div.token-input-dropdown-facebook ul li em {
 }
 
 div.token-input-dropdown-facebook ul li.token-input-selected-dropdown-item-facebook {
-    background-color: #3b5998;
+    background-color: IndianRed;
     color: #fff;
 }
