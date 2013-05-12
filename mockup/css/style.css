@@ -43,7 +43,7 @@ font-family: "Arimo", arial, verdana, sans-serif;
 -----------------------------------*/
 body{
 margin:0;
-padding:0 0 0 0;
+padding:0;
 color:#000;
 background:#efefef url(img/noise-white.png);
 font:normal 0.9em/150% 'Arimo', arial, verdana, sans-serif;
@@ -57,7 +57,6 @@ margin:30px auto 30px auto;
 padding:0 2%;
 border:1px solid #ccc;
 }
-
 
 #footer{
 text-align:center;
