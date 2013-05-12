@@ -528,10 +528,10 @@
 				$('#genre-notice').show();
 			},
 			success: function (data) {	
-				if (data=="0"){
+				if (!isNaN(parseInt(data))){
 					$('#genre-notice').addClass('success');
 					$('#genre-notice').html('Жанр додано!'+'<a href="#close" class="icon-remove"></a>');
-					$('#anime-genres').tokenInput("add", {id: $('#ukr_name_genre').val(), name: $('#ukr_name_genre').val()});
+					$('#anime-genres').tokenInput("add", {id: data, name: $('#ukr_name_genre').val()});
 					$('#token-input-anime-genres').css('width','20px');
 					$.fancybox.close();			
 					$('#token-input-anime-genres').focus();
@@ -621,7 +621,13 @@
 	function fancyboxLoad(){
 		if($(".anime-title").attr('readonly')){			
 			return false;
-		}else{			
+		}else{	
+			$('#genre-notice').removeClass('success');
+			$('#genre-notice').hide();
+			$('#ukr_name_genre').val('');
+			$('#jap_rom_name_genre').val('');
+			$('#jap_kana_name_genre').val('');
+			$('#opys').val('');
 			return true;
 		}		
 	}
