@@ -120,18 +120,18 @@
 				</div>
 				<div style="display: none;">
 					<div style="width:465px;" class="col_12 column" id="add_genre">
-						<!-- <div style="width:400px; margin:0 0 30px 0; padding-left:15px;" class="notice">Тут ви можете додати в базу новий Жанр, лише майте на увазі: цей жанр додасться до конкретного аніме тільки, коли ви вийдете з режиму  редагування цього аніме <a href="#close" class="icon-remove"></a></div> -->
+						<div style="width:400px; margin:0 0 30px 0; padding-left:15px; display:none;" id="genre-notice" class="notice">Тут ви можете додати в базу новий Жанр, лише майте на увазі: цей жанр додасться до конкретного аніме тільки, коли ви вийдете з режиму  редагування цього аніме <a href="#close" class="icon-remove"></a></div>
 						<label style="margin-top:5px;" for="ukr_name_genre"><strong>Жанр українською</strong>, <span style="color:orange;" >обов'язкове</span> <span class="right">Напр., "Шьоджьо :)"</span></label><br />
-						<input class="form-input" type="text" id="ukr_name_genre" name="" /><br />
+						<input maxlength="110" class="form-input" type="text" id="ukr_name_genre" name="" /><br />
+					
+						<label for="jap_kana_name_genre">Жанр японською <span class="right">Напр., "少女"</span></label><br />
+						<input maxlength="110" class="form-input" type="text" id="jap_kana_name_genre" name="" /><br />				
 
 						<label for="jap_rom_name_genre">Жанр англійською чи ромаджі <span class="right">Напр., "Shoujo"</span></label><br />
-						<input class="form-input" type="text" id="jap_rom_name_genre" name="" /><br />						
-
-						<label for="jap_kana_name_genre">Жанр японською <span class="right">Напр., "少女"</span></label><br />
-						<input class="form-input" type="text" id="jap_kana_name_genre" name="" /><br />
+						<input maxlength="110" class="form-input" type="text" id="jap_rom_name_genre" name="" /><br />
 						
 						<label class="form-label">Опис: </label><br />
-						<textarea class="form-textarea" id="genre_synopsis" name=""></textarea><br /><br />
+						<textarea maxlength="340" class="form-textarea" id="opys" name=""></textarea><br /><br />
 						<button style="margin-bottom:10px;" id="genre-post" class="green"><i class="icon-plus-sign"></i> Додати жанр</button>
 					</div>
 				</div>
@@ -269,10 +269,12 @@
 	});
 	$("#genre-post").on("click", function() {
 		if(!$(".anime-title").attr('readonly') && $('#ukr_name_genre').val()){
-			$('#anime-genres').tokenInput("add", {id: $('#ukr_name_genre').val(), name: $('#ukr_name_genre').val()});
-			$('#token-input-anime-genres').css('width','20px');
-			$.fancybox.close();			
-			$('#token-input-anime-genres').focus();
+			if(add_genres()){
+				$('#anime-genres').tokenInput("add", {id: $('#ukr_name_genre').val(), name: $('#ukr_name_genre').val()});
+				$('#token-input-anime-genres').css('width','20px');
+				$.fancybox.close();			
+				$('#token-input-anime-genres').focus();
+			}
 		}
 	});	
 	$(document).on("click", ".token-input-token-facebook p", function() {
@@ -446,7 +448,7 @@
 				return 0;
 			},
 			error: function(jqXHR, textStatus, errorThrown){
-				$('.notice').html(jqXHR+' '+textStatus+' '+errorThrown);
+				$('.notice').html(jqXHR+' | '+textStatus+' | '+errorThrown);
 				return 1;
 			}
 		});
@@ -509,6 +511,41 @@
 				alert(textStatus);
 				alert(errorThrown);
 				return 1;
+			}
+		});
+	}
+	
+	function add_genres(id){
+		var myData={};
+		//myData['anime_id']=id;
+		myData['ukr_name_genre']=$('#ukr_name_genre').val();
+		myData['jap_rom_name_genre']=$('#jap_rom_name_genre').val();
+		myData['jap_kana_name_genre']=$('#jap_kana_name_genre').val();
+		myData['opys']=$('#opys').val();
+		$.ajax({ 
+			type: 'POST', 
+			crossDomain:true,
+			url: 'http://oilreview.x10.mx/genres.php', 
+			data: {genres_add:JSON.stringify(myData)}, 
+			dataType: 'json',
+			beforeSend: function (){
+				$('#genre-notice').html('Працюю з базою...' + '<a href="#close" class="icon-remove"></a>');
+				$('#genre-notice').show();
+			},
+			success: function (data) {	
+				if (data=="0"){
+					$('#genre-notice').addClass('success');
+					$('#genre-notice').html('Жанр додано!'+'<a href="#close" class="icon-remove"></a>');
+					return true;
+				}
+				else{
+					$('#genre-notice').html(data+'<a href="#close" class="icon-remove"></a>');
+					return false;
+				}
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				$('#genre-notice').html(jqXHR+' | '+textStatus+' | '+errorThrown+'<a href="#close" class="icon-remove"></a>');
+				return false;
 			}
 		});
 	}
@@ -583,7 +620,7 @@
 	function fancyboxLoad(){
 		if($(".anime-title").attr('readonly')){			
 			return false;
-		}else{
+		}else{			
 			return true;
 		}		
 	}
@@ -601,7 +638,7 @@
 			//autoDimensions: false,
 			padding:30
 		});
-		get_types(anime_id);
+		get_types(anime_id);		
 	});	
 </script>
 

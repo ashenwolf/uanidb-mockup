@@ -494,6 +494,10 @@ textarea.anime-synopsis{
     -webkit-border-radius: 5px;
 }
 
+div#fancybox-wrap {
+	//left: 320px !important;
+}
+
 #select-type{
 	vertical-align: top;
 	height: 21px;
