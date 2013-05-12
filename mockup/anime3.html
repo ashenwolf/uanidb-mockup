@@ -105,7 +105,7 @@
 							</tr>
 							<tr>
 								<th>Тип:</th>
-								<td style="padding-right:0;"><select style="display:none;" selected="0" id="select-type"><option value="0">Телевізійний серіал</option><option value="1">ОВА</option><option value="2">Кіно</option></select><input id="input-type" name="" maxlength="68" title="" class="anime-info" readonly=""  style="width:250px" value="Телевізійний серіал" /><span class="pull-right"><em>Серій:</em></span></td><td><input maxlength="4" id="spinner" class="anime-info pull-right" style="width:32px;text-align:right;font-size:14px;" readonly="" value="25" /></td>
+								<td style="padding-right:0;"><select style="display:none;" id="select-type"><option value="0">Телевізійний серіал</option><option value="1">ОВА</option><option value="2">Кіно</option></select><input id="input-type" name="type_film_id" maxlength="68" title="" class="anime-info" readonly=""  style="width:250px" value="Телевізійний серіал" /><span class="pull-right"><em>Серій:</em></span></td><td><input maxlength="4" name="series_count" id="series_count" class="anime-info pull-right" style="width:32px;text-align:right;font-size:14px;" readonly="" value="25" /></td>
 							</tr>
 							<tr>
 								<th>Жанри:</th>
@@ -263,6 +263,10 @@
 </div>
 
 <script type="text/javascript">
+	$("#select-type").change(function() {
+		$("#input-type").val($("#select-type").find(":selected").text());
+		$("#input-type").trigger('input');
+	});
 	$("#genre-post").on("click", function() {
 		if(!$(".anime-title").attr('readonly') && $('#ukr_name_genre').val()){
 			$('#anime-genres').tokenInput("add", {id: $('#ukr_name_genre').val(), name: $('#ukr_name_genre').val()});
@@ -343,8 +347,7 @@
 			$(document).on("mouseleave", ".token-input-token-facebook", function() {
 				$("p",this).css("text-decoration","none");
 				$("p",this).css('cursor', 'auto');
-			});	
-			$("#input-type").val($("#select-type").find(":selected").text());
+			});				
 			$("#select-type").hide();
 			$("#input-type").show();	
 			$('#anime-genres').tokenInput("toggleDisabled");
@@ -364,10 +367,12 @@
 		if($(".anime-title").attr('readonly')){			
 			if(anime_id<10){
 				get_anime(anime_id);
+				//get_types(anime_id);
 				get_anime_genres(anime_id++);
 				return false;
 			}else{
 				get_anime(anime_id); 
+				//get_types(anime_id);
 				get_anime_genres(anime_id);
 				anime_id=1; 
 				return false;
@@ -394,6 +399,9 @@
 				$(".anime-info[name='eng_name_1']").attr('value', data.eng_name_1);
 				$(".anime-info[name='jap_name_kan_1']").attr('value', data.jap_name_kan_1);
 				$(".anime-info[name='ukr_name_1']").attr('value', data.ukr_name_1);
+				$("#select-type").val(data.type_film_id);
+				$("#input-type").val($("#select-type option:selected").text());
+				$("#series_count").val(data.series_count);
 				$("#synopsis").html(data.sinopsis);
 				$('.notice').html('Все ок!');
 			},
@@ -408,7 +416,8 @@
 		myData['anime_id']=id;
 		$('.anime-info').each(function(i, obj) {
 			if($(this).attr("name") && $(this).attr("data-changed")){
-				myData[$(this).attr("name")]=$(this).val().replace(/'/g,"\\'");
+				if($(this).attr('id')=='input-type') myData[$(this).attr("name")]=$('#select-type').val();
+				else myData[$(this).attr("name")]=$(this).val().replace(/'/g,"\\'");
 				$(this).removeAttr("data-changed");
 			}
 		});	
@@ -503,6 +512,30 @@
 			}
 		});
 	}
+	
+	function get_types(id){		
+		$.ajax({ 
+			type: 'GET', 
+			url: 'http://oilreview.x10.mx/type.php', 
+			data: { aid: id }, 
+			dataType: 'json',
+			beforeSend: function (){
+				$('.notice').html('Працюю з базою...');
+			},
+			success: function (data) { 
+				$("#select-type").val('');
+				$("#select-type").empty();				
+				$.each(data, function() {
+					$("#select-type").append($("<option />").val(this.tid).text(this.name));
+					if(this.tid<0) $("#select-type").val(this.tid);
+				});
+				$('.notice').html('Все ок!');
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				alert(textStatus, errorThrown);
+			}
+		});
+	}
 
 	$("#anime-error").click(function (e) {
 		alert(JSON.stringify($('#anime-genres').tokenInput("get")));
@@ -567,6 +600,7 @@
 			//autoDimensions: false,
 			padding:30
 		});
+		get_types(anime_id);
 	});	
 </script>
 
