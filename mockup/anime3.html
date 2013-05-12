@@ -105,7 +105,7 @@
 							</tr>
 							<tr>
 								<th>Тип:</th>
-								<td style="padding-right:0;"><select style="display:none;" id="select-type"><option value="0">Телевізійний серіал</option><option value="1">ОВА</option><option value="2">Кіно</option></select><input id="input-type" name="type_film_id" maxlength="68" title="" class="anime-info" readonly=""  style="width:250px" value="Телевізійний серіал" /><span class="pull-right"><em>Серій:</em></span></td><td><input maxlength="4" name="series_count" id="series_count" class="anime-info pull-right" style="width:32px;text-align:right;font-size:14px;" readonly="" value="25" /></td>
+								<td style="padding-right:0;"><select style="display:none;" id="select-type"><option value="0">Не обрано</option><option value="1">Серіал</option><option value="2">Кіно</option></select><input id="input-type" name="type_film_id" maxlength="68" title="" class="anime-info" readonly=""  style="width:250px" value="Телевізійний серіал" /><span class="pull-right"><em>Серій:</em></span></td><td><input maxlength="4" name="series_count" id="series_count" class="anime-info pull-right" style="width:32px;text-align:right;font-size:14px;" readonly="" value="25" /></td>
 							</tr>
 							<tr>
 								<th>Жанри:</th>
@@ -524,7 +524,8 @@
 			},
 			success: function (data) { 
 				$("#select-type").val('');
-				$("#select-type").empty();				
+				$("#select-type").empty();	
+				$("#select-type").append($("<option />").val(0).text("Не обрано"));
 				$.each(data, function() {
 					$("#select-type").append($("<option />").val(this.tid).text(this.name));
 					if(this.tid<0) $("#select-type").val(this.tid);
