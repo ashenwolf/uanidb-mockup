@@ -7,10 +7,13 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/kickstart.js"></script> 	                               <!-- KICKSTART -->
 <script type="text/javascript" src="js/jquery.autosize-min.js"></script> 
-<script type="text/javascript" src="js/jquery.tokeninput.js"></script> 
+<script type="text/javascript" src="js/jquery.tokeninput.js"></script>
+<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.10.3.custom.min.css" media="all" />  
+<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>  
+<script type="text/javascript" src="js/ui.datepicker-uk.js"></script> 
 <script type="text/javascript">anime_id=1;</script> 	
 <link rel="stylesheet" type="text/css" href="css/kickstart.css" media="all" />                  <!-- KICKSTART -->
-<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />                      <!-- CUSTOM STYLES -->
+<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />                      <!-- CUSTOM STYLES --> 
 </head>
 <body>
 <div class="head-menu">
@@ -112,8 +115,8 @@
 								<td id="td-genres"><input id="anime-genres" name="" maxlength="68" title="" class="anime-info" readonly="" value="Пригоди, Фентезі, Драма" /></td><td><a title="Розширене додавання жанру" href="#add_genre" id="add-genre-lightbox" class="icon-plus lightbox pull-right"></a></td>
 							</tr>
 							<tr>
-								<th>Прем'єра:</th>
-								<td colspan="2"><input name="" maxlength="68" title="" class="anime-info" readonly="" value="29.09.2012" /></td>
+								<th>Дати виходу:</th>
+								<td colspan="2"><input name="" id="datepicker" maxlength="68" title="" class="anime-info" readonly="" value="29.09.2012" /></td>
 							</tr>
 						</tbody>
 					</table>
@@ -645,6 +648,7 @@
 			$('#jap_rom_name_genre').val('');
 			$('#jap_kana_name_genre').val('');
 			$('#opys').val('');
+			$('#fancybox-wrap div').css('left', parseInt(($(window).width() / 2) - ($('#fancybox-wrap').width() / 2), 10));
 			return true;
 		}		
 	}
@@ -662,6 +666,12 @@
 			padding:30
 		});
 		get_types(anime_id);
+		$('#datepicker').datepicker({
+			dateFormat: "dd.mm.yy",
+			changeMonth: true,
+			changeYear: true,
+			yearRange: "1950:"
+		});
 	});	
 </script>
 
