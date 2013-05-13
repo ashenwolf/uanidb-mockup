@@ -116,7 +116,7 @@
 							</tr>
 							<tr>
 								<th>Дати виходу:</th>
-								<td colspan="2"><input name="" id="datepicker" maxlength="68" title="" class="anime-info" readonly="" value="29.09.2012" /></td>
+								<td colspan="2"><em>з</em> <input style="margin-left:6px;width:100px;" name="" id="" maxlength="68" title="" class="datepicker anime-info" readonly="" value="29.09.2012" /> <em>до</em> <input style="margin-left:6px;width:100px;" name="" id="" maxlength="68" title="" class="datepicker anime-info" readonly="" value="29.09.2013" /></td>
 							</tr>
 						</tbody>
 					</table>
@@ -666,7 +666,7 @@
 			padding:30
 		});
 		get_types(anime_id);
-		$('#datepicker').datepicker({
+		$('.datepicker').datepicker({
 			dateFormat: "dd.mm.yy",
 			changeMonth: true,
 			changeYear: true,
