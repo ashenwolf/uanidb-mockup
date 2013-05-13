@@ -503,6 +503,10 @@ div#fancybox-wrap {
 	padding:0px;
 }
 
+.dimmed, input.dimmed{
+	color: #b3b3b3;
+}
+
 /* tokeninput style: Facebook style */
 
 ul.token-input-list-facebook {

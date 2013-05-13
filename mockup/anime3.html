@@ -84,28 +84,28 @@
 					<table>
 						<tbody>
 							<tr>
-								<th title="Вводіть альтернативні назви через кому">Ромаджі:</th>
-								<td title="Вводіть альтернативні назви через кому" colspan="2"><input name="jap_name_rom_1" maxlength="68" title="" class="anime-info" readonly="" value="Shinsekai Yori" /></td>
-							</tr>
-							<tr>
-								<th style="width: 140px;">Офіційна назва:</th>
+								<th title="Офіційна японська назва">Офіційна назва:</th>
 								<td><input name="jap_name_kan_1" maxlength="68" title="" class="anime-info" readonly="" value="新世界より" /></td><td><span class="pull-right" style="line-height: 14px;"><img src="images/flags/jp.png" alt="jp"></span></td>
 							</tr>
 							<tr>
-								<th>Офіційна назва:</th>
+								<th title="Латинізована японська">Ромаджі:</th>
+								<td title="" colspan="2"><input name="jap_name_rom_1" maxlength="68" title="" class="anime-info" readonly="" value="Shinsekai Yori" /></td>
+							</tr>
+							<tr>
+								<th title="Офіційна англійська назва">Англійська назва:</th>
 								<td><input name="eng_name_1" maxlength="68" title="" class="anime-info" readonly="" value="From the New World" /></td><td><span class="pull-right" style="line-height: 14px;"><img src="images/flags/gb.png" alt="gb"></span></td>
 							</tr>
 							<tr>
-								<th>Українська назва:</th>
+								<th title="Основна українська назва">Українська назва:</th>
 								<td><input name="ukr_name_1" maxlength="68" title="" class="anime-info" readonly="" value="Моя молодша сестра не настільки вже й гарненька" /></td><td><span class="pull-right" style="line-height: 14px;"><img src="images/flags/ua.png" alt="ua"></span></td>
 							</tr>
 							<tr>
-								<th>Виробництво:</th>
-								<td colspan="2"><input name="" maxlength="68" title="" class="anime-info" readonly="" value="Японія" /></td>
+								<th title="Альтернативні назви через кому">Ще відоме як:</th>
+								<td title="Вводіть альтернативні назви через кому" colspan="2"><input name="other_nazv" maxlength="68" title="Вводіть альтернативні назви через кому" class="anime-info dimmed" readonly="" value="Не додано" /></td>
 							</tr>
 							<tr>
 								<th>Тип:</th>
-								<td style="padding-right:0;"><select style="display:none;" id="select-type"><option value="0">Не обрано</option><option value="1">Серіал</option><option value="2">Кіно</option></select><input id="input-type" name="type_film_id" maxlength="68" title="" class="anime-info" readonly=""  style="width:250px" value="Не обрано" /><span class="pull-right"><em>Серій:</em></span></td><td><input maxlength="4" name="series_count" id="series_count" class="anime-info pull-right" style="width:32px;text-align:right;font-size:14px;" readonly="" value="25" /></td>
+								<td style="padding-right:0;"><select style="display:none;" id="select-type"><option value="0">Не обрано</option><option value="1">Серіал</option><option value="2">Кіно</option></select><input id="input-type" name="type_film_id" maxlength="68" title="" class="dimmed anime-info" readonly=""  style="width:250px" value="Не обрано" /><span class="pull-right"><em>Серій:</em></span></td><td><input maxlength="4" name="series_count" id="series_count" class="anime-info pull-right" style="width:32px;text-align:right;font-size:14px;" readonly="" value="25" /></td>
 							</tr>
 							<tr>
 								<th>Жанри:</th>
@@ -265,13 +265,29 @@
 <script type="text/javascript">
 	$("#select-type").change(function() {
 		$("#input-type").val($("#select-type").find(":selected").text());
+		if($("#select-type").val()=='0') $("#input-type").addClass("dimmed");
+		else $("#input-type").removeClass("dimmed");
 		$("#input-type").trigger('input');
 	});
+	$(".anime-info[name='other_nazv']").on("focus", function() {
+		if($(this).attr('readonly'))return;
+		if($(this).val()=='Не додано'){
+			$(this).val('');
+			$(this).removeClass('dimmed');
+		}
+	});	
+	$(".anime-info[name='other_nazv']").on("blur", function() {
+		if($(this).attr('readonly'))return;
+		if($(this).val()==''){
+			$(this).val('Не додано');
+			$(this).addClass('dimmed');			
+		}
+	});	
 	$("#genre-post").on("click", function() {
 		if(!$(".anime-title").attr('readonly') && $('#ukr_name_genre').val()){
 			add_genres();
 		}
-	});	
+	});
 	$(document).on("click", ".token-input-token-facebook p", function() {
 		alert("Перехід на "+$(this).text());
 	});
@@ -398,6 +414,8 @@
 				$(".anime-info[name='ukr_name_1']").attr('value', data.ukr_name_1);
 				$("#select-type").val(data.type_film_id);
 				$("#input-type").val($("#select-type option:selected").text());
+				if(data.type_film_id=='0') $("#input-type").addClass("dimmed");
+				else $("#input-type").removeClass("dimmed");
 				$("#series_count").val(data.series_count);
 				$("#synopsis").html(data.sinopsis);
 				$('.notice').html('Все ок!');
@@ -566,7 +584,6 @@
 				$("#select-type").append($("<option />").val(0).text("Не обрано"));
 				$.each(data, function() {
 					$("#select-type").append($("<option />").val(this.tid).text(this.name));
-					if(this.tid<0) $("#select-type").val(this.tid);
 				});
 				$('.notice').html('Все ок!');
 			},
@@ -644,7 +661,7 @@
 			//autoDimensions: false,
 			padding:30
 		});
-		get_types(anime_id);		
+		get_types(anime_id);
 	});	
 </script>
 
