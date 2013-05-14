@@ -435,12 +435,12 @@
 		$('.anime-info').each(function(i, obj) {
 			if($(this).attr("name") && $(this).attr("data-changed")){
 				if($(this).attr('id')=='input-type') myData[$(this).attr("name")]=$('#select-type').val();
-				else myData[$(this).attr("name")]=$(this).val().replace(/'/g,"\\'");
+				else myData[$(this).attr("name")]=$(this).val().replace(/'/g,"\\\\'").replace(/"/g,'\\"');
 				$(this).removeAttr("data-changed");
 			}
 		});	
 		if($("#synopsis").attr("data-changed")){
-			myData['sinopsis']=$("#synopsis").html().replace(/'/g,"\\'");
+			myData['sinopsis']=$("#synopsis").html().replace(/'/g,"\\\\'").replace(/"/g,'\\"');
 		}
 		$.ajax({ 
 			type: 'POST', 
