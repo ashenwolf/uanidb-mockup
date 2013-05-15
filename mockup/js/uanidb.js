@@ -1,23 +1,8 @@
 $("#select-type").change(function() {
-	$("#input-type").val($("#select-type").find(":selected").text());
-	if($("#select-type").val()=='0') $("#input-type").addClass("dimmed");
-	else $("#input-type").removeClass("dimmed");
+	if($("#select-type").val()=='0') $("#input-type").val('');
+	else $("#input-type").val($("#select-type").find(":selected").text());
 	$("#input-type").trigger('input');
 });
-$(".anime-info[name='other_nazv']").on("focus", function() {
-	if($(this).attr('readonly'))return;
-	if($(this).val()=='Не додано'){
-		$(this).val('');
-		$(this).removeClass('dimmed');
-	}
-});	
-$(".anime-info[name='other_nazv']").on("blur", function() {
-	if($(this).attr('readonly'))return;
-	if($(this).val()==''){
-		$(this).val('Не додано');
-		$(this).addClass('dimmed');			
-	}
-});	
 $("#genre-post").on("click", function() {
 	if(!$(".anime-title").attr('readonly') && $('#ukr_name_genre').val()){
 		add_genres();
@@ -148,9 +133,8 @@ function get_anime(id){
 			$(".anime-info[name='jap_name_kan_1']").attr('value', data.jap_name_kan_1);
 			$(".anime-info[name='ukr_name_1']").attr('value', data.ukr_name_1);
 			$("#select-type").val(data.type_film_id);
-			$("#input-type").val($("#select-type option:selected").text());
-			if(data.type_film_id=='0') $("#input-type").addClass("dimmed");
-			else $("#input-type").removeClass("dimmed");
+			if($("#select-type").val()=='0') $("#input-type").val('');
+			else $("#input-type").val($("#select-type option:selected").text());			
 			$("#series_count").val(data.series_count);
 			$("#synopsis").html(data.sinopsis);
 			$('.notice').html('Все ок!');
@@ -380,7 +364,7 @@ function fancyboxLoad(){
 		$('#jap_rom_name_genre').val('');
 		$('#jap_kana_name_genre').val('');
 		$('#opys').val('');
-		//$('#fancybox-wrap').css('left', parseInt(($(window).width() / 2) - ($('#fancybox-wrap').width() / 2), 10));
+		$('#fancybox-wrap').css('left','20');
 		return true;
 	}		
 }

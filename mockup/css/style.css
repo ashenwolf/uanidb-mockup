@@ -429,7 +429,7 @@ textarea.anime-synopsis{
 
 #main-image a img{
 	width:265px;
-	height:323px;
+	height:360px;
 	max-width: 100%;
 }
 
@@ -493,8 +493,8 @@ textarea.anime-synopsis{
     -webkit-border-radius: 5px;
 }
 
-div#fancybox-wrap {
-	//left: 320px !important;
+.fancybox-wrap {
+	left: 320px !important;
 }
 
 #select-type{

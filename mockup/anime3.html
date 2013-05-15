@@ -104,11 +104,15 @@
 							</tr>
 							<tr>
 								<th title="Альтернативні назви через кому">Ще відоме як:</th>
-								<td title="Вводіть альтернативні назви через кому" colspan="2"><input name="other_nazv" maxlength="68" title="Вводіть альтернативні назви через кому" class="anime-info dimmed" readonly="" value="Не додано" /></td>
+								<td title="Вводіть альтернативні назви через кому" colspan="2"><input name="other_nazv" maxlength="68" title="Вводіть альтернативні назви через кому" class="anime-info" readonly="" placeholder="Альтернативні назви" /></td>
+							</tr>
+							<tr>
+								<th>Студія:</th>
+								<td id="td-studio"><input id="anime-studio" name="" maxlength="68" title="" class="anime-info" readonly="" placeholder="Виробник цього аніме" /></td><td><a title="Додати студію" href="#add_studio" id="add-studio-lightbox" class="icon-plus lightbox pull-right"></a></td>
 							</tr>
 							<tr>
 								<th>Тип:</th>
-								<td style="padding-right:0;"><select style="display:none;" id="select-type"><option value="0">Не обрано</option><option value="1">Серіал</option><option value="2">Кіно</option></select><input id="input-type" name="type_film_id" maxlength="68" title="" class="dimmed anime-info" readonly=""  style="width:250px" value="Не обрано" /><span class="pull-right"><em>Серій:</em></span></td><td><input maxlength="4" name="series_count" id="series_count" class="anime-info pull-right" style="width:32px;text-align:right;font-size:14px;" readonly="" value="25" /></td>
+								<td style="padding-right:0;"><select style="display:none;" id="select-type"><option value="0">Не обрано</option><option value="1">Серіал</option><option value="2">Кіно</option></select><input id="input-type" name="type_film_id" maxlength="68" title="" class="anime-info" readonly=""  style="width:250px" placeholder="Не обрано" /><span class="pull-right"><em>Серій:</em></span></td><td><input maxlength="4" name="series_count" id="series_count" class="anime-info pull-right" style="width:32px;text-align:right;font-size:14px;" readonly="" value="25" /></td>
 							</tr>
 							<tr>
 								<th>Жанри:</th>
@@ -274,6 +278,7 @@ $( document ).ready(function() {
 	$('.lightbox').fancybox({
 		onStart: fancyboxLoad,
 		scrolling: 'no',
+		autoCenter : true,
 		//width: 475,
 		//height: 650,
 		//autoDimensions: false,
