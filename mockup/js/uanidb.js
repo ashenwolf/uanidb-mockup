@@ -1,5 +1,3 @@
-var anime_id=1; //temp, ignore it
-
 $("#select-type").change(function() {
 	$("#input-type").val($("#select-type").find(":selected").text());
 	if($("#select-type").val()=='0') $("#input-type").addClass("dimmed");
@@ -313,7 +311,7 @@ function get_types(id){
 		data: { aid: id }, 
 		dataType: 'json',
 		beforeSend: function (){
-			$('.notice').html('Працюю з базою...');
+			//$('.notice').html('Працюю з базою...');
 		},
 		success: function (data) { 
 			$("#select-type").val('');
@@ -322,7 +320,7 @@ function get_types(id){
 			$.each(data, function() {
 				$("#select-type").append($("<option />").val(this.tid).text(this.name));
 			});
-			$('.notice').html('Все ок!');
+			//$('.notice').html('Все ок!');
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			alert(textStatus, errorThrown);
