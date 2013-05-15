@@ -429,8 +429,12 @@ textarea.anime-synopsis{
 
 #main-image a img{
 	width:265px;
-	height:360px;
+	height:365px;
 	max-width: 100%;
+}
+
+#main-image a{
+	margin-top:0;
 }
 
 .foot-menu{
