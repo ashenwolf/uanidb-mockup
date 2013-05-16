@@ -197,16 +197,8 @@ function get_anime_genres(id){
 			$('.notice').html('Працюю з базою...');
 		},
 		success: function (data) { 
-			//genres_all=[];
 			genres_populate=[];
 			genres_populate=data;
-			/*for (var i = 0; i < data.length; i++) {
-				if(data[i].flag==1){
-					genres_populate.push(data[i]);
-					//genres_all.push(data[i]);
-				}
-				//else genres_all.push(data[i]);
-			}*/
 			$('#anime-genres').tokenInput('destroy');
 			init_genres();
 			$('.notice').html('Все ок!');
