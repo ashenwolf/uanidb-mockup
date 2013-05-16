@@ -132,6 +132,7 @@ function get_anime(id){
 			$(".anime-info[name='eng_name_1']").attr('value', data.eng_name_1);
 			$(".anime-info[name='jap_name_kan_1']").attr('value', data.jap_name_kan_1);
 			$(".anime-info[name='ukr_name_1']").attr('value', data.ukr_name_1);
+			$(".anime-info[name='other_nazv']").attr('value', data.other_nazv);
 			$("#select-type").val(data.type_film_id);
 			if($("#select-type").val()=='0') $("#input-type").val('');
 			else $("#input-type").val($("#select-type option:selected").text());			
