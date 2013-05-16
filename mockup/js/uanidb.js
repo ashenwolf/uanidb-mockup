@@ -309,7 +309,6 @@ $("#anime-error").click(function (e) {
 	alert(JSON.stringify($('#anime-genres').tokenInput("get")));
 });
 
-var genres_all=[];
 var genres_populate=[];
 
 function init_genres(){
