@@ -308,7 +308,6 @@ function add_genres(){
 				$('#genre-notice').addClass('success');
 				$('#genre-notice').html('Жанр додано!'+'<a href="#close" class="icon-remove"></a>');
 				if($("#add_genre").attr("data-id")){
-					alert($('#add_genre').attr("data-id"));
 					$('#anime-genres').tokenInput("remove", {id: $('#add_genre').attr("data-id")});
 					$('#add_genre').removeAttr("data-id");
 				}
