@@ -279,7 +279,7 @@ $.TokenList = function (input, url_or_data, settings) {
 
             switch(event.keyCode) {
                 /*case KEY.LEFT:
-                case KEY.RIGHT:
+                case KEY.RIGHT:*/
                 case KEY.UP:
                 case KEY.DOWN:
                     if(!$(this).val()) {
@@ -316,7 +316,7 @@ $.TokenList = function (input, url_or_data, settings) {
                     return false;
                     break;
 
-                case KEY.BACKSPACE:
+                /*case KEY.BACKSPACE:
                     previous_token = input_token.prev();
 
                     if(!$(this).val().length) {

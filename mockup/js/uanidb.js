@@ -12,6 +12,7 @@ $(document).on("click", ".token-input-token-facebook p", function() {
 	alert("Перехід на "+$(this).text());
 });
 $(document).on("mouseenter", ".token-input-token-facebook", function() {
+	$("p",this).attr('title', 'Перейти на сторінку жанра');
 	$("p",this).css("text-decoration","underline");
 	$("p",this).css('cursor', 'pointer');
 });	
@@ -43,10 +44,21 @@ $("#synopsis").on("keyup", function() {
 $("#anime-edit").click(function (e) {
 	if($(".anime-title").attr('readonly')){
 		$("#select-type").show();
-		$("#input-type").hide();			
+		$("#input-type").hide();		
 		$(document).off('click', '.token-input-token-facebook p');
+		$(document).on("click", ".token-input-token-facebook", function() {
+			alert("Редагування "+$(this).text());
+		});	
 		$(document).off('mouseenter', '.token-input-token-facebook');
+		$(document).on("mouseenter", ".token-input-token-facebook", function() {
+			$("p",this).attr('title', 'Клікніть для редагування жанру');
+			$("p",this).css('cursor', 'pointer');
+			$(this).css('cursor', 'pointer');
+		});
 		$(document).off('mouseleave', '.token-input-token-facebook');
+		$(document).on("mouseleave", ".token-input-token-facebook", function() {
+			$(this).css('cursor', 'auto');
+		});
 		$(".anime-title").attr('readonly', false);
 		$(".anime-info").attr('readonly', false);
 		$("#synopsis").attr('contenteditable', true);
@@ -70,13 +82,19 @@ $("#anime-edit").click(function (e) {
 		if($("#anime-genres").attr("data-changed") && $(".anime-title").attr('data-anime-id')) {				
 			update_genres($(".anime-title").attr('data-anime-id'));												
 		}
+		$(document).off("click", ".token-input-token-facebook p");
+		$(document).off("click", ".token-input-token-facebook");
 		$(document).on("click", ".token-input-token-facebook p", function() {
 			alert("Перехід на "+$(this).text());
 		});
+		$(document).off('mouseenter', '.token-input-token-facebook');
 		$(document).on("mouseenter", ".token-input-token-facebook", function() {
+			$(this).attr('title', '');
+			$("p",this).attr('title', 'Перейти на сторінку жанра');
 			$("p",this).css("text-decoration","underline");
 			$("p",this).css('cursor', 'pointer');
 		});	
+		$(document).off('mouseleave', '.token-input-token-facebook');
 		$(document).on("mouseleave", ".token-input-token-facebook", function() {
 			$("p",this).css("text-decoration","none");
 			$("p",this).css('cursor', 'auto');
