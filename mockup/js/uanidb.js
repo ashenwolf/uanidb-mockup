@@ -452,7 +452,7 @@ function fancyboxLoad(){
 		if(!$('#genre-post').attr("data-edit")){
 			$('#genre-post').text('Додати жанр');
 			this.title='Роширене додавання жанру';
-		}
+		} 
 		else {
 			$('#genre-post').text('Редагувати жанр');
 			this.title='Редагування жанру';
