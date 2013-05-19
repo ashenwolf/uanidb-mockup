@@ -449,8 +449,14 @@ function fancyboxLoad(){
 		$('#jap_rom_name_genre').val('');
 		$('#jap_kana_name_genre').val('');
 		$('#opys').val('');
-		if(!$('#genre-post').attr("data-edit"))$('#genre-post').text('Додати жанр');
-		else $('#genre-post').text('Редагувати жанр');
+		if(!$('#genre-post').attr("data-edit")){
+			$('#genre-post').text('Додати жанр');
+			this.title='Роширене додавання жанру';
+		}
+		else {
+			$('#genre-post').text('Редагувати жанр');
+			this.title='Редагування жанру';
+		}
 		return true;
 	}		
 }
