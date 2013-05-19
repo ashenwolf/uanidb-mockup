@@ -1,3 +1,15 @@
+$(".form-input").on("input", function() {
+	$("#add_genre").attr("data-changed","-^0");
+});	
+$(".form-textarea").on("input", function() {
+	$("#add_genre").attr("data-changed","-^0");
+});	
+$(document).on('#fancybox-content').keypress(function (e) {
+	if (e.which == 13 && $("#add_genre").attr("data-changed")) {
+		$('#genre-post').trigger('click');	
+		return false;
+	}
+});
 $("#select-type").change(function() {
 	if($("#select-type").val()=='0') $("#input-type").val('');
 	else $("#input-type").val($("#select-type").find(":selected").text());
@@ -55,9 +67,15 @@ $("#anime-edit").click(function (e) {
 			var selected_genre = $(input_genres).filter(function(){
 				return this.name == text;
 			});
-			get_genre(selected_genre[0].id);			
-			$('#genre-post').attr('data-edit', selected_genre[0].id);
-			$('#add-genre-lightbox').trigger('click');
+			if(!isNaN(parseInt(selected_genre[0].id)) && selected_genre[0].id!=selected_genre[0].name){
+				get_genre(selected_genre[0].id);			
+				$('#genre-post').attr('data-edit', selected_genre[0].id);
+				$('#add-genre-lightbox').trigger('click');
+			}else{
+				$('#add-genre-lightbox').trigger('click');
+				$("#add_genre").attr("data-changed", selected_genre[0].id);
+				$('#ukr_name_genre').val(selected_genre[0].id);
+			}			
 		});	
 		$(document).off('mouseenter', '.token-input-token-facebook');
 		$(document).on("mouseenter", ".token-input-token-facebook", function() {
@@ -289,6 +307,10 @@ function add_genres(){
 			if (!isNaN(parseInt(data))){
 				$('#genre-notice').addClass('success');
 				$('#genre-notice').html('Жанр додано!'+'<a href="#close" class="icon-remove"></a>');
+				if($("#add_genre").attr("data-changed")!='-^0'){
+					alert($('#add_genre').attr("data-changed"));
+					$('#anime-genres').tokenInput("remove", {id: $('#add_genre').attr("data-changed")});
+				}
 				$('#anime-genres').tokenInput("add", {id: data, name: $('#ukr_name_genre').val()});
 				$('#token-input-anime-genres').css('width','20px');
 				$.fancybox.close();			
@@ -424,7 +446,11 @@ function init_genres(){
 	if($("#anime-genres").attr("data-changed"))$("#anime-genres").removeAttr("data-changed");
 }
 
-function genres_change(){
+function genres_change(item){
+	if(item.name.length<2){
+		$('#anime-genres').tokenInput("remove", {id: item.id}); 
+		return false;
+	}
 	if(!$("#anime-genres").attr("data-changed")) {
 		$("#anime-genres").attr("data-changed","1");
 	}
@@ -452,7 +478,7 @@ function fancyboxLoad(){
 		if(!$('#genre-post').attr("data-edit")){
 			$('#genre-post').text('Додати жанр');
 			this.title='Роширене додавання жанру';
-		} 
+		}
 		else {
 			$('#genre-post').text('Редагувати жанр');
 			this.title='Редагування жанру';
@@ -466,5 +492,5 @@ function fancyboxClose(){
 		$('#genre-post').removeAttr("data-edit");
 		$('#genre-post').text('Додати жанр');
 	}
-	
+	$("#add_genre").removeAttr("data-changed");
 }
