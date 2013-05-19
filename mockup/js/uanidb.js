@@ -308,7 +308,7 @@ function add_genres(){
 				$('#genre-notice').addClass('success');
 				$('#genre-notice').html('Жанр додано!'+'<a href="#close" class="icon-remove"></a>');
 				if($("#add_genre").attr("data-changed")!='-^0'){
-					alert($('#add_genre').attr("data-changed")); 
+					alert($('#add_genre').attr("data-changed"));
 					$('#anime-genres').tokenInput("remove", {id: $('#add_genre').attr("data-changed")});
 				}
 				$('#anime-genres').tokenInput("add", {id: data, name: $('#ukr_name_genre').val()});
