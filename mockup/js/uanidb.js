@@ -1,4 +1,4 @@
-$(".form-input").on("input", function(){
+$(".form-input").on("input", function() {
 	$("#add_genre").attr("data-changed","1");
 });	
 $(".form-textarea").on("input", function() {
