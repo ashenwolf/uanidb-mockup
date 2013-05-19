@@ -47,7 +47,15 @@ $("#anime-edit").click(function (e) {
 		$("#input-type").hide();		
 		$(document).off('click', '.token-input-token-facebook p');
 		$(document).on("click", ".token-input-token-facebook", function() {
-			alert("Редагування "+$(this).text());
+			var text=$("p",this).text();
+			var input_genres=$('#anime-genres').tokenInput('get',{name: text});			
+			var selected_genre = $(input_genres).filter(function(){
+				return this.name == text;
+			});
+			//alert(selected_genre[0].id+$(this).text());			
+			get_genre(selected_genre[0].id);
+			$('#genre-post').remove();
+			$('#add-genre-lightbox').trigger('click');
 		});	
 		$(document).off('mouseenter', '.token-input-token-facebook');
 		$(document).on("mouseenter", ".token-input-token-facebook", function() {
@@ -295,6 +303,28 @@ function add_genres(){
 			$('#genre-notice').removeClass('success');
 			$('#genre-notice').html(jqXHR+' | '+textStatus+' | '+errorThrown+'<a href="#close" class="icon-remove"></a>');
 			return false;
+		}
+	});
+}
+
+function get_genre(id){		
+	$.ajax({ 
+		type: 'GET', 
+		url: 'http://oilreview.x10.mx/genres.php', 
+		data: { g: id }, 
+		dataType: 'json',
+		beforeSend: function (){
+			$('.notice').html('Працюю з базою...');
+		},
+		success: function (data) { 
+			$('#ukr_name_genre').val(data.ukr_name_genre);
+			$('#jap_kana_name_genre').val(data.jap_kana_name_genre);
+			$('#jap_rom_name_genre').val(data.jap_rom_name_genre);
+			$('#opys').val(data.opys);
+			$('.notice').html('Все ок!');
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert(textStatus, errorThrown);
 		}
 	});
 }
