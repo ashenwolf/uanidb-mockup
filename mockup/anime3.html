@@ -277,6 +277,7 @@ $( document ).ready(function() {
 	init_genres();
 	$('.lightbox').fancybox({
 		onStart: fancyboxLoad,
+		onClosed: fancyboxClose,
 		scrolling: 'no',
 		autoCenter : true,
 		//width: 475,

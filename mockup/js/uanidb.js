@@ -5,7 +5,10 @@ $("#select-type").change(function() {
 });
 $("#genre-post").on("click", function() {
 	if(!$(".anime-title").attr('readonly') && $('#ukr_name_genre').val()){
-		add_genres();
+		if($('#genre-post').attr("data-edit")){
+			edit_genres($('#genre-post').attr("data-edit"));
+		}
+		else add_genres();
 	}
 });
 $(document).on("click", ".token-input-token-facebook p", function() {
@@ -52,9 +55,8 @@ $("#anime-edit").click(function (e) {
 			var selected_genre = $(input_genres).filter(function(){
 				return this.name == text;
 			});
-			//alert(selected_genre[0].id+$(this).text());			
-			get_genre(selected_genre[0].id);
-			$('#genre-post').remove();
+			get_genre(selected_genre[0].id);			
+			$('#genre-post').attr('data-edit', selected_genre[0].id);
 			$('#add-genre-lightbox').trigger('click');
 		});	
 		$(document).off('mouseenter', '.token-input-token-facebook');
@@ -314,17 +316,60 @@ function get_genre(id){
 		data: { g: id }, 
 		dataType: 'json',
 		beforeSend: function (){
-			$('.notice').html('Працюю з базою...');
+			$('#genre-notice').html('Зчитую...' + '<a href="#close" class="icon-remove"></a>');
+			$('#genre-notice').show();
 		},
 		success: function (data) { 
 			$('#ukr_name_genre').val(data.ukr_name_genre);
 			$('#jap_kana_name_genre').val(data.jap_kana_name_genre);
 			$('#jap_rom_name_genre').val(data.jap_rom_name_genre);
 			$('#opys').val(data.opys);
-			$('.notice').html('Все ок!');
+			$('#genre-notice').hide();
 		},
 		error: function(jqXHR, textStatus, errorThrown){
-			alert(textStatus, errorThrown);
+			$('#genre-notice').removeClass('success');
+			$('#genre-notice').html(jqXHR+' | '+textStatus+' | '+errorThrown+'<a href="#close" class="icon-remove"></a>');
+		}
+	});
+}
+
+function edit_genres(id){
+	var myData={};
+	myData['gid']=id;
+	myData['ukr_name_genre']=$('#ukr_name_genre').val();
+	myData['jap_rom_name_genre']=$('#jap_rom_name_genre').val();
+	myData['jap_kana_name_genre']=$('#jap_kana_name_genre').val();
+	myData['opys']=$('#opys').val();
+	$.ajax({ 
+		type: 'POST', 
+		crossDomain:true,
+		url: 'http://oilreview.x10.mx/genres.php', 
+		data: {genre_update:JSON.stringify(myData)}, 
+		dataType: 'json',
+		beforeSend: function (){
+			$('#genre-notice').html('Працюю з базою...' + '<a href="#close" class="icon-remove"></a>');
+			$('#genre-notice').show();
+		},
+		success: function (data) {	
+			if (!isNaN(parseInt(data))){
+				$('#genre-notice').addClass('success');
+				$('#genre-notice').html('Жанр відредаговано!'+'<a href="#close" class="icon-remove"></a>');
+				$('#token-input-anime-genres').css('width','20px');
+				$('#genre-post').removeAttr("data-edit");				
+				$.fancybox.close();				
+				$('#token-input-anime-genres').focus();
+				return true;
+			}
+			else{
+				$('#genre-notice').removeClass('success');
+				$('#genre-notice').html(data+'<a href="#close" class="icon-remove"></a>');
+				return false;
+			}
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			$('#genre-notice').removeClass('success');
+			$('#genre-notice').html(jqXHR+' | '+textStatus+' | '+errorThrown+'<a href="#close" class="icon-remove"></a>');
+			return false;
 		}
 	});
 }
@@ -404,7 +449,16 @@ function fancyboxLoad(){
 		$('#jap_rom_name_genre').val('');
 		$('#jap_kana_name_genre').val('');
 		$('#opys').val('');
-		$('#fancybox-wrap').css('left','20');
+		if(!$('#genre-post').attr("data-edit"))$('#genre-post').text('Додати жанр');
+		else $('#genre-post').text('Редагувати жанр');
 		return true;
 	}		
+}
+
+function fancyboxClose(){
+	if($('#genre-post').attr("data-edit")){
+		$('#genre-post').removeAttr("data-edit");
+		$('#genre-post').text('Додати жанр');
+	}
+	
 }
