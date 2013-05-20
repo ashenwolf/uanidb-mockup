@@ -90,7 +90,8 @@ $("#anime-edit").click(function (e) {
 		$(".anime-title").attr('readonly', false);
 		$(".anime-info").attr('readonly', false);
 		$("#synopsis").attr('contenteditable', true);
-		$('#anime-genres').tokenInput("toggleDisabled");			
+		$('#anime-genres').tokenInput("toggleDisabled");	
+		$('#anime-studios').tokenInput("toggleDisabled");		
 		$(this).html( '<i class="icon-edit"></i> Закінчити редагування');
 		$("#info-edit .icon-edit").css('color', 'rgb(238, 86, 15)');
 		$(".block-content").css('-moz-box-shadow', '0 0 8px rgb(255, 144, 42)');
@@ -130,6 +131,7 @@ $("#anime-edit").click(function (e) {
 		$("#select-type").hide();
 		$("#input-type").show();	
 		$('#anime-genres').tokenInput("toggleDisabled");
+		$('#anime-studios').tokenInput("toggleDisabled");
 		$(".anime-title").attr('readonly', true);
 		$(".anime-info").attr('readonly', true);
 		$("#synopsis").attr('contenteditable', false);
@@ -148,11 +150,13 @@ $("#ANN_info").click(function (e) {
 			get_anime(anime_id);
 			//get_types(anime_id);
 			get_anime_genres(anime_id++);
+			get_anime_studios(anime_id++);
 			return false;
 		}else{
 			get_anime(anime_id); 
 			//get_types(anime_id);
 			get_anime_genres(anime_id);
+			get_anime_studios(anime_id);
 			anime_id=1; 
 			return false;
 		}
@@ -187,7 +191,7 @@ function get_anime(id){
 			$('.notice').html('Все ок!');
 		},
 		error: function(jqXHR, textStatus, errorThrown){
-			alert(textStatus, errorThrown);
+			$('.notice').html(jqXHR+' | '+textStatus+' | '+errorThrown);
 		}
 	});
 }
@@ -233,6 +237,8 @@ function update_anime(id){
 	});
 }
 
+// genres
+
 function get_anime_genres(id){		
 	$.ajax({ 
 		type: 'GET', 
@@ -250,7 +256,7 @@ function get_anime_genres(id){
 			$('.notice').html('Все ок!');
 		},
 		error: function(jqXHR, textStatus, errorThrown){
-			alert(textStatus, errorThrown);
+			$('.notice').html(jqXHR+' | '+textStatus+' | '+errorThrown);
 		}
 	});
 }
@@ -278,9 +284,7 @@ function update_genres(id){
 			return 0;
 		},
 		error: function(jqXHR, textStatus, errorThrown){
-			alert(jqXHR);
-			alert(textStatus);
-			alert(errorThrown);
+			$('.notice').html(jqXHR+' | '+textStatus+' | '+errorThrown);
 			return 1;
 		}
 	});
@@ -398,6 +402,30 @@ function edit_genres(id){
 	});
 }
 
+// studios
+
+function get_anime_studios(id){		
+	$.ajax({ 
+		type: 'GET', 
+		url: 'http://oilreview.x10.mx/studios.php', 
+		data: { aid: id }, 
+		dataType: 'json',
+		beforeSend: function (){
+			$('.notice').html('Працюю з базою...');
+		},
+		success: function (data) { 
+			studios_populate=[];
+			studios_populate=data;
+			$('#anime-studios').tokenInput('destroy');
+			init_studios();
+			$('.notice').html('Все ок!');
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			$('.notice').html(jqXHR+' | '+textStatus+' | '+errorThrown);
+		}
+	});
+}
+
 function get_types(id){		
 	$.ajax({ 
 		type: 'GET', 
@@ -427,6 +455,7 @@ $("#anime-error").click(function (e) {
 });
 
 var genres_populate=[];
+var studios_populate=[];
 
 function init_genres(){
 	$('#anime-genres').tokenInput("http://oilreview.x10.mx/genres.php", {
@@ -455,6 +484,36 @@ function genres_change(item){
 	}
 	if(!$("#anime-genres").attr("data-changed")) {
 		$("#anime-genres").attr("data-changed","1");
+	}
+}
+
+function init_studios(){
+	$('#anime-studios').tokenInput("http://oilreview.x10.mx/studios.php", {
+			prePopulate: studios_populate,
+			preventDuplicates: true,
+			tokenLimit: 10,
+			minChars: 2,
+			crossDomain: false,
+			theme: "facebook",
+			hintText: "Текст+Пошук існуючих або Текст+Enter: додати нову",
+			searchingText: "Шукаю...",
+			noResultsText: "Не знайдено",
+			disabled: true,
+			searchDelay: 100,
+			onAdd: studios_change,
+			onDelete: studios_change,
+			allowFreeTagging: true
+	});		
+	if($("#anime-studios").attr("data-changed"))$("#anime-studios").removeAttr("data-changed");
+}
+
+function studios_change(item){
+	if(item.name.length<2){
+		$('#anime-studios').tokenInput("remove", {id: item.id}); 
+		return false;
+	}
+	if(!$("#anime-studios").attr("data-changed")) {
+		$("#anime-studios").attr("data-changed","1");
 	}
 }
 
