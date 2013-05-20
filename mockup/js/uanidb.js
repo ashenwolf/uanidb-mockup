@@ -63,19 +63,23 @@ $("#anime-edit").click(function (e) {
 		$(document).off('click', '.token-input-token-facebook p');
 		$(document).on("click", ".token-input-token-facebook", function() {
 			var text=$("p",this).text();
-			var input_genres=$('#anime-genres').tokenInput('get',{name: text});			
-			var selected_genre = $(input_genres).filter(function(){
-				return this.name == text;
-			});
-			if(selected_genre[0].id!=selected_genre[0].name){
-				get_genre(selected_genre[0].id);			
-				$('#genre-post').attr('data-edit', selected_genre[0].id);
-				$('#add-genre-lightbox').trigger('click');
-			}else{
-				$('#add-genre-lightbox').trigger('click');
-				$("#add_genre").attr("data-id", selected_genre[0].id);
-				$('#ukr_name_genre').val(selected_genre[0].id);
-			}			
+			if($(this).closest('#td-studios').length){
+				alert ("studio handler to be: "+text);
+			}else{				
+				var input_genres=$('#anime-genres').tokenInput('get',{name: text});			
+				var selected_genre = $(input_genres).filter(function(){
+					return this.name == text;
+				});
+				if(selected_genre[0].id!=selected_genre[0].name){
+					get_genre(selected_genre[0].id);			
+					$('#genre-post').attr('data-edit', selected_genre[0].id);
+					$('#add-genre-lightbox').trigger('click');
+				}else{
+					$('#add-genre-lightbox').trigger('click');
+					$("#add_genre").attr("data-id", selected_genre[0].id);
+					$('#ukr_name_genre').val(selected_genre[0].id);
+				}	
+			}
 		});	
 		$(document).off('mouseenter', '.token-input-token-facebook');
 		$(document).on("mouseenter", ".token-input-token-facebook", function() {
@@ -152,7 +156,7 @@ $("#ANN_info").click(function (e) {
 		if(anime_id<10){
 			get_anime(anime_id);
 			//get_types(anime_id);
-			get_anime_genres(anime_id++);
+			get_anime_genres(anime_id);
 			get_anime_studios(anime_id++);
 			return false;
 		}else{
