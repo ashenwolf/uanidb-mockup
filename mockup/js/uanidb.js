@@ -360,10 +360,10 @@ function get_genre(id){
 function edit_genres(id){
 	var myData={};
 	myData['gid']=id;
-	myData['ukr_name_genre']=$('#ukr_name_genre').val();
-	myData['jap_rom_name_genre']=$('#jap_rom_name_genre').val();
-	myData['jap_kana_name_genre']=$('#jap_kana_name_genre').val();
-	myData['opys']=$('#opys').val().replace(/"/g,'\\"');;
+	myData['ukr_name_genre']=$('#ukr_name_genre').val().replace(/"/g,'\\"');
+	myData['jap_rom_name_genre']=$('#jap_rom_name_genre').val().replace(/"/g,'\\"');
+	myData['jap_kana_name_genre']=$('#jap_kana_name_genre').val().replace(/"/g,'\\"');
+	myData['opys']=$('#opys').val().replace(/"/g,'\\"');
 	$.ajax({ 
 		type: 'POST', 
 		crossDomain:true,
