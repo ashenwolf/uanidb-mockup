@@ -110,7 +110,10 @@ $("#anime-edit").click(function (e) {
 		}
 		if($("#anime-genres").attr("data-changed") && $(".anime-title").attr('data-anime-id')) {				
 			update_genres($(".anime-title").attr('data-anime-id'));												
-		}
+		}		
+		if($("#anime-studios").attr("data-changed") && $(".anime-title").attr('data-anime-id')) {				
+			update_studios($(".anime-title").attr('data-anime-id'));												
+		}		
 		$(document).off("click", ".token-input-token-facebook p");
 		$(document).off("click", ".token-input-token-facebook");
 		$(document).on("click", ".token-input-token-facebook p", function() {
@@ -425,6 +428,37 @@ function get_anime_studios(id){
 		}
 	});
 }
+
+function update_studios(id){
+	var myData={};
+	myData['anime_id']=id;
+	var studios=$('#anime-studios').tokenInput("get");
+	for(var i=0;i<studios.length;i++){
+		myData[studios[i].id]=studios[i].name;
+	}
+	$.ajax({ 
+		type: 'POST', 
+		crossDomain:true,
+		url: 'http://oilreview.x10.mx/studios.php', 
+		data: {studios_update:JSON.stringify(myData)}, 
+		dataType: 'json',
+		beforeSend: function (){
+			$('.notice').html('Працюю з базою...');
+		},
+		success: function (data) {	
+			$("#anime-studios").removeAttr("data-changed");
+			if (data=="0")$('.notice').html('Всі зміни записано!');
+			else $('.notice').html(data);
+			return 0;
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			$('.notice').html(jqXHR+' | '+textStatus+' | '+errorThrown);
+			return 1;
+		}
+	});
+}
+
+//-----------------------------------
 
 function get_types(id){		
 	$.ajax({ 
