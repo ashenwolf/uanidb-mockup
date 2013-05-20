@@ -67,7 +67,7 @@ $("#anime-edit").click(function (e) {
 			var selected_genre = $(input_genres).filter(function(){
 				return this.name == text;
 			});
-			if(!isNaN(parseInt(selected_genre[0].id)) && selected_genre[0].id!=selected_genre[0].name){
+			if(selected_genre[0].id!=selected_genre[0].name){
 				get_genre(selected_genre[0].id);			
 				$('#genre-post').attr('data-edit', selected_genre[0].id);
 				$('#add-genre-lightbox').trigger('click');
@@ -340,6 +340,7 @@ function get_genre(id){
 		beforeSend: function (){
 			$('#genre-notice').html('Зчитую...' + '<a href="#close" class="icon-remove"></a>');
 			$('#genre-notice').show();
+			$('body').css('cursor', 'wait');
 		},
 		success: function (data) { 
 			$('#ukr_name_genre').val(data.ukr_name_genre);
@@ -347,6 +348,7 @@ function get_genre(id){
 			$('#jap_rom_name_genre').val(data.jap_rom_name_genre);
 			$('#opys').val(data.opys);
 			$('#genre-notice').hide();
+			$('body').css('cursor', 'auto');
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			$('#genre-notice').removeClass('success');
@@ -361,7 +363,7 @@ function edit_genres(id){
 	myData['ukr_name_genre']=$('#ukr_name_genre').val();
 	myData['jap_rom_name_genre']=$('#jap_rom_name_genre').val();
 	myData['jap_kana_name_genre']=$('#jap_kana_name_genre').val();
-	myData['opys']=$('#opys').val();
+	myData['opys']=$('#opys').val().replace(/"/g,'\\"');;
 	$.ajax({ 
 		type: 'POST', 
 		crossDomain:true,
