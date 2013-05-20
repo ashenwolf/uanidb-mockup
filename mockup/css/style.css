@@ -471,23 +471,23 @@ textarea.anime-synopsis{
 	margin:20px 15px auto auto;
 }
 
-#add_genre{
+#add_genre, #add_studio{
 	margin-left:20px;
 }
 
-#add_genre .form-input, #add_genre label{
+#add_genre .form-input, #add_genre label, #add_studio .form-input, #add_studio label{
 	width:400px;
 }
 
-#add_genre .form-input{
+#add_genre .form-input, #add_studio .form-input{
 	margin-bottom:15px;
 }
 
-#add_genre .form-textarea{
+#add_genre .form-textarea, #add_studio .form-textarea{
 	height:120px;
 }
 
-#add_genre .form-textarea, #add_genre label{
+#add_genre .form-textarea, #add_genre label, #add_studio .form-textarea, #add_studio label{
 	width:400px;	
 }
 

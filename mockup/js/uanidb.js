@@ -64,7 +64,7 @@ $("#anime-edit").click(function (e) {
 		$(document).on("click", ".token-input-token-facebook", function() {
 			var text=$("p",this).text();
 			if($(this).closest('#td-studios').length){
-				alert ("studio handler to be: "+text);
+				$('#add-studio-lightbox').trigger('click');
 			}else{				
 				var input_genres=$('#anime-genres').tokenInput('get',{name: text});			
 				var selected_genre = $(input_genres).filter(function(){
@@ -173,6 +173,9 @@ if ($.browser.msie && $.browser.version == 10) { 	<!-- ========= I'M FUCKING AT 
 	$(".anime-title").css("padding-bottom","10px");
 	$(".anime-title").css("margin-top","0px");
 }		
+
+// anime
+
 function get_anime(id){
 	$.ajax({ 
 		type: 'GET', 
@@ -195,6 +198,13 @@ function get_anime(id){
 			else $("#input-type").val($("#select-type option:selected").text());			
 			$("#series_count").val(data.series_count);
 			$("#synopsis").html(data.sinopsis);
+			if (data.poster){
+				$('#anime-image').attr('src', 'http://uanidb.tk//pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.poster+'&h=365&w=265&zc=1');
+				$('#main-image a').attr('href', 'http://uanidb.tk//pics/anime/'+data.poster);
+			}else{
+				$('#anime-image').attr('src', 'images/no-anime-medium.gif');
+				$('#main-image a').attr('href', 'images/anime-1.jpg');
+			}
 			$('.notice').html('Все ок!');
 		},
 		error: function(jqXHR, textStatus, errorThrown){
