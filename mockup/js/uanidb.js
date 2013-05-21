@@ -1,3 +1,6 @@
+$("#button-upload").on("click", function() {
+	$("#fileupload").click();
+});
 $(".form-input").on("input", function() {
 	$("#add_genre").attr("data-changed","1");
 });	
@@ -504,7 +507,7 @@ function get_types(id){
 }
 
 $("#anime-error").click(function (e) {
-	alert(JSON.stringify($('#anime-genres').tokenInput("get")));
+	//alert(JSON.stringify($('#anime-genres').tokenInput("get")));
 });
 
 var genres_populate=[];

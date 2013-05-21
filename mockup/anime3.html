@@ -11,6 +11,8 @@
 <link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.10.3.custom.min.css" media="all" />  
 <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>  
 <script type="text/javascript" src="js/ui.datepicker-uk.js"></script> 
+<script type="text/javascript" src="js/jquery.ui.widget.js"></script> 
+<script type="text/javascript" src="js/jquery.fileupload.js"></script> 
 <script type="text/javascript">var anime_id=1; //temp, ignore it</script> 
 <link rel="stylesheet" type="text/css" href="css/kickstart.css" media="all" />                  <!-- KICKSTART -->
 <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />                      <!-- CUSTOM STYLES --> 
@@ -157,6 +159,16 @@
 						<button style="margin-bottom:10px;" id="studio-post" class="green"><i class="icon-plus-sign"></i> Додати студію</button>
 					</div>
 				</div>
+				<div style="display: none;">
+					<div style="width:465px;" class="col_12 column" id="add_files">
+						<div style="width:400px; margin:0 0 30px 0; padding-left:15px; display:none;" id="file-notice" class="notice">Тут ви можете додати в базу нову Студію, лише майте на увазі: вона додасться до конкретного аніме тільки, коли ви вийдете з режиму  редагування цього аніме <a href="#close" class="icon-remove"></a></div>		
+						<input style="width:0;height:0;position:absolute;left:-1000px;" id="fileupload" type="file" name="files[]">
+						<button id="button-upload" class="orange"><i class="icon-upload-alt"></i> Обрати файл</button>
+						<div id="progress" class="col_12 progress progress-success progress-striped">
+							<div style="height:20px; width:0px;" class="bar"></div>
+						</div>
+					</div>
+				</div>
 				<div id="anime-cast" class="tab-content">
 					<table class="striped">
 						<tbody>
@@ -250,29 +262,11 @@
 			<div class="pull-right">
 				<button id="anime-error" class="small"><i class="icon-exclamation-sign"></i> Повідомити про помилку</button>
 				<button id="anime-edit" class="small"><i class="icon-edit"></i> Редагувати інформацію</button>
+				<a title="Розробка інтерфейсу заливки файлів" href="#add_files" style="margin-left:20px;" id="add-fileupload-lightbox" class="icon-plus lightbox"></a>
 			</div>
+
 		</div>
 	</article>
-
-	<!-- <div class="col_12">
-		<div class="block-content clearfix">
-		    <div id="disqus_thread"></div>
-		    <script type="text/javascript">
-		        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-		        var disqus_shortname = 'uanidbmockup'; // required: replace example with your forum shortname
-
-		        /* * * DON'T EDIT BELOW THIS LINE * * */
-		        (function() {
-		            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-		            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-		            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-		        })();
-		    </script>
-		    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-		    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-		</div>
-	</div>-->
-
 </div><!-- END GRID-->
 	
 <!-- ===================================== START FOOTER ===================================== -->
@@ -307,6 +301,40 @@ $( document ).ready(function() {
 		changeMonth: true,
 		changeYear: true,
 		yearRange: "1950:"
+	});
+    $('#fileupload').fileupload({
+		disableImageResize: false,
+		maxNumberOfFiles:1,
+        url: 'http://uanidb.tk/pics/',
+        dataType: 'json',
+		processQueue: [
+			{
+				action: 'load',
+				maxFileSize: 2000000
+			},
+			{
+				action: 'resize',
+				maxWidth: 800,
+				maxHeight: 800,
+				minWidth: 265,
+				minHeight: 365
+			},
+			{
+				action: 'save'
+			}
+		],
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo('#files');
+            });
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .bar').css(
+                'width',
+                progress + '%'
+            );
+        }
 	});
 });	
 </script>
