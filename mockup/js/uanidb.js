@@ -202,14 +202,14 @@ function get_anime(id){
 			$("#series_count").val(data.series_count);
 			$("#synopsis").html(data.sinopsis);			
 			if (data.poster){
-				$('#anime-image').attr('src', 'http://uanidb.tk//pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.poster+'&h=365&w=265&zc=1');
-				$('#main-image a').attr('href', 'http://uanidb.tk//pics/anime/'+data.poster);
+				$('#anime-image').attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.poster+'&h=365&w=265&zc=1');
+				$('#main-image a').attr('href', 'http://uanidb.tk/pics/anime/'+data.poster);
 			}else{
 				$('#anime-image').attr('src', 'images/no-anime-medium.gif');
 				$('#main-image a').attr('href', 'images/anime-1.jpg');
-			}
-			$('#loading-image').hide();
+			}			
 			$('.notice').html('Все ок!');
+			$('#loading-image').hide();
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			$('#loading-image').hide();
