@@ -428,10 +428,12 @@ textarea.anime-synopsis{
 }
 
 #loading-image{
+	position:absolute;
 	display:block;
 	border:none;
 	padding:0;
-	margin:165px auto;
+	z-index:9;
+	margin:165px 125px;
 }
 
 #main-image a img{

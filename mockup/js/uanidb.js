@@ -183,8 +183,9 @@ function get_anime(id){
 		data: { aid: id }, 
 		dataType: 'json',
 		beforeSend: function (){
-			$('.notice').html('Працюю з базою...');			
-			$('#main-image-a').hide();
+			$('.notice').html('Працюю з базою...');	
+			$('#anime-image').attr('src', 'images/no-anime-medium.gif');
+			$('#main-image a').attr('href', '#');
 			$('#loading-image').show();
 		},
 		success: function (data) { 
@@ -208,7 +209,6 @@ function get_anime(id){
 				$('#main-image a').attr('href', 'images/anime-1.jpg');
 			}
 			$('#loading-image').hide();
-			$('#main-image-a').show();
 			$('.notice').html('Все ок!');
 		},
 		error: function(jqXHR, textStatus, errorThrown){
