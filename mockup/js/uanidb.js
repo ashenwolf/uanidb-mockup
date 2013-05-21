@@ -183,7 +183,9 @@ function get_anime(id){
 		data: { aid: id }, 
 		dataType: 'json',
 		beforeSend: function (){
-			$('.notice').html('Працюю з базою...');
+			$('.notice').html('Працюю з базою...');			
+			$('#main-image-a').hide();
+			$('#loading-image').show();
 		},
 		success: function (data) { 
 			$(".anime-title").attr('data-anime-id', data.anime_id);
@@ -193,11 +195,11 @@ function get_anime(id){
 			$(".anime-info[name='jap_name_kan_1']").attr('value', data.jap_name_kan_1);
 			$(".anime-info[name='ukr_name_1']").attr('value', data.ukr_name_1);
 			$(".anime-info[name='other_nazv']").attr('value', data.other_nazv);
-			$("#select-type").val(data.type_film_id);
+			$("#select-type").val(data.type_film_id);			
 			if($("#select-type").val()=='0') $("#input-type").val('');
-			else $("#input-type").val($("#select-type option:selected").text());			
+			else $("#input-type").val($("#select-type option:selected").text());
 			$("#series_count").val(data.series_count);
-			$("#synopsis").html(data.sinopsis);
+			$("#synopsis").html(data.sinopsis);			
 			if (data.poster){
 				$('#anime-image').attr('src', 'http://uanidb.tk//pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.poster+'&h=365&w=265&zc=1');
 				$('#main-image a').attr('href', 'http://uanidb.tk//pics/anime/'+data.poster);
@@ -205,9 +207,12 @@ function get_anime(id){
 				$('#anime-image').attr('src', 'images/no-anime-medium.gif');
 				$('#main-image a').attr('href', 'images/anime-1.jpg');
 			}
+			$('#loading-image').hide();
+			$('#main-image-a').show();
 			$('.notice').html('Все ок!');
 		},
 		error: function(jqXHR, textStatus, errorThrown){
+			$('#loading-image').hide();
 			$('.notice').html(jqXHR+' | '+textStatus+' | '+errorThrown);
 		}
 	});

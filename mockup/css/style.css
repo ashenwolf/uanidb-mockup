@@ -427,6 +427,13 @@ textarea.anime-synopsis{
 	margin:15px 0px;
 }
 
+#loading-image{
+	display:block;
+	border:none;
+	padding:0;
+	margin:165px auto;
+}
+
 #main-image a img{
 	width:265px;
 	height:365px;
