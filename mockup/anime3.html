@@ -11,7 +11,6 @@
 <link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.10.3.custom.min.css" media="all" />  
 <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>  
 <script type="text/javascript" src="js/ui.datepicker-uk.js"></script> 
-<script type="text/javascript" src="js/jquery.ui.widget.js"></script> 
 <script type="text/javascript" src="js/jquery.fileupload.js"></script> 
 <script type="text/javascript">var anime_id=1; //temp, ignore it</script> 
 <link rel="stylesheet" type="text/css" href="css/kickstart.css" media="all" />                  <!-- KICKSTART -->
@@ -161,7 +160,8 @@
 				</div>
 				<div style="display: none;">
 					<div style="width:465px;" class="col_12 column" id="add_files">
-						<div style="width:400px; margin:0 0 30px 0; padding-left:15px; display:none;" id="file-notice" class="notice">Тут ви можете додати в базу нову Студію, лише майте на увазі: вона додасться до конкретного аніме тільки, коли ви вийдете з режиму  редагування цього аніме <a href="#close" class="icon-remove"></a></div>		
+						<input id="hdnInpTop" type="hidden"><input id="hdnInpLeft" type="hidden">
+						<div id="crop-holder"><div id="crop-iholder" class="ui-widget-content"><img id="imgPhoto" class="ui-widget-header" src="http://uanidb.tk/pics/timthumb.php?src=anime.jpg&h=500&w=265&zc=1" alt='image'></div></div>		
 						<input style="width:0;height:0;position:absolute;left:-1000px;" id="fileupload" type="file" name="files[]">
 						<button id="button-upload" class="orange"><i class="icon-upload-alt"></i> Обрати файл</button>
 						<div id="progress" class="col_12 progress progress-success progress-striped">
@@ -303,26 +303,9 @@ $( document ).ready(function() {
 		yearRange: "1950:"
 	});
     $('#fileupload').fileupload({
-		disableImageResize: false,
 		maxNumberOfFiles:1,
         url: 'http://uanidb.tk/pics/',
         dataType: 'json',
-		processQueue: [
-			{
-				action: 'load',
-				maxFileSize: 2000000
-			},
-			{
-				action: 'resize',
-				maxWidth: 800,
-				maxHeight: 800,
-				minWidth: 265,
-				minHeight: 365
-			},
-			{
-				action: 'save'
-			}
-		],
         done: function (e, data) {
             $.each(data.result.files, function (index, file) {
                 $('<p/>').text(file.name).appendTo('#files');
@@ -336,6 +319,9 @@ $( document ).ready(function() {
             );
         }
 	});
+	var ox = $("#imgPhoto").parent().offset().left;
+    var oy = $("#imgPhoto").parent().offset().top;
+	$( "#imgPhoto" ).draggable({ containment: "parent" });
 });	
 </script>
 

@@ -594,7 +594,7 @@ function fancyboxLoad(){
 		$('#opys').val('');
 		if(!$('#genre-post').attr("data-edit")){
 			$('#genre-post').text('Додати жанр');
-			this.title='Роширене додавання жанру';
+			this.title='Розширене додавання жанру';
 		}
 		else {
 			$('#genre-post').text('Редагувати жанр');
@@ -611,3 +611,5 @@ function fancyboxClose(){
 	}
 	$("#add_genre").removeAttr("data-changed");
 }
+
+// image cropping
