@@ -321,10 +321,12 @@ $( document ).ready(function() {
 	});
 	var photo_width = 400;
     var photo_height = 500;
-	$("#crop-iholder").width(Math.round(photo_width/2+$("#crop-holder").width()));
-	$("#crop-iholder").height(Math.round(photo_height/2+$("#crop-holder").height()));
-	$("#crop-iholder").css("left", Math.round(-photo_width/4));
-	$("#crop-iholder").css("top", Math.round(-photo_height/4));
+	var diff_w=photo_width-$("#crop-holder").width();
+	var diff_h=photo_height-$("#crop-holder").height();	
+	$("#crop-iholder").width(Math.round(photo_width+diff_w));
+	$("#crop-iholder").height(Math.round(photo_height+diff_h));	
+	$("#crop-iholder").css("left", Math.round(-diff_w));
+	$("#crop-iholder").css("top", Math.round(-diff_h));
 	$( "#imgPhoto" ).draggable({ containment: "parent" });
 });	
 </script>

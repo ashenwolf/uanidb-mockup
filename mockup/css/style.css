@@ -537,6 +537,7 @@ div.ui-datepicker{
 	border-radius: 4px; 
 	background-color:#eee;
 	margin:0 0 30px 0; 
+	cursor: move;
 }
 
 #crop-iholder { 
