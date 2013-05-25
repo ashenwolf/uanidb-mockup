@@ -73,7 +73,7 @@
 			<div class="col_4">
 				<div id="main-image" class="gallery">
 					<img id="loading-image" style="display:none;" src="css/img/bx_loader.gif" alt="loading...">
-					<a id="main-image-a" href="images/anime-1.jpg" style="max-width: 100%;"><img id="anime-image" src="images/no-anime-medium.gif" alt="Anime screenshot"></a>
+					<a id="main-image-a" href="images/anime-1.jpg"><img id="anime-image" src="images/no-anime-medium.gif" alt="Anime screenshot"></a>
 				</div>
 			</div>
 			<div id="anime-info-box" class="col_8">
@@ -160,12 +160,13 @@
 				</div>
 				<div style="display: none;">
 					<div style="width:465px;" class="col_12 column" id="add_files">
-						<input id="hdnInpTop" type="hidden"><input id="hdnInpLeft" type="hidden">
-						<div id="crop-holder"><div id="crop-iholder" class="ui-widget-content"><img id="imgPhoto" class="ui-widget-header" src="http://uanidb.tk/pics/timthumb.php?src=anime.jpg&h=500&w=400" alt='image'></div></div>		
+						<div id="crop-holder"><div id="crop-iholder" class="ui-widget-content"><img id="imgPhoto" class="ui-widget-header" src="images/no-anime-medium.gif" alt='image'></div></div>		
 						<input style="width:0;height:0;position:absolute;left:-1000px;" id="fileupload" type="file" name="files[]">
-						<button id="button-upload" class="orange"><i class="icon-upload-alt"></i> Обрати файл</button>
-						<div id="progress" class="col_12 progress progress-success progress-striped">
+						<div style="margin:0px;width:265px;" id="progress" class="col_12 progress progress-success progress-striped">
 							<div style="height:20px; width:0px;" class="bar"></div>
+						</div>
+						<div style="margin-left:20px;">
+							<button id="button-save" class="orange"><i class="icon-refresh"></i> Зберегти</button>
 						</div>
 					</div>
 				</div>
@@ -262,7 +263,7 @@
 			<div class="pull-right">
 				<button id="anime-error" class="small"><i class="icon-exclamation-sign"></i> Повідомити про помилку</button>
 				<button id="anime-edit" class="small"><i class="icon-edit"></i> Редагувати інформацію</button>
-				<a title="Розробка інтерфейсу заливки файлів" href="#add_files" style="margin-left:20px;" id="add-fileupload-lightbox" class="icon-plus lightbox"></a>
+				<a title="Розробка інтерфейсу заливки файлів" href="#add_files" style="margin-left:20px;" id="add-fileupload-lightbox" class="icon-plus fileupload-lightbox"></a>
 			</div>
 
 		</div>
@@ -295,6 +296,16 @@ $( document ).ready(function() {
 		//autoDimensions: false,
 		padding:30
 	});
+	$('.fileupload-lightbox').fancybox({
+		onStart: fileuploadLoad,
+		//onClosed: fancyboxClose,
+		scrolling: 'no',
+		autoCenter : true,
+		//width: 475,
+		//height: 650,
+		//autoDimensions: false,
+		padding:30
+	});
 	get_types(anime_id);
 	$('.datepicker').datepicker({
 		dateFormat: "dd.mm.yy",
@@ -302,7 +313,7 @@ $( document ).ready(function() {
 		changeYear: true,
 		yearRange: "1950:"
 	});
-    $('#fileupload').fileupload({
+    $('#imgPhoto').fileupload({
 		maxNumberOfFiles:1,
         url: 'http://uanidb.tk/pics/',
         dataType: 'json',
@@ -319,15 +330,6 @@ $( document ).ready(function() {
             );
         }
 	});
-	var photo_width = 400;
-    var photo_height = 500;
-	var diff_w=photo_width-$("#crop-holder").width();
-	var diff_h=photo_height-$("#crop-holder").height();	
-	$("#crop-iholder").width(Math.round(photo_width+diff_w));
-	$("#crop-iholder").height(Math.round(photo_height+diff_h));	
-	$("#crop-iholder").css("left", Math.round(-diff_w));
-	$("#crop-iholder").css("top", Math.round(-diff_h));
-	$( "#imgPhoto" ).draggable({ containment: "parent" });
 });	
 </script>
 

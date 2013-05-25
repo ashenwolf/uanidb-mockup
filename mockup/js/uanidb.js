@@ -1,5 +1,19 @@
-$("#button-upload").on("click", function() {
-	$("#fileupload").click();
+$("#imgPhoto").on("click", function() {
+	//$("#fileupload").click();
+});
+$("#main-image-a").on("click", function() {
+	if(!$(".anime-title").attr('readonly')){
+		$("#add-fileupload-lightbox").click();
+	}
+});
+$("#button-save").on("click", function() {
+	//$('#anime-image').attr('src', 'http://uanidb.tk/pics/timthumb.php?src=anime.jpg&h=500&w=400');
+	//$('#anime-image').css('width', '400');
+	//$('#anime-image').css('height', '500');
+	$('#anime-image').css('left', $("#imgPhoto").position().left-$('#anime-image').attr('data-diff-w'));
+	$('#anime-image').css('top', $("#imgPhoto").position().top-$('#anime-image').attr('data-diff-h'));
+	//delete_file('anime.jpg');
+	$.fancybox.close();	
 });
 $(".form-input").on("input", function() {
 	$("#add_genre").attr("data-changed","1");
@@ -190,6 +204,8 @@ function get_anime(id){
 			$('#anime-image').attr('src', 'images/no-anime-medium.gif');
 			$('#main-image a').attr('href', '#');
 			$('#loading-image').show();
+			$('#anime-image').css('left','auto');
+			$('#anime-image').css('top','auto');
 		},
 		success: function (data) { 
 			$(".anime-title").attr('data-anime-id', data.anime_id);
@@ -205,7 +221,11 @@ function get_anime(id){
 			$("#series_count").val(data.series_count);
 			$("#synopsis").html(data.sinopsis);			
 			if (data.poster){
-				$('#anime-image').attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.poster+'&h=365&w=265&zc=1');
+				if(imageProportions(data.poster)===true){
+					$('#anime-image').attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.poster+'&h=365');
+				}else{
+					$('#anime-image').attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.poster+'&w=265');
+				}
 				$('#main-image a').attr('href', 'http://uanidb.tk/pics/anime/'+data.poster);
 			}else{
 				$('#anime-image').attr('src', 'images/no-anime-medium.gif');
@@ -612,4 +632,47 @@ function fancyboxClose(){
 	$("#add_genre").removeAttr("data-changed");
 }
 
-// image cropping
+function fileuploadLoad(){
+	if($(".anime-title").attr('readonly')){			
+		return false;
+	}else{	
+		var diff_w=$("#anime-image").width()-$("#crop-holder").width();
+		var diff_h=$("#anime-image").height()-$("#crop-holder").height();	
+		$('#anime-image').attr('data-diff-w', diff_w);
+		$('#anime-image').attr('data-diff-h', diff_h);
+		$("#crop-iholder").width(Math.round($("#anime-image").width()+diff_w));
+		$("#crop-iholder").height(Math.round($("#anime-image").height()+diff_h));	
+		$("#crop-iholder").css("left", Math.round(-diff_w));
+		$("#crop-iholder").css("top", Math.round(-diff_h));
+		$( "#imgPhoto" ).draggable({ containment: "parent" });
+		$( "#imgPhoto" ).css('left',diff_w);
+		$( "#imgPhoto" ).css('top',diff_h);												
+		$("#imgPhoto").attr('src', $('#anime-image').attr('src'));
+		return true;
+	}		
+}
+
+function delete_file(file){		
+	$.ajax({ 
+		type: 'DELETE', 
+		url: 'http://uanidb.tk/pics/?file='+file, 
+		data: {}, 
+		dataType: 'json',
+		beforeSend: function (){
+			//$('.notice').html('Працюю з базою...');
+		},
+		success: function (data) { 			
+			//$('.notice').html('Все ок!');
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert(textStatus, errorThrown);
+		}
+	});
+}
+
+function imageProportions(source){
+	var img = new Image();
+	img.src='http://uanidb.tk/pics/anime/'+source;	
+	if(img.width/img.height > 265/365) return true;
+	else return false;
+}

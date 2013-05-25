@@ -436,14 +436,39 @@ textarea.anime-synopsis{
 	margin:165px 125px;
 }
 
+#main-image{
+	overflow:hidden;
+	width:279px;
+	height:379px;
+	//padding:3px;
+	background-color:white;
+	//border: 1px solid #ddd;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;	
+}
+
 #main-image a img{
-	width:265px;
-	height:365px;
-	max-width: 100%;
+	position:relative;
+	max-width: none;
+	//width:265px;
+	//height:365px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;	
 }
 
 #main-image a{
-	margin-top:0;
+	width:265px;
+	height:365px;
+	overflow:hidden;
+	max-width: none;
+	margin:0;
+	border:none;
+	padding:0;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;	
 }
 
 .foot-menu{
@@ -533,20 +558,20 @@ div.ui-datepicker{
 	width: 265px; 
 	height: 365px; 
 	overflow: hidden; 
-	border:1px solid #ccc; 
-	border-radius: 4px; 
+	border:none; 
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;	
 	background-color:#eee;
+	padding:0;
 	margin:0 0 30px 0; 
 	cursor: move;
 }
 
 #crop-iholder { 
 	position:relative;
-	left:0px;
-	top:-125px;
-	width: 265px; 
-	height: 615px; 
 	overflow: hidden;
+	border:none;
 }
 
 #crop-iholder img { 
