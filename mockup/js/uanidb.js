@@ -1,5 +1,5 @@
-$("#imgPhoto").on("click", function() {
-	//$("#fileupload").click();
+$("#imgPhoto").on("dblclick", function() {
+	$("#fileupload").click();
 });
 $("#main-image-a").on("click", function() {
 	if(!$(".anime-title").attr('readonly')){
@@ -229,7 +229,7 @@ function get_anime(id){
 				$('#main-image a').attr('href', 'http://uanidb.tk/pics/anime/'+data.poster);
 			}else{
 				$('#anime-image').attr('src', 'images/no-anime-medium.gif');
-				$('#main-image a').attr('href', 'images/anime-1.jpg');
+				$('#main-image a').attr('href', 'images/no-anime-medium.gif');
 			}			
 			$('.notice').html('Все ок!');
 			$('#loading-image').hide();
@@ -673,6 +673,14 @@ function delete_file(file){
 function imageProportions(source){
 	var img = new Image();
 	img.src='http://uanidb.tk/pics/anime/'+source;	
-	if(img.width/img.height > 265/365) return true;
-	else return false;
+	if((img.width/img.height) > (265/365)) {
+		return true;		
+	}
+	else {
+		return false;
+	}
 }
+
+$(document).bind('drop dragover', function (e) {
+	e.preventDefault();
+});

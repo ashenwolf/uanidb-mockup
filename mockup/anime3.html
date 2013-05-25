@@ -160,7 +160,7 @@
 				</div>
 				<div style="display: none;">
 					<div style="width:465px;" class="col_12 column" id="add_files">
-						<div id="crop-holder"><div id="crop-iholder" class="ui-widget-content"><img id="imgPhoto" class="ui-widget-header" src="images/no-anime-medium.gif" alt='image'></div></div>		
+						<div id="crop-holder" class="tooltip" title="Потягніть, щоб змінити кадровку. Двічі клікніть, щоб завантажити нову картинку з диску (або перетягніть її сюди мишкою)"><div id="crop-iholder" class="ui-widget-content"><img id="imgPhoto" class="ui-widget-header" src="images/no-anime-medium.gif" alt='image'></div></div>		
 						<input style="width:0;height:0;position:absolute;left:-1000px;" id="fileupload" type="file" name="files[]">
 						<div style="margin:0px;width:265px;" id="progress" class="col_12 progress progress-success progress-striped">
 							<div style="height:20px; width:0px;" class="bar"></div>
@@ -263,7 +263,7 @@
 			<div class="pull-right">
 				<button id="anime-error" class="small"><i class="icon-exclamation-sign"></i> Повідомити про помилку</button>
 				<button id="anime-edit" class="small"><i class="icon-edit"></i> Редагувати інформацію</button>
-				<a title="Розробка інтерфейсу заливки файлів" href="#add_files" style="margin-left:20px;" id="add-fileupload-lightbox" class="icon-plus fileupload-lightbox"></a>
+				<a title="Зміна картинки" href="#add_files" style="margin-left:20px;" id="add-fileupload-lightbox" class="icon-plus fileupload-lightbox"></a>
 			</div>
 
 		</div>
@@ -314,6 +314,8 @@ $( document ).ready(function() {
 		yearRange: "1950:"
 	});
     $('#imgPhoto').fileupload({
+		dropZone: '#imgPhoto',
+		pasteZone: '#imgPhoto',
 		maxNumberOfFiles:1,
         url: 'http://uanidb.tk/pics/',
         dataType: 'json',
