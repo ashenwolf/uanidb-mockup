@@ -221,12 +221,12 @@ function get_anime(id){
 			$("#series_count").val(data.series_count);
 			$("#synopsis").html(data.sinopsis);			
 			if (data.poster){
-				if(imageProportions(data.poster)==1){
-					$('#anime-image').attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.poster+'&h=365');
+				if(imageProportions(data.anime_id+'.jpg')){
+					$('#anime-image').attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.anime_id+'.jpg&h=365');
 				}else{
-					$('#anime-image').attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.poster+'&w=265');
+					$('#anime-image').attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.anime_id+'.jpg&w=265');
 				}
-				$('#main-image a').attr('href', 'http://uanidb.tk/pics/anime/'+data.poster);
+				$('#main-image a').attr('href', 'http://uanidb.tk/pics/anime/'+data.anime_id+'.jpg');
 			}else{
 				$('#anime-image').attr('src', 'images/no-anime-medium.gif');
 				$('#main-image a').attr('href', 'images/no-anime-medium.gif');
@@ -671,15 +671,36 @@ function delete_file(file){
 }
 
 function imageProportions(source){
-	var img = new Image();
+	var proportions=0;
+	$.ajax({ 
+		type: 'GET', 
+		url: 'http://uanidb.tk/pics/getpic.php', 
+		data: {pic:'http://uanidb.tk/pics/anime/'+source},
+		dataType: 'json',
+		async: false,
+		beforeSend: function (){
+			//$('.notice').html('Працюю з базою...');
+		},
+		success: function (data) { 
+			//alert(data.width/data.height+' and '+265/365);
+			if(data.width/data.height > 265/365) {
+				proportions=1;		
+			}else proportions=0;
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert('something wrong with getting image size');
+		}
+	});
+	/*var img = new Image();
 	img.src='http://uanidb.tk/pics/anime/'+source;	
 	//alert(parseFloat(img.width/img.height)+' and '+265/365);
-	if(parseFloat(img.width/img.height) > parseFloat(265/365)) {
+	if(img.width/img.height > 265/365) {
 		return 1;		
 	}
 	else {
 		return 0;
-	}
+	}*/
+	return proportions;
 }
 
 $(document).bind('drop dragover', function (e) {
