@@ -10,12 +10,14 @@ $("#button-save").on("click", function() {
 	var left=$("#imgPhoto").position().left-$('#anime-image').attr('data-diff-w');
 	var top=$("#imgPhoto").position().top-$('#anime-image').attr('data-diff-h');
 	if($('#anime-image').position().left!=left){
-		$('#anime-image').css('left', left);
+		//$('#anime-image').css('left', left);
+		$('#anime-image').animate({'left': left});
 		$("#button-save").attr("data-changed", "1");
 		if(!$(".anime-title").attr("data-changed")) $(".anime-title").attr("data-changed","1");
 	}
 	if($('#anime-image').position().top!=top){
-		$('#anime-image').css('top', top);
+		//$('#anime-image').css('top', top);
+		$('#anime-image').animate({'top': top});
 		//delete_file('anime.jpg');
 		$("#button-save").attr("data-changed", "2");
 		if(!$(".anime-title").attr("data-changed")) $(".anime-title").attr("data-changed","1");
@@ -230,13 +232,14 @@ function get_anime(id){
 			if (data.poster){
 				if(imageProportions(data.anime_id+'.jpg')){
 					$("#anime-image").one("load", function() {
-						$('#anime-image').css('left', parseInt(data.poster_x_pos));
-						$('#anime-image').css('top', parseInt(data.poster_y_pos));
+						$('#anime-image').animate({'left':parseInt(data.poster_x_pos),'top':parseInt(data.poster_y_pos)});
+						//$('#anime-image').css('top', parseInt(data.poster_y_pos));
 					}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.anime_id+'.jpg&h=365');
 				}else{
 					$("#anime-image").one("load", function() {
-						$('#anime-image').css('left', parseInt(data.poster_x_pos));
-						$('#anime-image').css('top', parseInt(data.poster_y_pos));
+						$('#anime-image').animate({'left':parseInt(data.poster_x_pos),'top':parseInt(data.poster_y_pos)});
+						//$('#anime-image').css('left', parseInt(data.poster_x_pos));
+						//$('#anime-image').css('top', parseInt(data.poster_y_pos));
 					}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.anime_id+'.jpg&w=265');
 				}
 				$('#main-image a').attr('href', 'http://uanidb.tk/pics/anime/'+data.anime_id+'.jpg');
