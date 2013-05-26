@@ -354,6 +354,10 @@ textarea.anime-title{
 	border-radius: 4px;	
 }
 
+th, td{
+	line-height:20px;
+}
+
 input.anime-info{
 	border:none;
 	box-shadow:none;
@@ -362,7 +366,7 @@ input.anime-info{
 	text-indent:inherit;
 	font-size: 13px;
 	font-weight:normal;
-	line-height:21px;
+	line-height:20px;
 	letter-spacing: 0px;
 	margin:0px 0 0 0;
 	padding:0;	
@@ -371,7 +375,7 @@ input.anime-info{
 	overflow:hidden;
 	text-overflow:ellipsis;
 	width:310px;
-	height:21px;
+	height:20px;
 	resize: none;
 }
 
@@ -537,7 +541,7 @@ textarea.anime-synopsis{
 
 #select-type{
 	vertical-align: top;
-	height: 21px;
+	height: 20px;
 	padding:0px;
 }
 
