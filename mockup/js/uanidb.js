@@ -228,12 +228,16 @@ function get_anime(id){
 			$("#series_count").val(data.series_count);
 			$("#synopsis").html(data.sinopsis);			
 			if (data.poster){
-				$('#anime-image').css('left', parseInt(data.poster_x_pos));
-				$('#anime-image').css('top', parseInt(data.poster_y_pos));
 				if(imageProportions(data.anime_id+'.jpg')){
-					$('#anime-image').attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.anime_id+'.jpg&h=365');
+					$("#anime-image").one("load", function() {
+						$('#anime-image').css('left', parseInt(data.poster_x_pos));
+						$('#anime-image').css('top', parseInt(data.poster_y_pos));
+					}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.anime_id+'.jpg&h=365');
 				}else{
-					$('#anime-image').attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.anime_id+'.jpg&w=265');
+					$("#anime-image").one("load", function() {
+						$('#anime-image').css('left', parseInt(data.poster_x_pos));
+						$('#anime-image').css('top', parseInt(data.poster_y_pos));
+					}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.anime_id+'.jpg&w=265');
 				}
 				$('#main-image a').attr('href', 'http://uanidb.tk/pics/anime/'+data.anime_id+'.jpg');
 			}else{
