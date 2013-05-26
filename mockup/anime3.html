@@ -291,19 +291,13 @@ $( document ).ready(function() {
 		onClosed: fancyboxClose,
 		scrolling: 'no',
 		autoCenter : true,
-		//width: 475,
-		//height: 650,
-		//autoDimensions: false,
 		padding:30
 	});
 	$('.fileupload-lightbox').fancybox({
 		onStart: fileuploadLoad,
-		//onClosed: fancyboxClose,
+		onClosed: fileuploadClose,
 		scrolling: 'no',
 		autoCenter : true,
-		//width: 475,
-		//height: 650,
-		//autoDimensions: false,
 		padding:30
 	});
 	get_types(anime_id);
