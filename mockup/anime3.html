@@ -161,7 +161,7 @@
 				<div style="display: none;">
 					<div style="width:310px; margin:20px 18px 0px 20px;" class="col_12 column" id="add_files">
 						<div id="crop-holder" class="tooltip" title="Потягніть, щоб змінити кадрування. Двічі клікніть, щоб завантажити нову картинку з диску (або перетягніть її сюди мишею)"><div id="crop-iholder" class="ui-widget-content"><img id="imgPhoto" class="ui-widget-header" src="images/no-anime-medium.gif" alt='image'></div></div>		
-						<input style="width:0;height:0;position:absolute;left:-1000px;" id="fileupload" type="file" name="files[]">
+						<input style="width:1px;height:1px;position:absolute;left:-10000px;" id="fileupload" type="file" name="files[]">
 						<div style="margin:0px;width:265px;" id="progress" class="col_12 progress progress-success progress-striped">
 							<div style="height:20px; width:0px;" class="bar"></div>
 						</div>
@@ -310,12 +310,38 @@ $( document ).ready(function() {
     $('#imgPhoto').fileupload({
 		dropZone: '#imgPhoto',
 		pasteZone: '#imgPhoto',
+		fileInput: "#fileupload",
 		maxNumberOfFiles:1,
         url: 'http://uanidb.tk/pics/',
         dataType: 'json',
         done: function (e, data) {
             $.each(data.result.files, function (index, file) {
-                $('<p/>').text(file.name).appendTo('#files');
+				if(!$('#imgPhoto').attr('data-uploaded')) $('#imgPhoto').attr('data-uploaded', '1');
+				if(imageProportions(file.name)){
+					$("#imgPhoto").one("load", function() {
+						$('#imgPhoto').css('left', '0');
+						$('#imgPhoto').css('top', '0');
+					}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+file.name+'&h=365');
+				}else{
+					$("#imgPhoto").one("load", function() {
+						$('#imgPhoto').css('left', '0');
+						$('#imgPhoto').css('top', '0');
+					}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+file.name+'&w=265');
+				}
+				$("#crop-holder").width('265');
+				$("#crop-holder").height('365');
+				var diff_w=$("#imgPhoto").width()-$("#crop-holder").width();
+				var diff_h=$("#imgPhoto").height()-$("#crop-holder").height();	
+				$('#anime-image').attr('data-diff-w', diff_w);
+				$('#anime-image').attr('data-diff-h', diff_h);
+				$("#crop-iholder").width(Math.round($("#imgPhoto").width()+diff_w));
+				$("#crop-iholder").height(Math.round($("#imgPhoto").height()+diff_h));	
+				$("#crop-iholder").css("left", Math.round(-diff_w));
+				$("#crop-iholder").css("top", Math.round(-diff_h));
+				//$( "#imgPhoto" ).draggable({ containment: "parent" });
+				//$( "#imgPhoto" ).css('left',$("#anime-image").position().left+diff_w);
+				//$( "#imgPhoto" ).css('top',$("#anime-image").position().top+diff_h);
+                //$('<p/>').text(file.name).appendTo('#files');
             });
         },
         progressall: function (e, data) {

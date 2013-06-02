@@ -7,16 +7,20 @@ $("#main-image-a").on("click", function() {
 	}
 });
 $("#button-save").on("click", function() { 
+	if($('#imgPhoto').attr('data-uploaded')){
+		$("#anime-image").one("load", function() {
+			$('#anime-image').css('left', '0');
+			$('#anime-image').css('top', '0');
+		}).attr('src', $('#imgPhoto').attr("src"));
+	}
 	var left=$("#imgPhoto").position().left-$('#anime-image').attr('data-diff-w');
 	var top=$("#imgPhoto").position().top-$('#anime-image').attr('data-diff-h');
 	if($('#anime-image').position().left!=left){
-		//$('#anime-image').css('left', left);
 		$('#anime-image').animate({'left': left});
 		$("#button-save").attr("data-changed", "1");
 		if(!$(".anime-title").attr("data-changed")) $(".anime-title").attr("data-changed","1");
 	}
 	if($('#anime-image').position().top!=top){
-		//$('#anime-image').css('top', top);
 		$('#anime-image').animate({'top': top});
 		//delete_file('anime.jpg');
 		$("#button-save").attr("data-changed", "2");
@@ -660,6 +664,7 @@ function fileuploadLoad(){
 	if($(".anime-title").attr('readonly')){			
 		return false;
 	}else{	
+		$('#progress .bar').css('width', '0');
 		var diff_w=$("#anime-image").width()-$("#crop-holder").width();
 		var diff_h=$("#anime-image").height()-$("#crop-holder").height();	
 		$('#anime-image').attr('data-diff-w', diff_w);
@@ -677,7 +682,12 @@ function fileuploadLoad(){
 }
 
 function fileuploadClose(){
-	if(!$('#button-save').attr('data-changed')) alert('escape handler to be');
+	if(!$('#button-save').attr('data-changed')) {
+		if($('#imgPhoto').attr('data-uploaded')){
+			delete_file('http://uanidb.tk/pics/anime/'+$(".anime-title").attr('data-anime-id')+'-temp.jpg');
+			$('#imgPhoto').removeAttr('data-uploaded');
+		}
+	}
 }
 
 function delete_file(file){		
@@ -698,13 +708,21 @@ function delete_file(file){
 	});
 }
 
+$('#imgPhoto').bind('fileuploadsubmit', function (e, data) {
+    if($(".anime-title").attr('data-anime-id')){
+		$('#progress .bar').css('width', '0');
+		data.formData = {'newname':$(".anime-title").attr('data-anime-id')+'-temp.jpg'};
+	}
+	else return false;
+});
+
 // image proportions check
 
 function imageProportions(source){
 	var proportions=0;
 	$.ajax({ 
 		type: 'GET', 
-		url: 'http://uanidb.tk/pics/getpic.php', 
+		url: 'http://uanidb.tk/pics/pic.php', 
 		data: {pic:'http://uanidb.tk/pics/anime/'+source},
 		dataType: 'json',
 		async: false,
