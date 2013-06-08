@@ -12,7 +12,6 @@
 <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>  
 <script type="text/javascript" src="js/ui.datepicker-uk.js"></script> 
 <script type="text/javascript" src="js/jquery.fileupload.js"></script> 
-<script type="text/javascript">var anime_id=1; //temp, ignore it</script> 
 <link rel="stylesheet" type="text/css" href="css/kickstart.css" media="all" />                  <!-- KICKSTART -->
 <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />                      <!-- CUSTOM STYLES --> 
 </head>
@@ -73,7 +72,7 @@
 			<div class="col_4">
 				<div id="main-image" class="gallery">
 					<img id="loading-image" style="display:none;" src="css/img/bx_loader.gif" alt="loading...">
-					<a id="main-image-a" href="images/anime-1.jpg"><img id="anime-image" src="images/no-anime-medium.gif" alt="Anime screenshot"></a>
+					<a id="main-image-a" data-mtime="" href="images/anime-1.jpg"><img id="anime-image" src="images/no-anime-medium.gif" alt="Anime screenshot"></a>
 				</div>
 			</div>
 			<div id="anime-info-box" class="col_8">
@@ -314,6 +313,9 @@ $( document ).ready(function() {
 		maxNumberOfFiles:1,
         url: 'http://uanidb.tk/pics/',
         dataType: 'json',
+		add: function (e, data) {
+			jqXHR = data.submit();
+		},
         done: function (e, data) {
             $.each(data.result.files, function (index, file) {
 				if(!$('#imgPhoto').attr('data-uploaded')) $('#imgPhoto').attr('data-uploaded', '1');
@@ -321,27 +323,29 @@ $( document ).ready(function() {
 					$("#imgPhoto").one("load", function() {
 						$('#imgPhoto').css('left', '0');
 						$('#imgPhoto').css('top', '0');
-					}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+file.name+'&h=365');
+						var diff_w=$("#imgPhoto").width()-$("#crop-holder").width();
+						var diff_h=$("#imgPhoto").height()-$("#crop-holder").height();	
+						$('#anime-image').attr('data-diff-w', diff_w);
+						$('#anime-image').attr('data-diff-h', diff_h);
+						$("#crop-iholder").width(Math.round($("#imgPhoto").width()+diff_w));
+						$("#crop-iholder").height(Math.round($("#imgPhoto").height()+diff_h));	
+						$("#crop-iholder").css("left", Math.round(-diff_w));
+						$("#crop-iholder").css("top", Math.round(-diff_h));
+					}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+file.name+'&h=365&' + new Date().getTime());
 				}else{
 					$("#imgPhoto").one("load", function() {
 						$('#imgPhoto').css('left', '0');
 						$('#imgPhoto').css('top', '0');
-					}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+file.name+'&w=265');
+						var diff_w=$("#imgPhoto").width()-$("#crop-holder").width();
+						var diff_h=$("#imgPhoto").height()-$("#crop-holder").height();	
+						$('#anime-image').attr('data-diff-w', diff_w);
+						$('#anime-image').attr('data-diff-h', diff_h);
+						$("#crop-iholder").width(Math.round($("#imgPhoto").width()+diff_w));
+						$("#crop-iholder").height(Math.round($("#imgPhoto").height()+diff_h));	
+						$("#crop-iholder").css("left", Math.round(-diff_w));
+						$("#crop-iholder").css("top", Math.round(-diff_h));
+					}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+file.name+ '&w=265&' + new Date().getTime());
 				}
-				$("#crop-holder").width('265');
-				$("#crop-holder").height('365');
-				var diff_w=$("#imgPhoto").width()-$("#crop-holder").width();
-				var diff_h=$("#imgPhoto").height()-$("#crop-holder").height();	
-				$('#anime-image').attr('data-diff-w', diff_w);
-				$('#anime-image').attr('data-diff-h', diff_h);
-				$("#crop-iholder").width(Math.round($("#imgPhoto").width()+diff_w));
-				$("#crop-iholder").height(Math.round($("#imgPhoto").height()+diff_h));	
-				$("#crop-iholder").css("left", Math.round(-diff_w));
-				$("#crop-iholder").css("top", Math.round(-diff_h));
-				//$( "#imgPhoto" ).draggable({ containment: "parent" });
-				//$( "#imgPhoto" ).css('left',$("#anime-image").position().left+diff_w);
-				//$( "#imgPhoto" ).css('top',$("#anime-image").position().top+diff_h);
-                //$('<p/>').text(file.name).appendTo('#files');
             });
         },
         progressall: function (e, data) {

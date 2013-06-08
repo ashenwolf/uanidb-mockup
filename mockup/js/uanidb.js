@@ -1,3 +1,6 @@
+var anime_id=1;
+var jqXHR = null;
+
 $("#imgPhoto").on("dblclick", function() {
 	$("#fileupload").click();
 });
@@ -12,6 +15,9 @@ $("#button-save").on("click", function() {
 			$('#anime-image').css('left', '0');
 			$('#anime-image').css('top', '0');
 		}).attr('src', $('#imgPhoto').attr("src"));
+		if($('#anime-image').attr('data-uploaded')==1) $('#anime-image').attr('data-uploaded','2');
+		else $('#anime-image').attr('data-uploaded','1');
+		if(!$(".anime-title").attr("data-changed")) $(".anime-title").attr("data-changed","1");
 	}
 	var left=$("#imgPhoto").position().left-$('#anime-image').attr('data-diff-w');
 	var top=$("#imgPhoto").position().top-$('#anime-image').attr('data-diff-h');
@@ -247,7 +253,7 @@ function get_anime(id){
 						$('#anime-image').css('top', parseInt(data.poster_y_pos));
 					}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.anime_id+'.jpg&w=265');
 				}
-				$('#main-image a').attr('href', 'http://uanidb.tk/pics/anime/'+data.anime_id+'.jpg');
+				$('#main-image a').attr('href', 'http://uanidb.tk/pics/anime/'+data.anime_id+'.jpg'+'?'+$('#main-image-a').attr('data-mtime'));				
 			}else{
 				$('#anime-image').attr('src', 'images/no-anime-medium.gif');
 				$('#main-image a').attr('href', 'images/no-anime-medium.gif');
@@ -279,6 +285,13 @@ function update_anime(id){
 		if($("#button-save").attr("data-changed")==1) myData['poster_x_pos']= $('#anime-image').position().left;
 		if($("#button-save").attr("data-changed")==2) myData['poster_y_pos']= $('#anime-image').position().top;
 	}
+	if($("#anime-image").attr('data-uploaded')==1) {
+		imageRename($(".anime-title").attr('data-anime-id')+'-temp.jpg');
+		$("#anime-image").removeAttr('data-uploaded');
+	} else if($("#anime-image").attr('data-uploaded')==2){
+		imageRename($(".anime-title").attr('data-anime-id')+'-temp2.jpg');
+		$("#anime-image").removeAttr('data-uploaded');
+	}	
 	$.ajax({ 
 		type: 'POST', 
 		crossDomain:true,
@@ -681,12 +694,12 @@ function fileuploadLoad(){
 	}		
 }
 
-function fileuploadClose(){
-	if(!$('#button-save').attr('data-changed')) {
-		if($('#imgPhoto').attr('data-uploaded')){
-			delete_file('http://uanidb.tk/pics/anime/'+$(".anime-title").attr('data-anime-id')+'-temp.jpg');
-			$('#imgPhoto').removeAttr('data-uploaded');
-		}
+function fileuploadClose(){	
+	if(jqXHR) jqXHR.abort();
+	if($('#imgPhoto').attr('data-uploaded')){
+		if($("#anime-image").attr('data-uploaded')==1) delete_file('http://uanidb.tk/pics/anime/'+$(".anime-title").attr('data-anime-id')+'-temp2.jpg');
+		else delete_file('http://uanidb.tk/pics/anime/'+$(".anime-title").attr('data-anime-id')+'-temp.jpg');
+		$('#imgPhoto').removeAttr('data-uploaded');
 	}
 }
 
@@ -711,7 +724,8 @@ function delete_file(file){
 $('#imgPhoto').bind('fileuploadsubmit', function (e, data) {
     if($(".anime-title").attr('data-anime-id')){
 		$('#progress .bar').css('width', '0');
-		data.formData = {'newname':$(".anime-title").attr('data-anime-id')+'-temp.jpg'};
+		if($("#anime-image").attr('data-uploaded')==1) data.formData = {'newname':$(".anime-title").attr('data-anime-id')+'-temp2.jpg'};
+		else data.formData = {'newname':$(".anime-title").attr('data-anime-id')+'-temp.jpg'};
 	}
 	else return false;
 });
@@ -734,21 +748,35 @@ function imageProportions(source){
 			if(data.width/data.height > 265/365) {
 				proportions=1;		
 			}else proportions=0;
+			$('#main-image-a').attr('data-mtime', data.mtime);
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			alert('something wrong with getting image size');
 		}
 	});
-	/*var img = new Image();
-	img.src='http://uanidb.tk/pics/anime/'+source;	
-	//alert(parseFloat(img.width/img.height)+' and '+265/365);
-	if(img.width/img.height > 265/365) {
-		return 1;		
-	}
-	else {
-		return 0;
-	}*/
 	return proportions;
+}
+
+function imageRename(source){
+	$.ajax({ 
+		type: 'POST', 
+		url: 'http://uanidb.tk/pics/pic.php', 
+		data: {rename:source},
+		dataType: 'json',
+		beforeSend: function (){
+			//$('.notice').html('Працюю з базою...');
+		},
+		success: function (data) { 
+			//var d = new Date();
+			//d=d.getTime();
+			var src=$('#anime-image').attr('src');
+			$('#anime-image').attr('src', src.replace(/-temp?.jpg/,'.jpg'));
+			$('#main-image-a').attr('href', 'http://uanidb.tk/pics/anime/'+$(".anime-title").attr('data-anime-id')+'.jpg?'+data.mtime);
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert('something wrong with renaming image');
+		}
+	});
 }
 
 $(document).bind('drop dragover', function (e) {
