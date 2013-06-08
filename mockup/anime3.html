@@ -159,6 +159,7 @@
 				</div>
 				<div style="display: none;">
 					<div style="width:310px; margin:20px 18px 0px 20px;" class="col_12 column" id="add_files">
+						<div style="width:265px; margin:-5px 0 20px 0; padding-left:15px; display:none;" id="files-notice" class="notice">Повідомлення діалогу завантаження файлів<a href="#close" class="icon-remove"></a></div>
 						<div id="crop-holder" class="tooltip" title="Потягніть, щоб змінити кадрування. Двічі клікніть, щоб завантажити нову картинку з диску (або перетягніть її сюди мишею)"><div id="crop-iholder" class="ui-widget-content"><img id="imgPhoto" class="ui-widget-header" src="images/no-anime-medium.gif" alt='image'></div></div>		
 						<input style="width:1px;height:1px;position:absolute;left:-10000px;" id="fileupload" type="file" name="files[]">
 						<div style="margin:0px;width:265px;" id="progress" class="col_12 progress progress-success progress-striped">
@@ -314,10 +315,21 @@ $( document ).ready(function() {
         url: 'http://uanidb.tk/pics/',
         dataType: 'json',
 		add: function (e, data) {
-			jqXHR = data.submit();
+			jqXHR = data.submit()
+			.error(function (jqXHR, textStatus, errorThrown) {
+				alert(errorThrown);
+			});
 		},
         done: function (e, data) {
             $.each(data.result.files, function (index, file) {
+				if(file.error){
+					$('#files-notice').addClass('error');
+					$('#files-notice').html(file.error+ '<a href="#close" class="icon-remove"></a>').show();
+					$('#progress .bar').css('width', '0');
+					return;
+				}
+				$('#files-notice').removeClass('error');
+				$('#files-notice').hide();
 				if(!$('#imgPhoto').attr('data-uploaded')) $('#imgPhoto').attr('data-uploaded', '1');
 				if(imageProportions(file.name)){
 					$("#imgPhoto").one("load", function() {
