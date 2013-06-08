@@ -677,6 +677,7 @@ function fileuploadLoad(){
 	if($(".anime-title").attr('readonly')){			
 		return false;
 	}else{	
+		$('#files-notice').hide();
 		$('#progress .bar').css('width', '0');
 		var diff_w=$("#anime-image").width()-$("#crop-holder").width();
 		var diff_h=$("#anime-image").height()-$("#crop-holder").height();	
