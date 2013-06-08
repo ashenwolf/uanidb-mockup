@@ -770,7 +770,7 @@ function imageRename(source){
 			//var d = new Date();
 			//d=d.getTime();
 			var src=$('#anime-image').attr('src');
-			$('#anime-image').attr('src', src.replace(/-temp?.jpg/,'.jpg'));
+			$('#anime-image').attr('src', src.replace(/(-temp|-temp2).jpg/,'.jpg'));
 			$('#main-image-a').attr('href', 'http://uanidb.tk/pics/anime/'+$(".anime-title").attr('data-anime-id')+'.jpg?'+data.mtime);
 		},
 		error: function(jqXHR, textStatus, errorThrown){
