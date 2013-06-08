@@ -245,13 +245,13 @@ function get_anime(id){
 						//$('#anime-image').animate({'left':parseInt(data.poster_x_pos),'top':parseInt(data.poster_y_pos)});
 						$('#anime-image').css('left', parseInt(data.poster_x_pos));
 						$('#anime-image').css('top', parseInt(data.poster_y_pos));
-					}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.anime_id+'.jpg&h=365');
+					}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.anime_id+'.jpg&h=365&'+'?'+$('#main-image-a').attr('data-mtime'));
 				}else{
 					$("#anime-image").one("load", function() {
 						//$('#anime-image').animate({'left':parseInt(data.poster_x_pos),'top':parseInt(data.poster_y_pos)});
 						$('#anime-image').css('left', parseInt(data.poster_x_pos));
 						$('#anime-image').css('top', parseInt(data.poster_y_pos));
-					}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.anime_id+'.jpg&w=265');
+					}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+data.anime_id+'.jpg&w=265&'+'?'+$('#main-image-a').attr('data-mtime'));
 				}
 				$('#main-image a').attr('href', 'http://uanidb.tk/pics/anime/'+data.anime_id+'.jpg'+'?'+$('#main-image-a').attr('data-mtime'));				
 			}else{
