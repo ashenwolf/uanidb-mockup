@@ -842,6 +842,7 @@ function validateURL(textval) {
 function get_pic_from_url(source){
 	$.ajax({ 
 		type: 'POST', 
+		async: false,
 		url: 'http://uanidb.tk/pics/pic_from_url.php', 
 		data: {url:source, name:"1-temp.jpg"},
 		dataType: 'json',
