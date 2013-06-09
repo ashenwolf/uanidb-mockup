@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.10.3.custom.min.css" media="all" />  
 <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>  
 <script type="text/javascript" src="js/ui.datepicker-uk.js"></script> 
-<script type="text/javascript" src="js/jquery.fileupload.js"></script> 
+<script type="text/javascript" src="js/jquery.fileupload.js"></script>
 <link rel="stylesheet" type="text/css" href="css/kickstart.css" media="all" />                  <!-- KICKSTART -->
 <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />                      <!-- CUSTOM STYLES --> 
 </head>
@@ -161,7 +161,7 @@
 					<div style="width:310px; margin:20px 18px 0px 20px;" class="col_12 column" id="add_files">
 						<div style="width:265px; margin:-5px 0 20px 0; padding-left:15px; display:none;" id="files-notice" class="notice">Повідомлення діалогу завантаження файлів<a href="#close" class="icon-remove"></a></div>
 						<div id="crop-holder" class="tooltip" title="Потягніть, щоб змінити кадрування. Двічі клікніть, щоб завантажити нову картинку з диску (або перетягніть її сюди мишею)"><div id="crop-iholder" class="ui-widget-content"><img id="imgPhoto" class="ui-widget-header" src="images/no-anime-medium.gif" alt='image'></div></div>		
-						<input style="width:1px;height:1px;position:absolute;left:-10000px;" id="fileupload" type="file" name="files[]">
+						<input style="width:1px;height:1px;position:absolute;left:-10000px;" id="fileupload" type="file" name="files[]" accept="image/*">
 						<div style="margin:0px;width:265px;" id="progress" class="col_12 progress progress-success progress-striped">
 							<div style="height:20px; width:0px;" class="bar"></div>
 						</div>
@@ -282,6 +282,7 @@
 <script type="text/javascript" src="js/uanidb.js"></script> 
 <script type="text/javascript">	
 $( document ).ready(function() {
+	'use strict';
 	$('.anime-title').autosize();
 	text_area_height_opera();	
 	init_genres();
@@ -315,6 +316,17 @@ $( document ).ready(function() {
         url: 'http://uanidb.tk/pics/',
         dataType: 'json',
 		add: function (e, data) {
+			var uploadFile = data.files[0];
+			if (!(/\.(gif|jpg|jpeg|png)$/i).test(uploadFile.name)) {
+				$('#files-notice').addClass('error');
+				$('#files-notice').html('Будь ласка, тільки картинки! (gif, jpg, jpeg, png) <a href="#close" class="icon-remove"></a>').show();
+				return;
+			}
+			if (uploadFile.size > 1000000) { // 1mb
+				$('#files-notice').addClass('error');
+				$('#files-notice').html('Максимальний розмір файлу картинки 1 Mb! <a href="#close" class="icon-remove"></a>').show();
+				return;
+			}			
 			jqXHR = data.submit()
 			.error(function (jqXHR, textStatus, errorThrown) {
 				alert(errorThrown);
