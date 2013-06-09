@@ -319,7 +319,7 @@ $( document ).ready(function() {
 			var uploadFile = data.files[0];
 			if (!(/\.(gif|jpg|jpeg|png)$/i).test(uploadFile.name)) {
 				$('#files-notice').addClass('error');
-				$('#files-notice').html('Будь ласка, тільки картинки! (gif, jpg, jpeg, png) <a href="#close" class="icon-remove"></a>').show();
+				$('#files-notice').html('Будь ласка, тільки gif, jpg, png! <a href="#close" class="icon-remove"></a>').show();
 				return;
 			}
 			if (uploadFile.size > 1000000) { // 1mb
