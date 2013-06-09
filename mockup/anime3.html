@@ -127,7 +127,7 @@
 					</table>
 				</div>
 				<div style="display: none;">
-					<div style="width:465px;" class="col_12 column" id="add_genre">
+					<div style="width:465px;" class="col_12 column lightbox-div" id="add_genre">
 						<div style="width:400px; margin:0 0 30px 0; padding-left:15px; display:none;" id="genre-notice" class="notice">Тут ви можете додати в базу новий Жанр, лише майте на увазі: цей жанр додасться до конкретного аніме тільки, коли ви вийдете з режиму  редагування цього аніме <a href="#close" class="icon-remove"></a></div>
 						<label style="margin-top:5px;" for="ukr_name_genre"><strong>Жанр українською</strong>, <span style="color:orange;" >обов'язкове</span> <span class="right">Напр., "Шьоджьо :)"</span></label><br />
 						<input maxlength="110" class="form-input" type="text" id="ukr_name_genre" name="" /><br />
@@ -144,7 +144,7 @@
 					</div>
 				</div>
 				<div style="display: none;">
-					<div style="width:465px;" class="col_12 column" id="add_studio">
+					<div style="width:465px;" class="col_12 column lightbox-div" id="add_studio">
 						<div style="width:400px; margin:0 0 30px 0; padding-left:15px; display:none;" id="studio-notice" class="notice">Тут ви можете додати в базу нову Студію, лише майте на увазі: вона додасться до конкретного аніме тільки, коли ви вийдете з режиму  редагування цього аніме <a href="#close" class="icon-remove"></a></div>	
 						<label for="studio_name"><strong>Інтернаціональна назва</strong>, <span style="color:orange;" >обов'язкове</span> <span class="right">Напр., "Madhouse"</span></label><br />
 						<input maxlength="110" class="form-input" type="text" id="studio_name" name="" /><br />
@@ -160,13 +160,18 @@
 				<div style="display: none;">
 					<div style="width:310px; margin:20px 18px 0px 20px;" class="col_12 column" id="add_files">
 						<div style="width:265px; margin:-5px 0 20px 0; padding-left:15px; display:none;" id="files-notice" class="notice">Повідомлення діалогу завантаження файлів<a href="#close" class="icon-remove"></a></div>
-						<div id="crop-holder" class="tooltip" title="Потягніть, щоб змінити кадрування. Двічі клікніть, щоб завантажити нову картинку з диску (або перетягніть її сюди мишею)"><div id="crop-iholder" class="ui-widget-content"><img id="imgPhoto" class="ui-widget-header" src="images/no-anime-medium.gif" alt='image'></div></div>		
+						<div id="crop-holder" class="tooltip" title="Потягніть, щоб змінити кадрування.<br />Двічі клікніть, щоб завантажити нову картинку з диску (чи перетягніть її сюди мишею).<br />Або завантажте нову картинку з інтернету, увівши URL нижче"><div id="crop-iholder" class="ui-widget-content"><img id="imgPhoto" class="ui-widget-header" src="images/no-anime-medium.gif" alt='image'></div></div>		
 						<input style="width:1px;height:1px;position:absolute;left:-10000px;" id="fileupload" type="file" name="files[]" accept="image/*">
-						<div style="margin:0px;width:265px;" id="progress" class="col_12 progress progress-success progress-striped">
+						<div class="head-search" style="height:50px; width:265px; margin: 0 0 20px 0;padding:0;">					
+						<label for="file_from_url">Картинка з інтернету:</label><br />
+						<button style="width:87px;" id="button-file-url" class="pull-right small"><i class="icon-exchange"></i> Вперед</button>
+						<input style="width:178px;" maxlength="110" type="text" id="file_from_url" placeholder="URL картинки" name="" />
+						</div>
+						<div style="margin:0 0 7px 0;width:265px;" id="progress" class="col_12 progress progress-success progress-striped">
 							<div style="height:20px; width:0px;" class="bar"></div>
 						</div>
 						<div style="clear:both; margin-top:20px;" class="col_12">
-							<button style="width:265px;" id="button-save" class="orange"><i class="icon-refresh"></i> Зберегти</button>
+							<button title="Зміни до бази збережуться, коли ви вийдете з Режиму редагування сторінки" style="width:265px;" id="button-save" class="orange"><i class="icon-refresh"></i> Зберегти зміни на сторінку</button>
 						</div>
 					</div>
 				</div>
@@ -281,15 +286,15 @@
 
 <script type="text/javascript" src="js/uanidb.js"></script> 
 <script type="text/javascript">	
-$( document ).ready(function() {
-	'use strict';
+$( document ).ready(function() {	
 	$('.anime-title').autosize();
 	text_area_height_opera();	
 	init_genres();
 	init_studios();
 	$('.lightbox').fancybox({
 		onStart: fancyboxLoad,
-		onClosed: fancyboxClose,
+		onClosed: fancyboxClose,		
+		onComplete: lightboxComplete,
 		scrolling: 'no',
 		autoCenter : true,
 		padding:30
@@ -297,6 +302,7 @@ $( document ).ready(function() {
 	$('.fileupload-lightbox').fancybox({
 		onStart: fileuploadLoad,
 		onClosed: fileuploadClose,
+		onComplete: fileuploadComplete,
 		scrolling: 'no',
 		autoCenter : true,
 		padding:30

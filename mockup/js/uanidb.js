@@ -1,6 +1,11 @@
 var anime_id=1;
 var jqXHR = null;
 
+$("#button-file-url").click(function (e) {
+	if(validateURL($("#file_from_url").val())){
+		alert($("#file_from_url").val());
+	}else alert('not a real url');
+});
 $("#imgPhoto").on("dblclick", function() {
 	$("#fileupload").click();
 });
@@ -544,7 +549,7 @@ function update_studios(id){
 function get_types(id){		
 	$.ajax({ 
 		type: 'GET', 
-		url: 'http://oilreview.x10.mx/type.php', 
+		url: 'http://uanidb.tk/type.php', 
 		data: { aid: id }, 
 		dataType: 'json',
 		beforeSend: function (){
@@ -566,7 +571,6 @@ function get_types(id){
 }
 
 $("#anime-error").click(function (e) {
-	//alert(JSON.stringify($('#anime-genres').tokenInput("get")));
 });
 
 var genres_populate=[];
@@ -663,12 +667,17 @@ function fancyboxLoad(){
 	}		
 }
 
+function lightboxComplete(){
+	$('.lightbox-div').css('width','auto');
+}
+
 function fancyboxClose(){
 	if($('#genre-post').attr("data-edit")){
 		$('#genre-post').removeAttr("data-edit");
 		$('#genre-post').text('Додати жанр');
 	}
 	$("#add_genre").removeAttr("data-changed");
+	$('.lightbox-div').css('width','465');
 }
 
 // fileupload
@@ -690,9 +699,13 @@ function fileuploadLoad(){
 		$( "#imgPhoto" ).draggable({ containment: "parent" });
 		$( "#imgPhoto" ).css('left',$("#anime-image").position().left+diff_w);
 		$( "#imgPhoto" ).css('top',$("#anime-image").position().top+diff_h);												
-		$("#imgPhoto").attr('src', $('#anime-image').attr('src'));
+		$("#imgPhoto").attr('src', $('#anime-image').attr('src'));		
 		return true;
 	}		
+}
+
+function fileuploadComplete(){
+	$('#add_files').css('width','auto');
 }
 
 function fileuploadClose(){	
@@ -702,6 +715,7 @@ function fileuploadClose(){
 		else delete_file('http://uanidb.tk/pics/anime/'+$(".anime-title").attr('data-anime-id')+'-temp.jpg');
 		$('#imgPhoto').removeAttr('data-uploaded');
 	}
+	$('#add_files').css('width','310');
 }
 
 function delete_file(file){		
@@ -725,8 +739,8 @@ function delete_file(file){
 $('#imgPhoto').bind('fileuploadsubmit', function (e, data) {
     if($(".anime-title").attr('data-anime-id')){
 		$('#progress .bar').css('width', '0');
-		if($("#anime-image").attr('data-uploaded')==1) data.formData = {'newname':$(".anime-title").attr('data-anime-id')+'-temp2.jpg'};
-		else data.formData = {'newname':$(".anime-title").attr('data-anime-id')+'-temp.jpg'};
+		if($("#anime-image").attr('data-uploaded')==1) data.formData = {'newname':$(".anime-title").attr('data-anime-id')+'-temp2.jpg','url':'http://oilreview.kiev.ua/wp-content/woo_custom/pic-broken-trend.jpg'};
+		else data.formData = {'newname':$(".anime-title").attr('data-anime-id')+'-temp.jpg','url':'http://oilreview.kiev.ua/wp-content/woo_custom/pic-broken-trend.jpg'};
 	}
 	else return false;
 });
@@ -783,3 +797,10 @@ function imageRename(source){
 $(document).bind('drop dragover', function (e) {
 	e.preventDefault();
 });
+
+// url validator
+
+function validateURL(textval) {
+  var urlregex = new RegExp("^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-‌​\.\?\,\'\/\\\+&amp;%\$#_]*)?$");
+  return urlregex.test(textval);
+}
