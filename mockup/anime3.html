@@ -349,33 +349,7 @@ $( document ).ready(function() {
 				$('#files-notice').removeClass('error');
 				$('#files-notice').hide();
 				if(!$('#imgPhoto').attr('data-uploaded')) $('#imgPhoto').attr('data-uploaded', '1');
-				if(imageProportions(file.name)){
-					$("#imgPhoto").one("load", function() {
-						$('#imgPhoto').css('left', '0');
-						$('#imgPhoto').css('top', '0');
-						var diff_w=$("#imgPhoto").width()-$("#crop-holder").width();
-						var diff_h=$("#imgPhoto").height()-$("#crop-holder").height();	
-						$('#anime-image').attr('data-diff-w', diff_w);
-						$('#anime-image').attr('data-diff-h', diff_h);
-						$("#crop-iholder").width(Math.round($("#imgPhoto").width()+diff_w));
-						$("#crop-iholder").height(Math.round($("#imgPhoto").height()+diff_h));	
-						$("#crop-iholder").css("left", Math.round(-diff_w));
-						$("#crop-iholder").css("top", Math.round(-diff_h));
-					}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+file.name+'&h=365&' + new Date().getTime());
-				}else{
-					$("#imgPhoto").one("load", function() {
-						$('#imgPhoto').css('left', '0');
-						$('#imgPhoto').css('top', '0');
-						var diff_w=$("#imgPhoto").width()-$("#crop-holder").width();
-						var diff_h=$("#imgPhoto").height()-$("#crop-holder").height();	
-						$('#anime-image').attr('data-diff-w', diff_w);
-						$('#anime-image').attr('data-diff-h', diff_h);
-						$("#crop-iholder").width(Math.round($("#imgPhoto").width()+diff_w));
-						$("#crop-iholder").height(Math.round($("#imgPhoto").height()+diff_h));	
-						$("#crop-iholder").css("left", Math.round(-diff_w));
-						$("#crop-iholder").css("top", Math.round(-diff_h));
-					}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+file.name+ '&w=265&' + new Date().getTime());
-				}
+				imgPhoto_update(file.name);
             });
         },
         progressall: function (e, data) {

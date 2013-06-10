@@ -6,37 +6,7 @@ $("#button-file-url").click(function (e) {
 	if($(".anime-title").attr('readonly'))return;
 	if(validateURL($("#file_from_url").val())){
 		get_pic_from_url($("#file_from_url").val());
-		if(!$('#imgPhoto').attr('data-uploaded')) $('#imgPhoto').attr('data-uploaded', '1');
-		$('#progress .bar').css('width', '0');
-		if($("#anime-image").attr('data-uploaded')==1) name = $(".anime-title").attr('data-anime-id')+'-temp2.jpg';
-		else name = $(".anime-title").attr('data-anime-id')+'-temp.jpg';
-		if(imageProportions(name)){
-			$("#imgPhoto").one("load", function() {
-				$('#imgPhoto').css('left', '0');
-				$('#imgPhoto').css('top', '0');
-				var diff_w=$("#imgPhoto").width()-$("#crop-holder").width();
-				var diff_h=$("#imgPhoto").height()-$("#crop-holder").height();	
-				$('#anime-image').attr('data-diff-w', diff_w);
-				$('#anime-image').attr('data-diff-h', diff_h);
-				$("#crop-iholder").width(Math.round($("#imgPhoto").width()+diff_w));
-				$("#crop-iholder").height(Math.round($("#imgPhoto").height()+diff_h));	
-				$("#crop-iholder").css("left", Math.round(-diff_w));
-				$("#crop-iholder").css("top", Math.round(-diff_h));
-			}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+name+'&h=365&' + new Date().getTime());
-		}else{
-			$("#imgPhoto").one("load", function() {
-				$('#imgPhoto').css('left', '0');
-				$('#imgPhoto').css('top', '0');
-				var diff_w=$("#imgPhoto").width()-$("#crop-holder").width();
-				var diff_h=$("#imgPhoto").height()-$("#crop-holder").height();	
-				$('#anime-image').attr('data-diff-w', diff_w);
-				$('#anime-image').attr('data-diff-h', diff_h);
-				$("#crop-iholder").width(Math.round($("#imgPhoto").width()+diff_w));
-				$("#crop-iholder").height(Math.round($("#imgPhoto").height()+diff_h));	
-				$("#crop-iholder").css("left", Math.round(-diff_w));
-				$("#crop-iholder").css("top", Math.round(-diff_h));
-			}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+name+ '&w=265&' + new Date().getTime());
-		}			}else alert('not a real url');
+	}else alert('not a real url');
 });
 $("#imgPhoto").on("dblclick", function() {
 	$("#fileupload").click();
@@ -840,24 +810,60 @@ function validateURL(textval) {
 // pic from url
 
 function get_pic_from_url(source){
+	$('#progress .bar').css('width', '0');
+	var temp_name=0;
+	if($("#anime-image").attr('data-uploaded')==1) temp_name = $(".anime-title").attr('data-anime-id')+'-temp2.jpg';
+	else temp_name = $(".anime-title").attr('data-anime-id')+'-temp.jpg';
 	$.ajax({ 
 		type: 'POST', 
 		async: false,
 		url: 'http://uanidb.tk/pics/pic_from_url.php', 
-		data: {url:source, name:"1-temp.jpg"},
+		data: {url:source, name:temp_name},
 		dataType: 'json',
 		beforeSend: function (){
 			//$('.notice').html('Працюю з базою...');
 		},
 		success: function (data) { 
-			//var d = new Date();
-			//d=d.getTime();
-			//var src=$('#anime-image').attr('src');
-			//$('#anime-image').attr('src', src.replace(/(-temp|-temp2).jpg/,'.jpg'));
-			//$('#main-image-a').attr('href', 'http://uanidb.tk/pics/anime/'+$(".anime-title").attr('data-anime-id')+'.jpg?'+data.mtime);
+			if(!$('#imgPhoto').attr('data-uploaded')) $('#imgPhoto').attr('data-uploaded', '1');
+			$('#progress .bar').css('width', '0');
+			if($("#anime-image").attr('data-uploaded')==1) name = $(".anime-title").attr('data-anime-id')+'-temp2.jpg';
+			else name = $(".anime-title").attr('data-anime-id')+'-temp.jpg';
+			imgPhoto_update(name);
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			alert('something wrong with renaming image');
 		}
 	});
+}
+
+// imgPhoto update
+
+function imgPhoto_update(name){
+	if(imageProportions(name)){
+		$("#imgPhoto").one("load", function() {
+			$('#imgPhoto').css('left', '0');
+			$('#imgPhoto').css('top', '0');
+			var diff_w=$("#imgPhoto").width()-$("#crop-holder").width();
+			var diff_h=$("#imgPhoto").height()-$("#crop-holder").height();	
+			$('#anime-image').attr('data-diff-w', diff_w);
+			$('#anime-image').attr('data-diff-h', diff_h);
+			$("#crop-iholder").width(Math.round($("#imgPhoto").width()+diff_w));
+			$("#crop-iholder").height(Math.round($("#imgPhoto").height()+diff_h));	
+			$("#crop-iholder").css("left", Math.round(-diff_w));
+			$("#crop-iholder").css("top", Math.round(-diff_h));
+		}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+name+'&h=365&' + new Date().getTime());
+	}else{
+		$("#imgPhoto").one("load", function() {
+			$('#imgPhoto').css('left', '0');
+			$('#imgPhoto').css('top', '0');
+			var diff_w=$("#imgPhoto").width()-$("#crop-holder").width();
+			var diff_h=$("#imgPhoto").height()-$("#crop-holder").height();	
+			$('#anime-image').attr('data-diff-w', diff_w);
+			$('#anime-image').attr('data-diff-h', diff_h);
+			$("#crop-iholder").width(Math.round($("#imgPhoto").width()+diff_w));
+			$("#crop-iholder").height(Math.round($("#imgPhoto").height()+diff_h));	
+			$("#crop-iholder").css("left", Math.round(-diff_w));
+			$("#crop-iholder").css("top", Math.round(-diff_h));
+		}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+name+ '&w=265&' + new Date().getTime());
+	}
 }
