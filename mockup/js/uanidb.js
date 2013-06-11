@@ -816,18 +816,18 @@ function get_pic_from_url(source){
 	else temp_name = $(".anime-title").attr('data-anime-id')+'-temp.jpg';
 	$.ajax({ 
 		type: 'POST', 
-		async: false,
 		url: 'http://uanidb.tk/pics/pic_from_url.php', 
 		data: {url:source, name:temp_name},
 		dataType: 'json',
 		beforeSend: function (){
-			//$('.notice').html('Працюю з базою...');
+			loading_image(1);
 		},
 		success: function (data) { 
 			if(data.error){
 				$('#files-notice').addClass('error');
 				$('#files-notice').html(data.error+ '<a href="#close" class="icon-remove"></a>').show();
 				//$('#progress .bar').css('width', '0');
+				loading_image(0);	
 				return;
 			}			
 			if(!$('#imgPhoto').attr('data-uploaded')) $('#imgPhoto').attr('data-uploaded', '1');
@@ -835,7 +835,15 @@ function get_pic_from_url(source){
 			if($("#anime-image").attr('data-uploaded')==1) name = $(".anime-title").attr('data-anime-id')+'-temp2.jpg';
 			else name = $(".anime-title").attr('data-anime-id')+'-temp.jpg';
 			$('#files-notice').removeClass('error');
-			$('#files-notice').hide();			
+			$('#files-notice').hide();
+			$('#loading-image2').hide();
+			$('#crop-iholder').removeAttr('data-x');
+			$('#crop-iholder').removeAttr('data-y');
+			$('#crop-iholder').removeAttr('data-w');
+			$('#crop-iholder').removeAttr('data-h');
+			$('#imgPhoto').removeAttr('data-src');
+			$('#imgPhoto').removeAttr('data-x');
+			$('#imgPhoto').removeAttr('data-y');			
 			imgPhoto_update(name);
 		},
 		error: function(jqXHR, textStatus, errorThrown){
@@ -873,5 +881,44 @@ function imgPhoto_update(name){
 			$("#crop-iholder").css("left", Math.round(-diff_w));
 			$("#crop-iholder").css("top", Math.round(-diff_h));
 		}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+name+ '&w=265&' + new Date().getTime());
+	}
+}
+
+// loading-image icon
+
+function loading_image(flag){
+	if(flag==1){		
+		$('#imgPhoto').attr('data-src', $('#imgPhoto').attr('src'));
+		$("#imgPhoto").one("load", function() {
+			$('#imgPhoto').attr('data-x', $('#imgPhoto').css('left'));
+			$('#imgPhoto').attr('data-y', $('#imgPhoto').css('top'));
+			$('#imgPhoto').css('left', '0');
+			$('#imgPhoto').css('top', '0');
+			$("#crop-iholder").attr('data-x',$("#crop-iholder").css("left"));
+			$("#crop-iholder").attr('data-y',$("#crop-iholder").css("top"));
+			$("#crop-iholder").attr('data-w',$("#crop-iholder").css("width"));
+			$("#crop-iholder").attr('data-h',$("#crop-iholder").css("height"));
+			$("#crop-iholder").css('left', '0');
+			$("#crop-iholder").css('top', '0');
+			$("#crop-iholder").css('width', '265');
+			$("#crop-iholder").css('height', '365');
+		}).attr('src', 'images/no-anime-medium.gif');
+		$('#loading-image2').show();		
+	}else{
+		$('#loading-image2').hide();		
+		$("#crop-iholder").css('width', $("#crop-iholder").attr('data-w'));
+		$("#crop-iholder").css('height', $("#crop-iholder").attr('data-h'));
+		$("#crop-iholder").css('left', $("#crop-iholder").attr('data-x'));
+		$("#crop-iholder").css('top', $("#crop-iholder").attr('data-y'));
+		$('#crop-iholder').removeAttr('data-x');
+		$('#crop-iholder').removeAttr('data-y');
+		$('#crop-iholder').removeAttr('data-w');
+		$('#crop-iholder').removeAttr('data-h');
+		$('#imgPhoto').attr('src', $('#imgPhoto').attr('data-src'));
+		$('#imgPhoto').css('left', $('#imgPhoto').attr('data-x'));
+		$('#imgPhoto').css('top', $('#imgPhoto').attr('data-y'));
+		$('#imgPhoto').removeAttr('data-src');	
+		$('#imgPhoto').removeAttr('data-x');
+		$('#imgPhoto').removeAttr('data-y');		
 	}
 }

@@ -162,7 +162,7 @@
 						<div style="width:265px; margin:-5px 0 20px 0; padding-left:15px; display:none;" id="files-notice" class="notice">Повідомлення діалогу завантаження файлів<a href="#close" class="icon-remove"></a></div>
 						<div id="crop-holder" class="tooltip-right" title="Потягніть, щоб змінити кадрування.<br />Двічі клікніть, щоб завантажити нову картинку з диску (чи перетягніть її сюди мишею).<br />Або завантажте нову картинку з інтернету, увівши URL нижче"><div id="crop-iholder" class="ui-widget-content"><img id="loading-image2" style="display:none;" src="css/img/bx_loader.gif" alt="loading..."><img id="imgPhoto" class="ui-widget-header" src="images/no-anime-medium.gif" alt='image'></div></div>		
 						<input style="width:1px;height:1px;position:absolute;left:-10000px;" id="fileupload" type="file" name="files[]" accept="image/*">
-						<div class="head-search" style="height:50px; width:265px; margin: 0 0 20px 0;padding:0;">					
+						<div class="head-search" style="height:50px; width:265px; margin: -5px 0 0px 0;padding:0;">					
 						<label for="file_from_url">Картинка з інтернету:</label><br />
 						<button style="width:87px;" id="button-file-url" class="pull-right small"><i class="icon-exchange"></i> Залити</button>
 						<input style="width:178px;" maxlength="110" type="text" id="file_from_url" placeholder="URL картинки" name="" />
@@ -296,7 +296,6 @@ $( document ).ready(function() {
 		onClosed: fancyboxClose,		
 		onComplete: lightboxComplete,
 		scrolling: 'no',
-		autoCenter : true,
 		padding:30
 	});
 	$('.fileupload-lightbox').fancybox({
@@ -304,7 +303,6 @@ $( document ).ready(function() {
 		onClosed: fileuploadClose,
 		onComplete: fileuploadComplete,
 		scrolling: 'no',
-		autoCenter : true,
 		padding:30
 	});
 	get_types(anime_id);
@@ -326,17 +324,13 @@ $( document ).ready(function() {
 			if (!(/\.(gif|jpg|jpeg|png)$/i).test(uploadFile.name)) {
 				$('#files-notice').addClass('error');
 				$('#files-notice').html('Будь ласка, тільки gif, jpg, png! <a href="#close" class="icon-remove"></a>').show();
-				$('#loading-image2').hide();
-				$('#imgPhoto').attr('src', $('#imgPhoto').attr('data-src'));	
-				$('#imgPhoto').removeAttr('data-src');		
+				loading_image(0);	
 				return;
 			}
 			if (uploadFile.size > 1048576) { // 1mb
 				$('#files-notice').addClass('error');
 				$('#files-notice').html('Максимальний розмір файлу картинки 1 Mb! <a href="#close" class="icon-remove"></a>').show();
-				$('#loading-image2').hide();
-				$('#imgPhoto').attr('src', $('#imgPhoto').attr('data-src'));
-				$('#imgPhoto').removeAttr('data-src');				
+				loading_image(0);			
 				return;
 			}			
 			jqXHR = data.submit()
@@ -353,6 +347,7 @@ $( document ).ready(function() {
 					$('#files-notice').addClass('error');
 					$('#files-notice').html(file.error+ '<a href="#close" class="icon-remove"></a>').show();
 					//$('#progress .bar').css('width', '0');
+					loading_image(0);
 					return;
 				}
 				$('#files-notice').removeClass('error');
@@ -362,9 +357,7 @@ $( document ).ready(function() {
             });
         },
         progressall: function (e, data) {
-			if(!$('#imgPhoto').attr('data-src')) $('#imgPhoto').attr('data-src', $('#imgPhoto').attr('src'));
-			$('#imgPhoto').attr('src', 'images/no-anime-medium.gif');
-			$('#loading-image2').show();
+			if(!$('#imgPhoto').attr('data-src')) loading_image(1);
             /*var progress = parseInt(data.loaded / data.total * 100, 10);
             $('#progress .bar').css(
                 'width',
