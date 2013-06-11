@@ -1,9 +1,19 @@
 var anime_id=1;
 var jqXHR = null;
 
-$("#button-file-url").click(function (e) {
+/*$(document).on("mouseenter", "#crop-holder", function() {
+	$("#url_div").show();
+});	
+$(document).on("mouseleave", "#crop-holder", function() {
+	$("#url_div").hide();
+});*/	
+$(document).on("click","#file_from_disk", function (e) {
+	$("#fileupload").click();
+});
+$(document).on("click","#button-file-url", function (e) {
 	if(!$(".anime-title").attr('data-anime-id'))return;
 	if($(".anime-title").attr('readonly'))return;
+	if($("#file_from_url").val()=='')return;
 	if(validateURL($("#file_from_url").val())){
 		get_pic_from_url($("#file_from_url").val());
 	}else {
@@ -722,6 +732,7 @@ function fileuploadClose(){
 		$('#imgPhoto').removeAttr('data-uploaded');
 	}
 	$('#add_files').css('width','310');
+	$('#tiptip_holder').hide();
 }
 
 function delete_file(file){		

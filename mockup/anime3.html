@@ -160,17 +160,19 @@
 				<div style="display: none;">
 					<div style="width:310px; margin:20px 18px 0px 20px;" class="col_12 column" id="add_files">
 						<div style="width:265px; margin:-5px 0 20px 0; padding-left:15px; display:none;" id="files-notice" class="notice">Повідомлення діалогу завантаження файлів<a href="#close" class="icon-remove"></a></div>
-						<div id="crop-holder" class="tooltip-right" title="Потягніть, щоб змінити кадрування.<br />Двічі клікніть, щоб завантажити нову картинку з диску (чи перетягніть її сюди мишею).<br />Або завантажте нову картинку з інтернету, увівши URL нижче"><div id="crop-iholder" class="ui-widget-content"><img id="loading-image2" style="display:none;" src="css/img/bx_loader.gif" alt="loading..."><img id="imgPhoto" class="ui-widget-header" src="images/no-anime-medium.gif" alt='image'></div></div>		
+						<div id="crop-holder" class="tooltip-right" data-content="#tooltipcontent" title="Потягніть, щоб змінити кадрування.<br />Двічі клікніть, щоб завантажити нову картинку з диску (чи перетягніть її сюди мишею).<br />Або завантажте нову картинку з інтернету, увівши URL нижче"><div id="crop-iholder" class="ui-widget-content"><img id="loading-image2" style="display:none;" src="css/img/bx_loader.gif" alt="loading..."><img id="imgPhoto" class="ui-widget-header" src="images/no-anime-medium.gif" alt='image'></div></div>		
 						<input style="width:1px;height:1px;position:absolute;left:-10000px;" id="fileupload" type="file" name="files[]" accept="image/*">
-						<div class="head-search" style="height:50px; width:265px; margin: -5px 0 0px 0;padding:0;">					
-						<label for="file_from_url">Картинка з інтернету:</label><br />
-						<button style="width:87px;" id="button-file-url" class="pull-right small"><i class="icon-exchange"></i> Залити</button>
-						<input style="width:178px;" maxlength="110" type="text" id="file_from_url" placeholder="URL картинки" name="" />
+						<div id="tooltipcontent" class="_head-search" style="display:none; height:auto; width:auto; margin:0;padding:0;">						
+						<label style="margin-top:5px;" for="file_from_disk">— Картинка з диску:</label><button style="display:block;width:auto;margin:5px 60px auto auto;" id="file_from_disk" class="small pull-right"><i class="icon-folder-open"></i> Обрати</button>
+						<p style="margin:15px auto 6px auto;text-align:center;"><em>або</em></p>
+						<label style="clear:both;" for="file_from_url">— Картинка з інтернету:</label><br />
+						<button style="width:69px;height:26px;border-radius: 0px 5px 5px 0px;margin-right:1px;" id="button-file-url" class="pull-right small"><i class="icon-exchange"></i> Залити</button>
+						<input style="width:172px;border-radius: 5px 0px 0px 5px;margin-bottom:5px;" maxlength="110" type="text" id="file_from_url" placeholder="URL картинки" name="" />
 						</div>
 						<!-- <div style="margin:0 0 7px 0;width:265px;" id="progress" class="col_12 progress progress-success progress-striped">
 							<div style="height:20px; width:0px;" class="bar"></div>
 						</div> -->
-						<div style="clear:both; margin-top:20px;" class="col_12">
+						<div style="clear:both; margin:7px auto 10px auto;" class="col_12">
 							<button title="Зміни до бази збережуться, коли ви вийдете з Режиму редагування сторінки" style="width:265px;" id="button-save" class="orange"><i class="icon-refresh"></i> Зберегти зміни на сторінку</button>
 						</div>
 					</div>

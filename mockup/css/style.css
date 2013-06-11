@@ -475,6 +475,14 @@ textarea.anime-synopsis{
 	border-radius: 8px;	
 }
 
+#tiptip_holder{
+	max-width:260px;
+}
+
+#tiptip_content{
+	width:260px;
+}
+
 .foot-menu{
 	display:block;
 	float:left;
