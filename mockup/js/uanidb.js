@@ -6,7 +6,10 @@ $("#button-file-url").click(function (e) {
 	if($(".anime-title").attr('readonly'))return;
 	if(validateURL($("#file_from_url").val())){
 		get_pic_from_url($("#file_from_url").val());
-	}else alert('not a real url');
+	}else {
+		$('#files-notice').addClass('error');
+		$('#files-notice').html('Це не URL!<a href="#close" class="icon-remove"></a>').show();	
+	}
 });
 $("#imgPhoto").on("dblclick", function() {
 	$("#fileupload").click();
