@@ -431,7 +431,7 @@ textarea.anime-synopsis{
 	margin:15px 0px;
 }
 
-#loading-image{
+#loading-image, #loading-image2{
 	position:absolute;
 	display:block;
 	border:none;

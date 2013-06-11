@@ -689,7 +689,7 @@ function fileuploadLoad(){
 		return false;
 	}else{	
 		$('#files-notice').hide();
-		$('#progress .bar').css('width', '0');
+		//$('#progress .bar').css('width', '0');
 		var diff_w=$("#anime-image").width()-$("#crop-holder").width();
 		var diff_h=$("#anime-image").height()-$("#crop-holder").height();	
 		$('#anime-image').attr('data-diff-w', diff_w);
@@ -740,7 +740,7 @@ function delete_file(file){
 
 $('#imgPhoto').bind('fileuploadsubmit', function (e, data) {
     if($(".anime-title").attr('data-anime-id')){
-		$('#progress .bar').css('width', '0');
+		//$('#progress .bar').css('width', '0');
 		if($("#anime-image").attr('data-uploaded')==1) data.formData = {'newname':$(".anime-title").attr('data-anime-id')+'-temp2.jpg','url':'http://oilreview.kiev.ua/wp-content/woo_custom/pic-broken-trend.jpg'};
 		else data.formData = {'newname':$(".anime-title").attr('data-anime-id')+'-temp.jpg','url':'http://oilreview.kiev.ua/wp-content/woo_custom/pic-broken-trend.jpg'};
 	}
@@ -810,7 +810,7 @@ function validateURL(textval) {
 // pic from url
 
 function get_pic_from_url(source){
-	$('#progress .bar').css('width', '0');
+	//$('#progress .bar').css('width', '0');
 	var temp_name=0;
 	if($("#anime-image").attr('data-uploaded')==1) temp_name = $(".anime-title").attr('data-anime-id')+'-temp2.jpg';
 	else temp_name = $(".anime-title").attr('data-anime-id')+'-temp.jpg';
@@ -824,10 +824,18 @@ function get_pic_from_url(source){
 			//$('.notice').html('Працюю з базою...');
 		},
 		success: function (data) { 
+			if(data.error){
+				$('#files-notice').addClass('error');
+				$('#files-notice').html(data.error+ '<a href="#close" class="icon-remove"></a>').show();
+				//$('#progress .bar').css('width', '0');
+				return;
+			}			
 			if(!$('#imgPhoto').attr('data-uploaded')) $('#imgPhoto').attr('data-uploaded', '1');
-			$('#progress .bar').css('width', '0');
+			//$('#progress .bar').css('width', '0');
 			if($("#anime-image").attr('data-uploaded')==1) name = $(".anime-title").attr('data-anime-id')+'-temp2.jpg';
 			else name = $(".anime-title").attr('data-anime-id')+'-temp.jpg';
+			$('#files-notice').removeClass('error');
+			$('#files-notice').hide();			
 			imgPhoto_update(name);
 		},
 		error: function(jqXHR, textStatus, errorThrown){
