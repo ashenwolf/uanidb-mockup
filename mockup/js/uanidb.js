@@ -690,6 +690,7 @@ function fileuploadLoad(){
 	}else{	
 		$('#files-notice').hide();
 		//$('#progress .bar').css('width', '0');
+		$("#file_from_url").val('');
 		var diff_w=$("#anime-image").width()-$("#crop-holder").width();
 		var diff_h=$("#anime-image").height()-$("#crop-holder").height();	
 		$('#anime-image').attr('data-diff-w', diff_w);
