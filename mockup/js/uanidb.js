@@ -1,12 +1,31 @@
 var anime_id=1;
 var jqXHR = null;
+$.support.cors = true;
 
-/*$(document).on("mouseenter", "#crop-holder", function() {
-	$("#url_div").show();
+$("#tooltip").on("mouseleave", function (e) {
+	var goingto=e.relatedTarget || e.toElement;	
+	if(!$(goingto).closest("#crop-holder").length)$('#tooltip').fadeOut(400);
+});
+$("#crop-holder").on("mousedown", function (e) {
+	if($('#tooltip').is(":visible"))$('#tooltip').fadeOut(400);
 });	
-$(document).on("mouseleave", "#crop-holder", function() {
-	$("#url_div").hide();
-});*/	
+$("#crop-holder").on("mouseup", function (e) {
+	if(!$('#tooltip').is(":visible")) $('#tooltip').fadeIn(400);
+});		
+$("#crop-holder").on("mouseenter", function (e) {
+	if(!$('#tooltip').is(":visible")){
+		$("body").append($('#tooltip'));
+		var pos=$('#crop-holder').offset();
+		$('#tooltip').css('left', pos.left+265);
+		$('#tooltip').css('top', e.pageY-70);	
+		$('#tooltip').fadeIn(400);		
+	}
+});	
+$("#crop-holder").on("mouseleave", function (e) {
+	//$('#tooltip').remove();
+	var goingto=e.relatedTarget || e.toElement;	
+	if(!$(goingto).closest("#tooltip").length)$('#tooltip').fadeOut(400);
+});	
 $(document).on("click","#file_from_disk", function (e) {
 	$("#fileupload").click();
 });
@@ -237,6 +256,7 @@ function get_anime(id){
 		type: 'GET', 
 		url: 'http://oilreview.x10.mx/anime.php', 
 		data: { aid: id }, 
+		cache: false,
 		dataType: 'json',
 		beforeSend: function (){
 			$('.notice').html('Працюю з базою...');	
@@ -318,6 +338,7 @@ function update_anime(id){
 		url: 'http://oilreview.x10.mx/anime.php', 
 		data: {anime_update:JSON.stringify(myData)}, 
 		dataType: 'json',
+		cache: false,
 		beforeSend: function (){
 			$('.notice').html('Працюю з базою...');
 		},
@@ -349,6 +370,7 @@ function get_anime_genres(id){
 		url: 'http://oilreview.x10.mx/genres.php', 
 		data: { aid: id }, 
 		dataType: 'json',
+		cache: false,
 		beforeSend: function (){
 			$('.notice').html('Працюю з базою...');
 		},
@@ -378,6 +400,7 @@ function update_genres(id){
 		url: 'http://oilreview.x10.mx/genres.php', 
 		data: {genres_update:JSON.stringify(myData)}, 
 		dataType: 'json',
+		cache: false,
 		beforeSend: function (){
 			$('.notice').html('Працюю з базою...');
 		},
@@ -407,6 +430,7 @@ function add_genres(){
 		url: 'http://oilreview.x10.mx/genres.php', 
 		data: {genres_add:JSON.stringify(myData)}, 
 		dataType: 'json',
+		cache: false,
 		beforeSend: function (){
 			$('#genre-notice').html('Працюю з базою...' + '<a href="#close" class="icon-remove"></a>');
 			$('#genre-notice').show();
@@ -445,6 +469,7 @@ function get_genre(id){
 		url: 'http://oilreview.x10.mx/genres.php', 
 		data: { g: id }, 
 		dataType: 'json',
+		cache: false,
 		beforeSend: function (){
 			$('#genre-notice').html('Зчитую...' + '<a href="#close" class="icon-remove"></a>');
 			$('#genre-notice').show();
@@ -478,6 +503,7 @@ function edit_genres(id){
 		url: 'http://oilreview.x10.mx/genres.php', 
 		data: {genre_update:JSON.stringify(myData)}, 
 		dataType: 'json',
+		cache: false,
 		beforeSend: function (){
 			$('#genre-notice').html('Працюю з базою...' + '<a href="#close" class="icon-remove"></a>');
 			$('#genre-notice').show();
@@ -514,6 +540,7 @@ function get_anime_studios(id){
 		url: 'http://oilreview.x10.mx/studios.php', 
 		data: { aid: id }, 
 		dataType: 'json',
+		cache: false,
 		beforeSend: function (){
 			$('.notice').html('Працюю з базою...');
 		},
@@ -543,6 +570,7 @@ function update_studios(id){
 		url: 'http://oilreview.x10.mx/studios.php', 
 		data: {studios_update:JSON.stringify(myData)}, 
 		dataType: 'json',
+		cache: false,
 		beforeSend: function (){
 			$('.notice').html('Працюю з базою...');
 		},
@@ -567,6 +595,7 @@ function get_types(id){
 		url: 'http://uanidb.tk/type.php', 
 		data: { aid: id }, 
 		dataType: 'json',
+		cache: false,
 		beforeSend: function (){
 			//$('.notice').html('Працюю з базою...');
 		},
@@ -712,7 +741,7 @@ function fileuploadLoad(){
 		$("#crop-iholder").height(Math.round($("#anime-image").height()+diff_h));	
 		$("#crop-iholder").css("left", Math.round(-diff_w));
 		$("#crop-iholder").css("top", Math.round(-diff_h));
-		$( "#imgPhoto" ).draggable({ containment: "parent" });
+		$( "#imgPhoto" ).draggable({ containment: "parent"});
 		$( "#imgPhoto" ).css('left',$("#anime-image").position().left+diff_w);
 		$( "#imgPhoto" ).css('top',$("#anime-image").position().top+diff_h);												
 		$("#imgPhoto").attr('src', $('#anime-image').attr('src'));		
@@ -741,6 +770,7 @@ function delete_file(file){
 		url: 'http://uanidb.tk/pics/?file='+file, 
 		data: {}, 
 		dataType: 'json',
+		cache: false,
 		beforeSend: function (){
 			//$('.notice').html('Працюю з базою...');
 		},
@@ -771,6 +801,7 @@ function imageProportions(source){
 		url: 'http://uanidb.tk/pics/pic.php', 
 		data: {pic:'http://uanidb.tk/pics/anime/'+source},
 		dataType: 'json',
+		cache: false,
 		async: false,
 		beforeSend: function (){
 			//$('.notice').html('Працюю з базою...');
@@ -795,6 +826,7 @@ function imageRename(source){
 		url: 'http://uanidb.tk/pics/pic.php', 
 		data: {rename:source},
 		dataType: 'json',
+		cache: false,
 		beforeSend: function (){
 			//$('.notice').html('Працюю з базою...');
 		},
@@ -834,6 +866,7 @@ function get_pic_from_url(source){
 		url: 'http://uanidb.tk/pics/pic_from_url.php', 
 		data: {url:source, name:temp_name},
 		dataType: 'json',
+		cache: false,
 		beforeSend: function (){
 			loading_image(1);
 		},
