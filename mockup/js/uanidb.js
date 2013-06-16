@@ -2,6 +2,12 @@ var anime_id=1;
 var jqXHR = null;
 $.support.cors = true;
 
+$("#ukr_name_genre").on("input", function() {
+	$("#ukr_name_genre").attr("data-changed","1");
+});	
+$("#studio_name").on("input", function() {
+	$("#studio_name").attr("data-changed","1");
+});	
 $("#tooltip").on("mouseleave", function (e) {
 	var goingto=e.relatedTarget || e.toElement;	
 	if(!$(goingto).closest("#crop-holder").length)$('#tooltip').fadeOut(400);
@@ -83,6 +89,9 @@ $(document).on('#fancybox-content').keypress(function (e) {
 	if (e.which == 13 && $("#add_genre").attr("data-changed")) {
 		$('#genre-post').trigger('click');	
 		return false;
+	}else if(e.which == 13 && $("#add_studio").attr("data-changed")){
+		$('#studio-post').trigger('click');	
+		return false;
 	}
 });
 $("#select-type").change(function() {
@@ -96,6 +105,14 @@ $("#genre-post").on("click", function() {
 			edit_genres($('#genre-post').attr("data-edit"));
 		}
 		else add_genres();
+	}
+});
+$("#studio-post").on("click", function() {
+	if(!$(".anime-title").attr('readonly') && $('#studio_name').val()){
+		if($('#studio-post').attr("data-edit")){
+			edit_studios($('#studio-post').attr("data-edit"));
+		}
+		else add_studios();
 	}
 });
 $(document).on("click", ".token-input-token-facebook p", function() {
@@ -139,7 +156,19 @@ $("#anime-edit").click(function (e) {
 		$(document).on("click", ".token-input-token-facebook", function() {
 			var text=$("p",this).text();
 			if($(this).closest('#td-studios').length){
-				$('#add-studio-lightbox').trigger('click');
+				var input_studios=$('#anime-studios').tokenInput('get',{name: text});			
+				var selected_studio = $(input_studios).filter(function(){
+					return this.name == text;
+				});
+				if(selected_studio[0].id!=selected_studio[0].name){
+					get_studio(selected_studio[0].id);			
+					$('#studio-post').attr('data-edit', selected_studio[0].id);
+					$('#add-studio-lightbox').trigger('click');
+				}else{
+					$('#add-studio-lightbox').trigger('click');
+					$("#add_studio").attr("data-id", selected_studio[0].id);
+					$('#studio_name').val(selected_studio[0].id);
+				}			
 			}else{				
 				var input_genres=$('#anime-genres').tokenInput('get',{name: text});			
 				var selected_genre = $(input_genres).filter(function(){
@@ -158,7 +187,7 @@ $("#anime-edit").click(function (e) {
 		});	
 		$(document).off('mouseenter', '.token-input-token-facebook');
 		$(document).on("mouseenter", ".token-input-token-facebook", function() {
-			$("p",this).attr('title', 'Клікніть для редагування жанру');
+			$("p",this).attr('title', 'Клікніть для редагування');
 			$("p",this).css('cursor', 'pointer');
 			$(this).css('cursor', 'pointer');
 		});
@@ -490,9 +519,9 @@ function get_genre(id){
 	});
 }
 
-function edit_genres(id){
+function edit_genres(gid){
 	var myData={};
-	myData['gid']=id;
+	myData['gid']=gid;
 	myData['ukr_name_genre']=$('#ukr_name_genre').val().replace(/"/g,'\\"');
 	myData['jap_rom_name_genre']=$('#jap_rom_name_genre').val().replace(/"/g,'\\"');
 	myData['jap_kana_name_genre']=$('#jap_kana_name_genre').val().replace(/"/g,'\\"');
@@ -510,6 +539,11 @@ function edit_genres(id){
 		},
 		success: function (data) {	
 			if (!isNaN(parseInt(data))){
+				if($("#ukr_name_genre").attr("data-changed")){
+					$('#anime-genres').tokenInput("remove", {id: gid});
+					$('#anime-genres').tokenInput("add", {id: gid, name: $('#ukr_name_genre').val()});
+					$("#ukr_name_genre").removeAttr("data-changed");
+				}
 				$('#genre-notice').addClass('success');
 				$('#genre-notice').html('Жанр відредаговано!'+'<a href="#close" class="icon-remove"></a>');
 				$('#token-input-anime-genres').css('width','20px');
@@ -583,6 +617,123 @@ function update_studios(id){
 		error: function(jqXHR, textStatus, errorThrown){
 			$('.notice').html(jqXHR+' | '+textStatus+' | '+errorThrown);
 			return 1;
+		}
+	});
+}
+
+function add_studios(){
+	var myData={};
+	//myData['anime_id']=id;
+	myData['studio_name']=$('#studio_name').val();
+	myData['studio_name_jap']=$('#studio_name_jap').val();
+	myData['desc_1']=$('#desc_1').val();
+	$.ajax({ 
+		type: 'POST', 
+		crossDomain:true,
+		url: 'http://oilreview.x10.mx/studios.php', 
+		data: {genres_add:JSON.stringify(myData)}, 
+		dataType: 'json',
+		cache: false,
+		beforeSend: function (){
+			$('#studio-notice').html('Працюю з базою...' + '<a href="#close" class="icon-remove"></a>');
+			$('#studio-notice').show();
+		},
+		success: function (data) {	
+			if (!isNaN(parseInt(data))){
+				$('#studio-notice').addClass('success');
+				$('#studio-notice').html('Жанр додано!'+'<a href="#close" class="icon-remove"></a>');
+				if($("#add_studio").attr("data-id")){
+					$('#anime-studios').tokenInput("remove", {id: $('#add_studio').attr("data-id")});
+					$('#add_studio').removeAttr("data-id");
+				}
+				$('#anime-studios').tokenInput("add", {id: data, name: $('#studio_name').val()});
+				$('#token-input-anime-studios').css('width','20px');
+				$.fancybox.close();			
+				$('#token-input-anime-studios').focus();
+				return true;
+			}
+			else{
+				$('#studio-notice').removeClass('success');
+				$('#studio-notice').html(data+'<a href="#close" class="icon-remove"></a>');
+				return false;
+			}
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			$('#studio-notice').removeClass('success');
+			$('#studio-notice').html(jqXHR+' | '+textStatus+' | '+errorThrown+'<a href="#close" class="icon-remove"></a>');
+			return false;
+		}
+	});
+}
+
+function get_studio(id){		
+	$.ajax({ 
+		type: 'GET', 
+		url: 'http://oilreview.x10.mx/studios.php', 
+		data: { s: id }, 
+		dataType: 'json',
+		cache: false,
+		beforeSend: function (){
+			$('#studio-notice').html('Зчитую...' + '<a href="#close" class="icon-remove"></a>');
+			$('#studio-notice').show();
+			$('body').css('cursor', 'wait');
+		},
+		success: function (data) { 
+			$('#studio_name').val(data.studio_name);
+			$('#studio_name_jap').val(data.studio_name_jap);
+			$('#desc_1').val(data.desc_1);
+			$('#studio-notice').hide();
+			$('body').css('cursor', 'auto');
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			$('#studio-notice').removeClass('success');
+			$('#studio-notice').html(jqXHR+' | '+textStatus+' | '+errorThrown+'<a href="#close" class="icon-remove"></a>');
+		}
+	});
+}
+
+function edit_studios (sid){
+	var myData={};
+	myData['sid']=sid;
+	myData['studio_name']=$('#studio_name').val().replace(/"/g,'\\"');
+	myData['studio_name_jap']=$('#studio_name_jap').val().replace(/"/g,'\\"');
+	myData['desc_1']=$('#desc_1').val().replace(/"/g,'\\"');
+	$.ajax({ 
+		type: 'POST', 
+		crossDomain:true,
+		url: 'http://oilreview.x10.mx/studios.php', 
+		data: {studio_update:JSON.stringify(myData)}, 
+		dataType: 'json',
+		cache: false,
+		beforeSend: function (){
+			$('#studio-notice').html('Працюю з базою...' + '<a href="#close" class="icon-remove"></a>');
+			$('#studio-notice').show();
+		},
+		success: function (data) {	
+			if (!isNaN(parseInt(data))){
+				if($("#studio_name").attr("data-changed")){
+					$('#anime-studios').tokenInput("remove", {id: sid});
+					$('#anime-studios').tokenInput("add", {id: sid, name: $('#studio_name').val()});
+					$("#studio_name").removeAttr("data-changed");
+				}
+				$('#studio-notice').addClass('success');
+				$('#studio-notice').html('Студію відредаговано!'+'<a href="#close" class="icon-remove"></a>');
+				$('#token-input-anime-studios').css('width','20px');
+				$('#studio-post').removeAttr("data-edit");				
+				$.fancybox.close();				
+				$('#token-input-anime-studios').focus();
+				return true;
+			}
+			else{
+				$('#studio-notice').removeClass('success');
+				$('#studio-notice').html(data+'<a href="#close" class="icon-remove"></a>');
+				return false;
+			}
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			$('#studio-notice').removeClass('success');
+			$('#studio-notice').html(jqXHR+' | '+textStatus+' | '+errorThrown+'<a href="#close" class="icon-remove"></a>');
+			return false;
 		}
 	});
 }
@@ -689,10 +840,10 @@ function text_area_height_opera(){	<!-- ========= I'M FUCKING AT A LOSS HERE... 
 	}
 }
 
-function fancyboxLoad(){
+function fancyboxLoad(selectedArray, selectedIndex, selectedOpts){
 	if($(".anime-title").attr('readonly')){			
 		return false;
-	}else{	
+	}else if(selectedArray[selectedIndex].id=="add-genre-lightbox"){	
 		$('#genre-notice').removeClass('success');
 		$('#genre-notice').hide();
 		$('#ukr_name_genre').val('');
@@ -708,7 +859,22 @@ function fancyboxLoad(){
 			this.title='Редагування жанру';
 		}
 		return true;
-	}		
+	} else{
+		$('#studio-notice').removeClass('success');
+		$('#studio-notice').hide();
+		$('#studio_name').val('');
+		$('#studio_name_jap').val('');
+		$('#desc_1').val('');
+		if(!$('#studio-post').attr("data-edit")){
+			$('#studio-post').text('Додати студію');
+			this.title='Розширене додавання студії';
+		}
+		else {
+			$('#studio-post').text('Редагувати студію');
+			this.title='Редагування студії';
+		}
+		return true;
+	}
 }
 
 function lightboxComplete(){
@@ -720,7 +886,14 @@ function fancyboxClose(){
 		$('#genre-post').removeAttr("data-edit");
 		$('#genre-post').text('Додати жанр');
 	}
-	$("#add_genre").removeAttr("data-changed");
+	if($("#add_genre").attr("data-changed")) $("#add_genre").removeAttr("data-changed");
+	if($('#studio-post').attr("data-edit")){
+		$('#studio-post').removeAttr("data-edit");
+		$('#studio-post').text('Додати студію');
+	}
+	if($("#add_studio").attr("data-changed")) $("#add_studio").removeAttr("data-changed");
+	if($("#ukr_name_genre").attr("data-changed"))$("#ukr_name_genre").removeAttr("data-changed");
+	if($("#studio_name").attr("data-changed"))$("#studio_name").removeAttr("data-changed");
 	$('.lightbox-div').css('width','465');
 }
 
