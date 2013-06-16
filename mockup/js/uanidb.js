@@ -631,7 +631,7 @@ function add_studios(){
 		type: 'POST', 
 		crossDomain:true,
 		url: 'http://oilreview.x10.mx/studios.php', 
-		data: {genres_add:JSON.stringify(myData)}, 
+		data: {studios_add:JSON.stringify(myData)}, 
 		dataType: 'json',
 		cache: false,
 		beforeSend: function (){
@@ -852,7 +852,7 @@ function fancyboxLoad(selectedArray, selectedIndex, selectedOpts){
 		$('#opys').val('');
 		if(!$('#genre-post').attr("data-edit")){
 			$('#genre-post').text('Додати жанр');
-			this.title='Розширене додавання жанру';
+			this.title='Створити і додати новий жанр';
 		}
 		else {
 			$('#genre-post').text('Редагувати жанр');
@@ -867,7 +867,7 @@ function fancyboxLoad(selectedArray, selectedIndex, selectedOpts){
 		$('#desc_1').val('');
 		if(!$('#studio-post').attr("data-edit")){
 			$('#studio-post').text('Додати студію');
-			this.title='Розширене додавання студії';
+			this.title='Створити і додати нову студію';
 		}
 		else {
 			$('#studio-post').text('Редагувати студію');
