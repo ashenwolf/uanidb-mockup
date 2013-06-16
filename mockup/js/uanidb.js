@@ -85,13 +85,21 @@ $(".form-input").on("input", function() {
 $(".form-textarea").on("input", function() {
 	$("#add_genre").attr("data-changed","1");
 });	
+$(".form-input2").on("input", function() {
+	$("#add_studio").attr("data-changed","1");
+});	
+$(".form-textarea2").on("input", function() {
+	$("#add_studio").attr("data-changed","1");
+});	
 $(document).on('#fancybox-content').keypress(function (e) {
-	if (e.which == 13 && $("#add_genre").attr("data-changed")) {
-		$('#genre-post').trigger('click');	
-		return false;
-	}else if(e.which == 13 && $("#add_studio").attr("data-changed")){
-		$('#studio-post').trigger('click');	
-		return false;
+	if (e.which == 13) {
+		if ($("#add_genre").attr("data-changed")){
+			$('#genre-post').trigger('click');	
+			return false;
+		} else {
+			$('#studio-post').trigger('click');	
+			return false;
+		}
 	}
 });
 $("#select-type").change(function() {
@@ -623,7 +631,6 @@ function update_studios(id){
 
 function add_studios(){
 	var myData={};
-	//myData['anime_id']=id;
 	myData['studio_name']=$('#studio_name').val();
 	myData['studio_name_jap']=$('#studio_name_jap').val();
 	myData['desc_1']=$('#desc_1').val();

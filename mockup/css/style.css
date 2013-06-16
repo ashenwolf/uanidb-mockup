@@ -521,19 +521,19 @@ textarea.anime-synopsis{
 	margin-left:20px;
 }
 
-#add_genre .form-input, #add_genre label, #add_studio .form-input, #add_studio label{
+#add_genre .form-input, #add_genre label, #add_studio .form-input2, #add_studio label{
 	width:400px;
 }
 
-#add_genre .form-input, #add_studio .form-input{
+#add_genre .form-input, #add_studio .form-input2{
 	margin-bottom:15px;
 }
 
-#add_genre .form-textarea, #add_studio .form-textarea{
+#add_genre .form-textarea, #add_studio .form-textarea2{
 	height:120px;
 }
 
-#add_genre .form-textarea, #add_genre label, #add_studio .form-textarea, #add_studio label{
+#add_genre .form-textarea, #add_genre label, #add_studio .form-textarea2, #add_studio label{
 	width:400px;	
 }
 
