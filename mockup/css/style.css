@@ -17,6 +17,8 @@ h1,h2,h3,h4,h5,h6{
 font-family: "Arimo", arial, verdana, sans-serif;
 }
 
+input, select, textarea, button{font-family:inherit;}
+
 thead th,
 tbody th{
 font-family: "Arimo", arial, verdana, sans-serif;
@@ -356,6 +358,7 @@ textarea.anime-title{
 
 th, td{
 	line-height:20px;
+	padding-right:0px;
 }
 
 input.anime-info{

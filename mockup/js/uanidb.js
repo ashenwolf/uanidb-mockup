@@ -315,6 +315,7 @@ function get_anime(id){
 			if($("#select-type").val()=='0') $("#input-type").val('');
 			else $("#input-type").val($("#select-type option:selected").text());
 			$("#series_count").val(data.series_count);
+			$("#duration").val(data.duration);
 			$("#synopsis").html(data.sinopsis);			
 			if (data.poster){
 				if(imageProportions(data.anime_id+'.jpg')){

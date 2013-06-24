@@ -89,39 +89,39 @@
 						<tbody>
 							<tr>
 								<th title="Офіційна японська назва">Офіційна назва:</th>
-								<td><input name="jap_name_kan_1" maxlength="68" title="" class="anime-info" readonly="" value="新世界より" /></td><td><span class="pull-right" style="line-height: 14px;"><img src="images/flags/jp.png" alt="jp"></span></td>
+								<td colspan="2"><input name="jap_name_kan_1" maxlength="68" title="" class="anime-info" readonly="" value="新世界より" /></td><td><span class="pull-right" style="line-height: 14px;"><img src="images/flags/jp.png" alt="jp"></span></td>
 							</tr>
 							<tr>
 								<th title="Латинізована японська">Ромаджі:</th>
-								<td title="" colspan="2"><input name="jap_name_rom_1" maxlength="68" title="" class="anime-info" readonly="" value="Shinsekai Yori" /></td>
+								<td title="" colspan="3"><input name="jap_name_rom_1" maxlength="68" title="" class="anime-info" readonly="" value="Shinsekai Yori" /></td>
 							</tr>
 							<tr>
 								<th title="Офіційна англійська назва">Англійська назва:</th>
-								<td><input name="eng_name_1" maxlength="68" title="" class="anime-info" readonly="" value="From the New World" /></td><td><span class="pull-right" style="line-height: 14px;"><img src="images/flags/gb.png" alt="gb"></span></td>
+								<td colspan="2"><input name="eng_name_1" maxlength="68" title="" class="anime-info" readonly="" value="From the New World" /></td><td><span class="pull-right" style="line-height: 14px;"><img src="images/flags/gb.png" alt="gb"></span></td>
 							</tr>
 							<tr>
 								<th title="Основна українська назва">Українська назва:</th>
-								<td><input name="ukr_name_1" maxlength="68" title="" class="anime-info" readonly="" value="Моя молодша сестра не настільки вже й гарненька" /></td><td><span class="pull-right" style="line-height: 14px;"><img src="images/flags/ua.png" alt="ua"></span></td>
+								<td colspan="2"><input name="ukr_name_1" maxlength="68" title="" class="anime-info" readonly="" value="Моя молодша сестра не настільки вже й гарненька" /></td><td><span class="pull-right" style="line-height: 14px;"><img src="images/flags/ua.png" alt="ua"></span></td>
 							</tr>
 							<tr>
 								<th title="Альтернативні назви через кому">Ще відоме як:</th>
-								<td title="Вводіть альтернативні назви через кому" colspan="2"><input name="other_nazv" maxlength="68" title="Вводіть альтернативні назви через кому" class="anime-info" readonly="" placeholder="Альтернативні назви" /></td>
+								<td title="Вводіть альтернативні назви через кому" colspan="3"><input name="other_nazv" maxlength="68" title="Вводіть альтернативні назви через кому" class="anime-info" readonly="" placeholder="Альтернативні назви" /></td>
 							</tr>
 							<tr>
 								<th>Студія:</th>
-								<td id="td-studios"><input id="anime-studios" name="" maxlength="68" title="" class="anime-info" readonly="" placeholder="Виробник(и) цього аніме" /></td><td><a title="Створити і додати нову студію" href="#add_studio" id="add-studio-lightbox" class="icon-plus lightbox pull-right"></a></td>
+								<td colspan="2" id="td-studios"><input id="anime-studios" name="" maxlength="68" title="" class="anime-info" readonly="" placeholder="Виробник(и) цього аніме" /></td><td><a title="Створити і додати нову студію" href="#add_studio" id="add-studio-lightbox" class="icon-plus lightbox pull-right"></a></td>
 							</tr>
 							<tr>
-								<th>Тип:</th>
-								<td style="padding-right:0;"><select style="display:none;" id="select-type"><option value="0">Не обрано</option><option value="1">Серіал</option><option value="2">Кіно</option></select><input id="input-type" name="type_film_id" maxlength="68" title="" class="anime-info" readonly=""  style="width:250px" placeholder="Не обрано" /><span class="pull-right"><em>Серій:</em></span></td><td><input maxlength="4" name="series_count" id="series_count" class="anime-info pull-right" style="width:32px;text-align:right;font-size:14px;" readonly="" value="25" /></td>
+								<th>Тип і тривалість:</th>
+								<td style="padding-right:0px;"><select style="display:none;width:146px;" id="select-type"><option value="0">Не обрано</option><option value="1">Серіал</option><option value="2">Кіно</option></select><input id="input-type" name="type_film_id" maxlength="68" title="" class="anime-info" readonly=""  style="width:146px;" placeholder="Не обрано" /><span title="Кількість епізодів" style="font-size:0.9em;font-weight:bold;margin-left:24px;">Серій:</span></td><td style="padding-right:0;"><input placeholder="??" maxlength="4" name="series_count" id="series_count" class="anime-info" style="width:32px;font-size:14px;text-align:right;margin-right:15px;" readonly="" value="" /><span class="pull-right" title="Тривалість одного епізоду" style="font-size:0.9em;font-weight:bold;text-align:right;margin-left:20px;">Хв./с.:</span></td><td><input placeholder="??" maxlength="4" name="duration" id="duration" class="anime-info pull-right" style="width:32px;text-align:right;" readonly="" value="" /></td>
 							</tr>
 							<tr>
 								<th>Жанри:</th>
-								<td id="td-genres"><input id="anime-genres" name="" maxlength="68" title="" class="anime-info" readonly="" value="Пригоди, Фентезі, Драма" /></td><td><a title="Створити і додати новий жанр" href="#add_genre" id="add-genre-lightbox" class="icon-plus lightbox pull-right"></a></td>
+								<td colspan="2" id="td-genres"><input id="anime-genres" name="" maxlength="68" title="" class="anime-info" readonly="" value="Пригоди, Фентезі, Драма" /></td><td><a title="Створити і додати новий жанр" href="#add_genre" id="add-genre-lightbox" class="icon-plus lightbox pull-right"></a></td>
 							</tr>
 							<tr>
 								<th>Дати виходу:</th>
-								<td colspan="2"><em>з</em> <input style="margin-left:6px;width:100px;" name="" id="" maxlength="68" title="" class="datepicker anime-info" readonly="" value="29.09.2012" /> <em>до</em> <input style="margin-left:6px;width:100px;" name="" id="" maxlength="68" title="" class="datepicker anime-info" readonly="" value="29.09.2013" /></td>
+								<td colspan="3"><em>з</em> <input style="margin-left:6px;width:100px;" name="" id="" maxlength="68" title="" class="datepicker anime-info" readonly="" value="00.00.0000" /> <em>до</em> <input style="margin-left:6px;width:100px;" name="" id="" maxlength="68" title="" class="datepicker anime-info" readonly="" value="29.09.2013" /></td>
 							</tr>
 						</tbody>
 					</table>
