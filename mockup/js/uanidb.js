@@ -158,6 +158,7 @@ $("#synopsis").on("keyup", function() {
 });	
 $("#anime-edit").click(function (e) {
 	if($(".anime-title").attr('readonly')){
+		$( ".datepicker" ).datepicker( "option", { disabled: false } );
 		$("#select-type").show();
 		$("#input-type").hide();		
 		$(document).off('click', '.token-input-token-facebook p');
@@ -260,7 +261,8 @@ $("#anime-edit").click(function (e) {
 		$(".block-content").css('-webkit-box-shadow', 'none');	
 		$(".block-content").css('box-shadow', 'none');	
 		$(".anime-title").removeClass('info-focused');
-		$(".anime-info").removeClass('info-focused');			
+		$(".anime-info").removeClass('info-focused');
+		$( ".datepicker" ).datepicker( "option", { disabled: true } );
 	}
 });
 $("#ANN_info").click(function (e) {
@@ -316,6 +318,10 @@ function get_anime(id){
 			else $("#input-type").val($("#select-type option:selected").text());
 			$("#series_count").val(data.series_count);
 			$("#duration").val(data.duration);
+			if(data.date_begin!="0000-00-00") $("#date_begin").datepicker( "setDate", $.datepicker.parseDate( "yy-mm-dd",data.date_begin));
+			else  $("#date_begin").val('');
+			if(data.date_end!="0000-00-00") $("#date_end").datepicker( "setDate", $.datepicker.parseDate( "yy-mm-dd",data.date_end));
+			else  $("#date_end").val('');
 			$("#synopsis").html(data.sinopsis);			
 			if (data.poster){
 				if(imageProportions(data.anime_id+'.jpg')){
@@ -352,7 +358,9 @@ function update_anime(id){
 	$('.anime-info').each(function(i, obj) {
 		if($(this).attr("name") && $(this).attr("data-changed")){
 			if($(this).attr('id')=='input-type') myData[$(this).attr("name")]=$('#select-type').val();
-			else myData[$(this).attr("name")]=$(this).val().replace(/'/g,"\\\\'").replace(/"/g,'\\"');
+			else if($(this).attr('class').split(" ",1)[0]=='datepicker') {
+				myData[$(this).attr("name")]=$.datepicker.formatDate("yy-mm-dd", $.datepicker.parseDate("dd.mm.yy",$(this).val()));
+			} else myData[$(this).attr("name")]=$(this).val().replace(/'/g,"\\\\'").replace(/"/g,'\\"');
 			$(this).removeAttr("data-changed");
 		}
 	});	

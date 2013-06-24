@@ -121,7 +121,7 @@
 							</tr>
 							<tr>
 								<th>Дати виходу:</th>
-								<td colspan="3"><em>з</em> <input style="margin-left:6px;width:100px;" name="" id="" maxlength="68" title="" class="datepicker anime-info" readonly="" value="00.00.0000" /> <em>до</em> <input style="margin-left:6px;width:100px;" name="" id="" maxlength="68" title="" class="datepicker anime-info" readonly="" value="29.09.2013" /></td>
+								<td colspan="3"><em>з</em> <input placeholder="початок" style="margin-left:6px;width:100px;" name="date_begin" id="date_begin" maxlength="68" title="" class="datepicker anime-info" readonly="" value="" /> <em>до</em> <input placeholder="закінчення" style="margin-left:6px;width:100px;" name="date_end" id="date_end" maxlength="68" title="" class="datepicker anime-info" readonly="" value="" /></td>
 							</tr>
 						</tbody>
 					</table>
@@ -313,8 +313,12 @@ $( document ).ready(function() {
 	get_types(anime_id);
 	$('.datepicker').datepicker({
 		dateFormat: "dd.mm.yy",
+		disabled: true,
 		changeMonth: true,
 		changeYear: true,
+		onSelect: function(){
+			$(this).trigger('input');
+		},
 		yearRange: "1950:"
 	});
     $('#imgPhoto').fileupload({
