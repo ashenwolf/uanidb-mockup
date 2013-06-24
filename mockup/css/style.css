@@ -566,7 +566,12 @@ textarea.anime-synopsis{
 }
 
 div.ui-datepicker{
-	font-size:inherit;
+	font-size:13px;
+	font-family:inherit;
+}
+
+.ui-datepicker-prev, .ui-datepicker-prev-hover, .ui-datepicker-next, .ui-datepicker-next-hover{
+	margin-top:3px;
 }
 
 #crop-holder { 
