@@ -103,8 +103,15 @@ $(document).on('#fancybox-content').keypress(function (e) {
 	}
 });
 $("#select-type").change(function() {
-	if($("#select-type").val()=='0') $("#input-type").val('');
-	else $("#input-type").val($("#select-type").find(":selected").text());
+	if($("#select-type").val()=='0') {
+		$("#input-type").val('');
+		toogle_TV_date(1);
+	}
+	else {
+		$("#input-type").val($("#select-type").find(":selected").text());
+		if($("#select-type").val()=='4') toogle_TV_date(1);
+		else toogle_TV_date(0);
+	}
 	$("#input-type").trigger('input');
 });
 $("#genre-post").on("click", function() {
@@ -314,8 +321,15 @@ function get_anime(id){
 			$(".anime-info[name='ukr_name_1']").attr('value', data.ukr_name_1);
 			$(".anime-info[name='other_nazv']").attr('value', data.other_nazv);
 			$("#select-type").val(data.type_film_id);			
-			if($("#select-type").val()=='0') $("#input-type").val('');
-			else $("#input-type").val($("#select-type option:selected").text());
+			if($("#select-type").val()=='0'){
+				$("#input-type").val('');
+				toogle_TV_date(1);
+			}
+			else {				
+				if($("#select-type").val()=='4') toogle_TV_date(1);
+				else toogle_TV_date(0);
+				$("#input-type").val($("#select-type option:selected").text());
+			}
 			$("#series_count").val(data.series_count);
 			$("#duration").val(data.duration);
 			if(data.date_begin!="0000-00-00") $("#date_begin").datepicker( "setDate", $.datepicker.parseDate( "yy-mm-dd",data.date_begin));
@@ -1157,5 +1171,19 @@ function loading_image(flag){
 		$('#imgPhoto').removeAttr('data-src');	
 		$('#imgPhoto').removeAttr('data-x');
 		$('#imgPhoto').removeAttr('data-y');		
+	}
+}
+
+// toogle anime dates design for TV-type 
+
+function toogle_TV_date(flag){
+	if(flag){
+		$("#anime_date").text('Дати виходу');
+		$("#date_begin").attr('placeholder', "початок");
+		$(".anime_date_hide").show();	
+	}else{
+		$("#anime_date").text('Дата виходу');
+		$("#date_begin").attr('placeholder', "прем'єра");
+		$(".anime_date_hide").hide();
 	}
 }
