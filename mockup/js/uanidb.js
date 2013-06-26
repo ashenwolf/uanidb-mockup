@@ -134,7 +134,8 @@ $(document).on("click", ".token-input-token-facebook p", function() {
 	alert("Перехід на "+$(this).text());
 });
 $(document).on("mouseenter", ".token-input-token-facebook", function() {
-	$("p",this).attr('title', 'Перейти на сторінку жанра');
+	if($(this).closest('#td-studios').length) $("p",this).attr('title', 'Перейти на сторінку студії');
+	else $("p",this).attr('title', 'Перейти на сторінку жанра');
 	$("p",this).css("text-decoration","underline");
 	$("p",this).css('cursor', 'pointer');
 });	
@@ -246,7 +247,8 @@ $("#anime-edit").click(function (e) {
 		$(document).off('mouseenter', '.token-input-token-facebook');
 		$(document).on("mouseenter", ".token-input-token-facebook", function() {
 			$(this).attr('title', '');
-			$("p",this).attr('title', 'Перейти на сторінку жанра');
+			if($(this).closest('#td-studios').length) $("p",this).attr('title', 'Перейти на сторінку студії');
+			else $("p",this).attr('title', 'Перейти на сторінку жанра');
 			$("p",this).css("text-decoration","underline");
 			$("p",this).css('cursor', 'pointer');
 		});	
