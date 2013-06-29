@@ -600,6 +600,86 @@ div.ui-datepicker{
 	//height: 100%;
 }
 
+#anime-cast{
+	height:330px;
+	overflow:auto;
+}
+
+#anime-cast tr{
+	line-height:10px;
+	border-bottom: none;
+}
+
+#anime-cast td, #anime-cast th{
+	border-bottom: none;
+}
+
+.cast-strip{
+	height:5px;
+	line-height:7px;
+	color:white;
+	background: #f9f6f6;
+	text-align:center;
+	padding:0;
+	margin:0;
+}
+
+.new-cast{
+	display:none;
+}
+
+.cast-strip td{
+	height:5px;
+	line-height:7px;
+	color:white;
+	background: none;
+	text-align:center;
+	padding:0;
+	margin:0;
+}
+
+
+#anime-cast th{
+	text-align:left;
+	text-overflow:ellipsis;
+	width:170px;
+}
+
+.cast-image{
+	width:20px;
+	vertical-align:middle;
+	margin-right:15px;
+}
+
+.cast_sign{
+	display:block;
+	float:left;
+	clear:both;
+	height:10px;
+	width:auto;
+	margin-bottom:5px;
+}
+
+input.cast-input{
+	border:none;
+	box-shadow:none;
+	background:none;
+	color: #444;
+	text-indent:inherit;
+	font-size: 13px;
+	font-weight:bold;
+	line-height:20px;
+	letter-spacing: 0px;
+	margin:0px 0 0 0;
+	padding:0;	
+	cursor:text;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	width:100px;
+	height:20px;
+	resize: none;
+}
+
 /* upload tooltip */
 
 #tooltip { position: absolute; top: 0; left: 0; z-index: 99999; min-width:266px; background-color:rgba(255,255,255,0);} 

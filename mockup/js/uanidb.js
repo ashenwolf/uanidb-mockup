@@ -2,6 +2,28 @@ var anime_id=1;
 var jqXHR = null;
 $.support.cors = true;
 
+$(document).on("mouseenter", ".cast-strip", function(e) {
+	//$(this).after('<tr><th>Fuck!</th><td>Off!</td><td></td></tr>');	
+	$(this).css('background-color','#eee');
+	//$(this).animate({ backgroundColor: "#eee" }, "fast");
+	$(this).css('cursor', 'pointer');
+});	
+$(document).on("mouseleave", ".cast-strip", function(e) {
+	$(this).css('background-color','#f9f6f6');
+});
+$(document).on("click", ".cast-strip", function(e) {
+	$(this).after('<tr class="cast-info new-cast"><th><a calss="cast-image-a" href="images/anime-1.jpg"><img class="cast-image" src="images/no-anime-medium.gif" alt="cast"></a><input name="" maxlength="60" title="" class="cast-input" readonly="" placeholder="Персонаж" value="" /></th><td>Актор</td><td style="width:30px;line-height:14px;"><a title="" href="#adel_cast_input" class="icon-minus-sign del-cast-input"></a></td></tr><tr class="cast-strip"><td colspan="3" title="Клікніть, щоб вставити тут персонаж"></td></tr>');
+	$('.new-cast').fadeIn(400);
+	$('.new-cast').removeClass('new-cast');
+});
+$(document).on("click", ".del-cast-input", function(e) {
+	var tr=$(this).parent().parent();
+	tr.fadeOut(400, function() { $(this).remove(); });
+	tr.next().fadeOut(400, function() { $(this).remove(); });
+});
+$("#add_cast").on("click", function() {
+	$("#anime_cast_table tr").last('.cast-strip').trigger("click");
+});	
 $("#ukr_name_genre").on("input", function() {
 	$("#ukr_name_genre").attr("data-changed","1");
 });	
