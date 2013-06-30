@@ -15,11 +15,12 @@ $(document).on("click", ".cast-strip", function(e) {
 	$(this).after('<tr class="cast-info new-cast"><th><a calss="cast-image-a" href="images/anime-1.jpg"><img class="cast-image" src="images/no-anime-medium.gif" alt="cast"></a><input name="" maxlength="60" title="" class="cast-input" readonly="" placeholder="Персонаж" value="" /></th><td>Актор</td><td style="width:30px;line-height:14px;"><a title="" href="#adel_cast_input" class="icon-minus-sign del-cast-input"></a></td></tr><tr class="cast-strip"><td colspan="3" title="Клікніть, щоб вставити тут персонаж"></td></tr>');
 	$('.new-cast').fadeIn(400);
 	$('.new-cast').removeClass('new-cast');
+	$("#anime-cast").mCustomScrollbar("update");
 });
 $(document).on("click", ".del-cast-input", function(e) {
 	var tr=$(this).parent().parent();
 	tr.fadeOut(400, function() { $(this).remove(); });
-	tr.next().fadeOut(400, function() { $(this).remove(); });
+	tr.next().fadeOut(400, function() { $(this).remove();$("#anime-cast").mCustomScrollbar("update"); });
 });
 $("#add_cast").on("click", function() {
 	$("#anime_cast_table tr").last('.cast-strip').trigger("click");
@@ -1211,3 +1212,6 @@ function toogle_TV_date(flag){
 		$(".anime_date_hide").hide();
 	}
 }
+
+// initialisations
+//$("#anime-cast").perfectScrollbar('update');

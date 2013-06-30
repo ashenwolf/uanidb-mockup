@@ -12,8 +12,10 @@
 <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>  
 <script type="text/javascript" src="js/ui.datepicker-uk.js"></script> 
 <script type="text/javascript" src="js/jquery.fileupload.js"></script>
+<script type="text/javascript" src="js/jquery.mCustomScrollbar.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/kickstart.css" media="all" />                  <!-- KICKSTART -->
 <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />                      <!-- CUSTOM STYLES --> 
+<link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.css" media="all" />    <!-- CUSTOM STYLES --> 
 </head>
 <body>
 <div class="head-menu">
@@ -394,7 +396,8 @@ $( document ).ready(function() {
                 progress + '%'
             );*/
         }
-	});
+	});	
+	$("#anime-cast").mCustomScrollbar({scrollInertia:150});
 });	
 </script>
 
