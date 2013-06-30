@@ -603,8 +603,6 @@ div.ui-datepicker{
 #anime-cast{
 	height:330px;
 	width:100%;
-	overflow:hidden;
-	position:relative;
 }
 
 #anime-cast tr{
