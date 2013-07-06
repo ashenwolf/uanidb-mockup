@@ -1231,6 +1231,7 @@ function importData(){
 			//$('.notice').html('Працюю з базою...');
 		},
 		success: function (data) { 
+			$('.notice').html(data.MAL[0].title);
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			alert('something wrong with importing data!');
