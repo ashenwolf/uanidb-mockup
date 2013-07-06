@@ -821,6 +821,7 @@ function get_types(id){
 }
 
 $("#anime-error").click(function (e) {
+	importData();
 });
 
 var genres_populate=[];
@@ -1213,5 +1214,22 @@ function toogle_TV_date(flag){
 	}
 }
 
-// initialisations
-//$("#anime-cast").perfectScrollbar('update');
+// import data
+
+function importData(){
+	$.ajax({ 
+		type: 'POST', 
+		url: 'http://uanidb.tk/api_import.php', 
+		data: {q:'あらいぐま',jap:1,sproba:1},
+		dataType: 'json',
+		cache: false,
+		beforeSend: function (){
+			//$('.notice').html('Працюю з базою...');
+		},
+		success: function (data) { 
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert('something wrong with importing data!');
+		}
+	});
+}
