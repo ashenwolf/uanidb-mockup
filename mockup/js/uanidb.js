@@ -1217,10 +1217,14 @@ function toogle_TV_date(flag){
 // import data
 
 function importData(){
-	$.ajax({ 
+	var myData=[];
+	myData['q']='あらいぐま';
+	myData['jap']=1;
+	myData['sproba']=1;
+	$.ajax({
 		type: 'POST', 
 		url: 'http://uanidb.tk/api_import.php', 
-		data: {q:'あらいぐま',jap:1,sproba:1},
+		data: {anime_import:JSON.stringify(myData)}},
 		dataType: 'json',
 		cache: false,
 		beforeSend: function (){
