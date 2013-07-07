@@ -2,25 +2,35 @@ var anime_id=1;
 var jqXHR = null;
 $.support.cors = true;
 
-$(document).on("mouseenter", ".cast-strip", function(e) {
-	//$(this).after('<tr><th>Fuck!</th><td>Off!</td><td></td></tr>');	
+$(document).on("click", ".cast-input", function(e) {	
+	add_cast_input($(this));
+});	
+$(document).on("click", ".seyuu-input", function(e) {	
+	add_seyuu_input($(this));
+});	
+$(document).on("mouseenter", ".cast-strip", function(e) {	
 	$(this).css('background-color','#eee');
-	//$(this).animate({ backgroundColor: "#eee" }, "fast");
 	$(this).css('cursor', 'pointer');
 });	
 $(document).on("mouseleave", ".cast-strip", function(e) {
 	$(this).css('background-color','#f9f6f6');
 });
 $(document).on("click", ".cast-strip", function(e) {
-	$(this).after('<tr class="cast-info new-cast"><th><a calss="cast-image-a" href="images/anime-1.jpg"><img class="cast-image" src="images/no-anime-medium.gif" alt="cast"></a><input name="" maxlength="60" title="" class="cast-input" readonly="" placeholder="Персонаж" value="" /></th><td>Актор</td><td style="width:30px;line-height:14px;"><a title="" href="#adel_cast_input" class="icon-minus-sign del-cast-input"></a></td></tr><tr class="cast-strip"><td colspan="3" title="Клікніть, щоб вставити тут персонаж"></td></tr>');
+	$(this).after('<tr class="cast-info new-cast"><td class="cast-td-1"><a class="cast-image-a" href="images/anime-1.jpg"><img class="cast-image" src="images/no-anime-medium.gif" alt="cast"></a></td><td class="cast-td-2"><input name="" maxlength="40" title="" class="cast-input anime-info" readonly="" placeholder="Персонаж" value="" /></td><td><input name="" maxlength="60" title="" class="seyuu-input anime-info" readonly="" placeholder="Сейю" value="" /></td><td style="width:30px;line-height:14px;"><a title="" href="#del_cast_input" class="icon-minus-sign del-cast-input"></a></td></tr><tr class="cast-strip"><td colspan="4" title="Клікніть, щоб вставити тут персонаж"></td></tr>');
 	$('.new-cast').fadeIn(400);
 	$('.new-cast').removeClass('new-cast');
 	$("#anime-cast").mCustomScrollbar("update");
 });
 $(document).on("click", ".del-cast-input", function(e) {
 	var tr=$(this).parent().parent();
-	tr.fadeOut(400, function() { $(this).remove(); });
-	tr.next().fadeOut(400, function() { $(this).remove();$("#anime-cast").mCustomScrollbar("update"); });
+	tr.fadeOut(400, function() { 
+		destroy_tokeninput($(this));
+		$(this).remove(); 
+	});
+	tr.next().fadeOut(400, function() { 		
+		$(this).remove();
+		$("#anime-cast").mCustomScrollbar("update"); 
+	});
 });
 $("#add_cast").on("click", function() {
 	$("#anime_cast_table tr").last('.cast-strip').trigger("click");
@@ -1237,4 +1247,53 @@ function importData(){
 			alert('something wrong with importing data!');
 		}
 	});
+}
+
+// cast
+
+function add_cast_input(obj){
+	$(obj).tokenInput("http://oilreview.x10.mx/studios.php", {
+			prePopulate: "",
+			preventDuplicates: true,
+			tokenLimit: 1,
+			minChars: 2,
+			crossDomain: false,
+			theme: "facebook",
+			hintText: "Пошук чи Новий",
+			searchingText: "Шукаю...",
+			noResultsText: "Не знайдено",
+			disabled: false,
+			searchDelay: 100,
+			onAdd: '',
+			onDelete: '',
+			allowFreeTagging: true
+	});	
+	$(obj).focus();
+	//if($("#anime-studios").attr("data-changed"))$("#anime-studios").removeAttr("data-changed");
+}
+
+function add_seyuu_input(obj){
+	$(obj).tokenInput("http://oilreview.x10.mx/studios.php", {
+			prePopulate: "",
+			preventDuplicates: true,
+			tokenLimit: 3,
+			minChars: 2,
+			crossDomain: false,
+			theme: "facebook",
+			hintText: "Пошук чи Новий",
+			searchingText: "Шукаю...",
+			noResultsText: "Не знайдено",
+			disabled: false,
+			searchDelay: 100,
+			onAdd: '',
+			onDelete: '',
+			allowFreeTagging: true
+	});	
+	$(obj).focus();
+	//if($("#anime-studios").attr("data-changed"))$("#anime-studios").removeAttr("data-changed");
+}
+
+function destroy_tokeninput(obj){ 
+	$(obj).find(".cast-input").tokenInput('destroy');
+	$(obj).find(".seyuu-input").tokenInput('destroy');
 }

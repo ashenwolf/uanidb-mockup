@@ -638,17 +638,50 @@ div.ui-datepicker{
 	margin:0;
 }
 
-
 #anime-cast th{
 	text-align:left;
 	text-overflow:ellipsis;
 	width:170px;
 }
 
-.cast-image{
+.cast-info{
+	height:44px;
+}
+
+.cast-td-2 li.token-input-token-facebook{
+	background-color:rgb(244, 239, 247);
+	border: 1px solid rgb(216, 204, 228);	
+}
+
+.cast-info li.token-input-token-facebook{
+	max-width:100px;
+	text-overflow:ellipsis;
+}
+
+.cast-info li.token-input-token-facebook p {
+	display:block;
+	float:left;
+	max-width:80px;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+    overflow:hidden;
+}
+
+.cast-td-1{
 	width:20px;
+	padding:0 0 0 8px;
+}
+
+.cast-td-2{
+	width:117px;
+}
+
+.cast-image{
+	max-width:20px !important;
+	width:20px !important;
+	height:25px !important;
 	vertical-align:middle;
-	margin-right:15px;
+	//margin-right:15px;
 }
 
 .cast_sign{
@@ -678,6 +711,7 @@ input.cast-input{
 	width:100px;
 	height:20px;
 	resize: none;
+	vertical-align:inherit;
 }
 
 /* upload tooltip */
