@@ -3,12 +3,12 @@ var jqXHR = null;
 $.support.cors = true;
 
 $(document).on("click", ".cast-input", function(e) {	
-	add_cast_input($(this));
+	if(!$(".anime-title").attr('readonly'))	add_cast_input($(this));
 });	
-$(document).on("click", ".seyuu-input", function(e) {	
-	add_seyuu_input($(this));
+$(document).on("click", ".seyuu-input", function(e) {
+	if(!$(".anime-title").attr('readonly'))	add_seyuu_input($(this));
 });	
-$(document).on("mouseenter", ".cast-strip", function(e) {	
+$(document).on("mouseenter", ".cast-strip", function(e) {
 	$(this).css('background-color','#eee');
 	$(this).css('cursor', 'pointer');
 });	
@@ -16,12 +16,14 @@ $(document).on("mouseleave", ".cast-strip", function(e) {
 	$(this).css('background-color','#f9f6f6');
 });
 $(document).on("click", ".cast-strip", function(e) {
+	if($(".anime-title").attr('readonly'))return;
 	$(this).after('<tr class="cast-info new-cast"><td class="cast-td-1"><a class="cast-image-a" href="images/anime-1.jpg"><img class="cast-image" src="images/no-anime-medium.gif" alt="cast"></a></td><td class="cast-td-2"><input name="" maxlength="40" title="" class="cast-input anime-info" readonly="" placeholder="Персонаж" value="" /></td><td><input name="" maxlength="60" title="" class="seyuu-input anime-info" readonly="" placeholder="Сейю" value="" /></td><td style="width:30px;line-height:14px;"><a title="" href="#del_cast_input" class="icon-minus-sign del-cast-input"></a></td></tr><tr class="cast-strip"><td colspan="4" title="Клікніть, щоб вставити тут персонаж"></td></tr>');
 	$('.new-cast').fadeIn(400);
 	$('.new-cast').removeClass('new-cast');
 	$("#anime-cast").mCustomScrollbar("update");
 });
 $(document).on("click", ".del-cast-input", function(e) {
+	if($(".anime-title").attr('readonly'))return;
 	var tr=$(this).parent().parent();
 	tr.fadeOut(400, function() { 
 		destroy_tokeninput($(this));
@@ -249,7 +251,13 @@ $("#anime-edit").click(function (e) {
 		$(".anime-info").attr('readonly', false);
 		$("#synopsis").attr('contenteditable', true);
 		$('#anime-genres').tokenInput("toggleDisabled");	
-		$('#anime-studios').tokenInput("toggleDisabled");		
+		$('#anime-studios').tokenInput("toggleDisabled");
+		$('.cast-input').each(function(i, obj) {
+			if($(obj).attr('data-init')) $(obj).tokenInput("toggleDisabled");
+		});
+		$('.seyuu-input').each(function(i, obj) {
+			if($(obj).attr('data-init')) $(obj).tokenInput("toggleDisabled");
+		});
 		$(this).html( '<i class="icon-edit"></i> Закінчити редагування');
 		$("#info-edit .icon-edit").css('color', 'rgb(238, 86, 15)');
 		$(".block-content").css('-moz-box-shadow', '0 0 8px rgb(255, 144, 42)');
@@ -294,6 +302,12 @@ $("#anime-edit").click(function (e) {
 		$("#input-type").show();	
 		$('#anime-genres').tokenInput("toggleDisabled");
 		$('#anime-studios').tokenInput("toggleDisabled");
+		$('.cast-input').each(function(i, obj) {
+			if($(obj).attr('data-init')) $(obj).tokenInput("toggleDisabled");
+		});
+		$('.seyuu-input').each(function(i, obj) {
+			if($(obj).attr('data-init')) $(obj).tokenInput("toggleDisabled");
+		});
 		$(".anime-title").attr('readonly', true);
 		$(".anime-info").attr('readonly', true);
 		$("#synopsis").attr('contenteditable', false);
@@ -1269,6 +1283,7 @@ function add_cast_input(obj){
 			allowFreeTagging: true
 	});	
 	$(obj).focus();
+	$(obj).attr('data-init','1');	
 	//if($("#anime-studios").attr("data-changed"))$("#anime-studios").removeAttr("data-changed");
 }
 
@@ -1290,6 +1305,7 @@ function add_seyuu_input(obj){
 			allowFreeTagging: true
 	});	
 	$(obj).focus();
+	$(obj).attr('data-init','1');	
 	//if($("#anime-studios").attr("data-changed"))$("#anime-studios").removeAttr("data-changed");
 }
 

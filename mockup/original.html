@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html><head>
+<title>Shinsekai Yori - UAnidb</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/kickstart.js"></script> 	                               <!-- KICKSTART -->
+<script type="text/javascript" src="js/jquery.autosize-min.js"></script> 
+<script type="text/javascript" src="js/jquery.tokeninput.js"></script>
+<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.10.3.custom.min.css" media="all" />  
+<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>  
+<script type="text/javascript" src="js/ui.datepicker-uk.js"></script> 
+<script type="text/javascript" src="js/jquery.fileupload.js"></script>
+<link rel="stylesheet" type="text/css" href="css/kickstart.css" media="all" />                  <!-- KICKSTART -->
+<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />                      <!-- CUSTOM STYLES --> 
+</head>
+<body>
+<div class="head-menu">
+	<header class="head-div">
+		<div class="col_2 head-text">
+			<h1 id="uanidb-logo2"><a href="http://ashenwolf.github.io/uanidb-mockup/mockup/anime3.html">UAnidb</a></h1>	
+		</div>
+		<div class="col_6">
+			<ul class="menu">
+			<li><a href=""><i class="icon-home"></i> Сайт</a>
+				<ul>
+				<li><a href=""><i class="icon-book"></i> Весь каталог</a></li>
+				<li><a href=""><i class="icon-plus-sign"></i> Нове аніме</a></li>
+				<li><a href=""><i class="icon-thumbs-up"></i> Рейтинг</a></li>
+				<li><a href=""><i class="icon-retweet"></i> Випадкове</a></li>
+				</ul>
+			</li>
+			<li><a href=""><i class="icon-github-alt"></i> Аніме</a>
+				<ul>
+				<li><a href=""><i class="icon-plus-sign"></i> Додати нове</a></li>
+				<li><a href="#" onclick="$('#anime-edit').trigger('click');"><i class="icon-edit"></i> Редагувати</a></li>
+				<li class="divider"><a href=""><i class="icon-trash"></i> Вилучити</a></li>
+				</ul>
+			</li>
+			<li><a href=""><i class="icon-user"></i> Юзер</a>
+				<ul>
+					<li><a href=""><i class="icon-cog"></i> Профіль</a></li>
+					<li><a href=""><i class="icon-envelope-alt"></i> Інбокс</a></li>
+					<li class="divider"><a href=""><i class="icon-signout"></i> Вихід</a></li>
+				</ul>			
+			</li>
+			<li><a href=""><i class="icon-info-sign"></i> Допомога</a>
+				<ul>
+					<li><a href=""><i class="icon-comments-alt"></i> Підтримка</a></li>
+					<li><a href=""><i class="icon-group"></i> Форум</a></li>
+				</ul>			
+			</li>
+			</ul>		
+		</div>
+		<div class="col_3 head-search">
+			<form action="search" method="get" accept-charset="utf-8">
+				<button class="pull-right small"><i class="icon-search"></i> Знайти!</button>
+				<input type="text" name="" value="" placeholder="Аніме, персонаж...">					
+			</form>
+		</div>
+		<div class="col_1 pull-right head-signout">
+			<a title="Вихід (і вхід) для юзера" href=""><i class="icon-signout"></i></a>		
+		</div>
+	</header>
+</div>
+<div style="width:944px; margin:-40px auto 30px auto;" class="notice warning">Деякі поля редаговні (зі збереженням)! (Тільки перейдіть магічною паличкою на базу хоча б раз, "Молодша сестра..." не з бази)<a href="#close" class="icon-remove"></a></div>
+<div class="grid">
+	<article class="col_12">		
+		<div class="block-content clearfix">
+			<div id="info-title"><h2><textarea data-anime-id="" name="" maxlength="64" rows="2" cols="50" title="Моя молодша сестра не настільки вже й гарненька" class="anime-title" readonly="">Моя молодша сестра не настільки вже й гарненька</textarea></h2></div><div id="info-edit" class="pull-right"><a title="Почати/закінчити редагування цього аніме" href="#" onclick="$('#anime-edit').trigger('click'); return false;"><i class="icon-large icon-edit"></i></a><a id="ANN_info" title="Заповнити поля інформацією з ANN" href="#"><i class="icon-large icon-magic pull-right"></i></a></div>
+			<div class="col_4">
+				<div id="main-image" class="gallery">
+					<img id="loading-image" style="display:none;" src="css/img/bx_loader.gif" alt="loading...">
+					<a id="main-image-a" data-mtime="" href="images/anime-1.jpg"><img id="anime-image" src="images/no-anime-medium.gif" alt="Anime screenshot"></a>
+				</div>
+			</div>
+			<div id="anime-info-box" class="col_8">
+				<ul class="tabs left">
+					<li><a href="#anime-info">Інформація</a></li>
+					<li><a href="#anime-cast">Персонажі</a></li>
+					<li><a href="#anime-production">Виробництво</a></li>
+					<li><a href="#anime-subs">Українською</a></li>
+					<li><a href="#anime-similar">Схоже аніме</a></li>
+				</ul>
+
+				<div id="anime-info" class="tab-content">
+					<table>
+						<tbody>
+							<tr>
+								<th title="Офіційна японська назва">Офіційна назва:</th>
+								<td><input name="jap_name_kan_1" maxlength="68" title="" class="anime-info" readonly="" value="?????" /></td><td><span class="pull-right" style="line-height: 14px;"><img src="images/flags/jp.png" alt="jp"></span></td>
+							</tr>
+							<tr>
+								<th title="Латинізована японська">Ромаджі:</th>
+								<td title="" colspan="2"><input name="jap_name_rom_1" maxlength="68" title="" class="anime-info" readonly="" value="Shinsekai Yori" /></td>
+							</tr>
+							<tr>
+								<th title="Офіційна англійська назва">Англійська назва:</th>
+								<td><input name="eng_name_1" maxlength="68" title="" class="anime-info" readonly="" value="From the New World" /></td><td><span class="pull-right" style="line-height: 14px;"><img src="images/flags/gb.png" alt="gb"></span></td>
+							</tr>
+							<tr>
+								<th title="Основна українська назва">Українська назва:</th>
+								<td><input name="ukr_name_1" maxlength="68" title="" class="anime-info" readonly="" value="Моя молодша сестра не настільки вже й гарненька" /></td><td><span class="pull-right" style="line-height: 14px;"><img src="images/flags/ua.png" alt="ua"></span></td>
+							</tr>
+							<tr>
+								<th title="Альтернативні назви через кому">Ще відоме як:</th>
+								<td title="Вводіть альтернативні назви через кому" colspan="2"><input name="other_nazv" maxlength="68" title="Вводіть альтернативні назви через кому" class="anime-info" readonly="" placeholder="Альтернативні назви" /></td>
+							</tr>
+							<tr>
+								<th>Студія:</th>
+								<td id="td-studios"><input id="anime-studios" name="" maxlength="68" title="" class="anime-info" readonly="" placeholder="Виробник(и) цього аніме" /></td><td><a title="Розширене додавання студії" href="#add_studio" id="add-studio-lightbox" class="icon-plus lightbox pull-right"></a></td>
+							</tr>
+							<tr>
+								<th>Тип:</th>
+								<td style="padding-right:0;"><select style="display:none;" id="select-type"><option value="0">Не обрано</option><option value="1">Серіал</option><option value="2">Кіно</option></select><input id="input-type" name="type_film_id" maxlength="68" title="" class="anime-info" readonly=""  style="width:250px" placeholder="Не обрано" /><span class="pull-right"><em>Серій:</em></span></td><td><input maxlength="4" name="series_count" id="series_count" class="anime-info pull-right" style="width:32px;text-align:right;font-size:14px;" readonly="" value="25" /></td>
+							</tr>
+							<tr>
+								<th>Жанри:</th>
+								<td id="td-genres"><input id="anime-genres" name="" maxlength="68" title="" class="anime-info" readonly="" value="Пригоди, Фентезі, Драма" /></td><td><a title="Розширене додавання жанру" href="#add_genre" id="add-genre-lightbox" class="icon-plus lightbox pull-right"></a></td>
+							</tr>
+							<tr>
+								<th>Дати виходу:</th>
+								<td colspan="2"><em>з</em> <input style="margin-left:6px;width:100px;" name="" id="" maxlength="68" title="" class="datepicker anime-info" readonly="" value="29.09.2012" /> <em>до</em> <input style="margin-left:6px;width:100px;" name="" id="" maxlength="68" title="" class="datepicker anime-info" readonly="" value="29.09.2013" /></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div style="display: none;">
+					<div style="width:465px;" class="col_12 column" id="add_genre">
+						<div style="width:400px; margin:0 0 30px 0; padding-left:15px; display:none;" id="genre-notice" class="notice">Тут ви можете додати в базу новий Жанр, лише майте на увазі: цей жанр додасться до конкретного аніме тільки, коли ви вийдете з режиму  редагування цього аніме <a href="#close" class="icon-remove"></a></div>
+						<label style="margin-top:5px;" for="ukr_name_genre"><strong>Жанр українською</strong>, <span style="color:orange;" >обов'язкове</span> <span class="right">Напр., "Шьоджьо :)"</span></label><br />
+						<input maxlength="110" class="form-input" type="text" id="ukr_name_genre" name="" /><br />
+
+						<label for="jap_kana_name_genre">Жанр японською <span class="right">Напр., "??"</span></label><br />
+						<input maxlength="110" class="form-input" type="text" id="jap_kana_name_genre" name="" /><br />				
+
+						<label for="jap_rom_name_genre">Жанр англійською чи ромаджі <span class="right">Напр., "Shoujo"</span></label><br />
+						<input maxlength="110" class="form-input" type="text" id="jap_rom_name_genre" name="" /><br />
+
+						<label class="form-label">Опис: </label><br />
+						<textarea maxlength="340" class="form-textarea" id="opys" name=""></textarea><br /><br />
+						<button style="margin-bottom:10px;" id="genre-post" class="green"><i class="icon-plus-sign"></i> Додати жанр</button>
+					</div>
+				</div>
+				<div style="display: none;">
+					<div style="width:465px;" class="col_12 column" id="add_studio">
+						<div style="width:400px; margin:0 0 30px 0; padding-left:15px; display:none;" id="studio-notice" class="notice">Тут ви можете додати в базу нову Студію, лише майте на увазі: вона додасться до конкретного аніме тільки, коли ви вийдете з режиму  редагування цього аніме <a href="#close" class="icon-remove"></a></div>	
+						<label for="studio_name"><strong>Інтернаціональна назва</strong>, <span style="color:orange;" >обов'язкове</span> <span class="right">Напр., "Madhouse"</span></label><br />
+						<input maxlength="110" class="form-input" type="text" id="studio_name" name="" /><br />
+
+						<label for="studio_name_jap">Японська назва студії<span class="right">Напр., "??????"</span></label><br />
+						<input maxlength="110" class="form-input" type="text" id="studio_name_jap" name="" /><br />				
+
+						<label class="form-label">Опис: </label><br />
+						<textarea maxlength="340" class="form-textarea" id="desc_1" name=""></textarea><br /><br />
+						<button style="margin-bottom:10px;" id="studio-post" class="green"><i class="icon-plus-sign"></i> Додати студію</button>
+					</div>
+				</div>
+				<div style="display: none;">
+					<div style="width:310px; margin:20px 18px 0px 20px;" class="col_12 column" id="add_files">
+						<div style="width:265px; margin:-5px 0 20px 0; padding-left:15px; display:none;" id="files-notice" class="notice">Повідомлення діалогу завантаження файлів<a href="#close" class="icon-remove"></a></div>
+						<div id="crop-holder" class="tooltip" title="Потягніть, щоб змінити кадрування. Двічі клікніть, щоб завантажити нову картинку з диску (або перетягніть її сюди мишею)"><div id="crop-iholder" class="ui-widget-content"><img id="imgPhoto" class="ui-widget-header" src="images/no-anime-medium.gif" alt='image'></div></div>		
+						<input style="width:1px;height:1px;position:absolute;left:-10000px;" id="fileupload" type="file" name="files[]" accept="image/*">
+						<div style="margin:0px;width:265px;" id="progress" class="col_12 progress progress-success progress-striped">
+							<div style="height:20px; width:0px;" class="bar"></div>
+						</div>
+						<div style="clear:both; margin-top:20px;" class="col_12">
+							<button style="width:265px;" id="button-save" class="orange"><i class="icon-refresh"></i> Зберегти</button>
+						</div>
+					</div>
+				</div>
+				<div id="anime-cast" class="tab-content">
+					<table class="striped">
+						<tbody>
+							<tr>
+								<th class="char">Asahina Satoru</th>
+								<td class="creator"><a href="#">Toujou Kanako</a>, <a href="animedb.pl?show=creator&amp;creatorid=1678">Kaji Yuuki</a></td>
+							</tr>
+							<tr class="g_odd">
+								<th class="creator">Watanabe Saki</th>
+								<td class="char"><a href="#">Taneda Risa</a></td>
+							</tr>
+							<tr>
+								<th class="creator">Akizuki Maria</th>
+								<td class="char"><a href="#">Hanazawa Kana</a></td>
+							</tr>
+							<tr class="g_odd">
+								<th class="char">Aonuma Shun</th>
+								<td class="creator"><a href="#">Murase Ayumu</a>, <a href="animedb.pl?show=creator&amp;creatorid=4005">Toudou Mai</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div id="anime-production" class="tab-content">
+					<table class="striped">
+						<tbody>
+							<tr>
+								<th>Студія:</th>
+								<td><a href="#" title="">A-1 Pictures</a></td>
+							</tr>
+							<tr>
+								<th>Режисер:</th>
+								<td><a href="#" title="">Ішіхама Масаші</a></td>
+							</tr>
+							<tr>
+								<th>Автор оригіналу:</th>
+								<td><a href="#" title="">Кіші Юусуке</a></td>
+							</tr>
+							<tr>
+								<th class="credit">Series Composition:</th>
+								<td class="creator"><a href="animedb.pl?show=creator&amp;creatorid=1411">Sogo Masashi</a></td>
+							</tr>
+							<tr>
+								<th class="credit">Character Design:</th>
+								<td class="creator"><a href="animedb.pl?show=creator&amp;creatorid=671">Kubota Chikashi</a></td>
+							</tr>
+							<tr>
+								<th class="credit">Music:</th>
+								<td class="creator"><a href="animedb.pl?show=creator&amp;creatorid=2422">Komori Shigeo</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div id="anime-subs" class="tab-content">
+					<table class="striped">
+						<tbody>
+							<tr>
+								<th rowspan="2">Субтитри</th>
+								<td><i class="icon-file-alt"></i> <a href="#">UAnime</a></td>
+							</tr>
+							<tr>
+								<td><i class="icon-file-alt"></i> <a href="#">І знову UAnime</a></td>
+							</tr>
+							<tr>
+								<th>Озвучка/дубляж</th>
+								<td>Нема даних</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div id="anime-similar" class="tab-content">
+					<table class="striped">
+						<tbody>
+							<tr><td><i class="icon-ok"></i> <a href="#" title="">Psycho-Pass</a></td></tr>
+							<tr><td><i class="icon-ok"></i> <a href="#" title="">No. 6</a></td></tr>
+							<tr><td><i class="icon-ok"></i> <a href="#" title="">Shiki</a></td></tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div id="synopsis" class="col_12" contenteditable="false">				
+				<p>Манга Paradise Kiss публікувалася в одному з популярних японських журналів моди. В аніме Paradise Kiss – назва бренду одягу, який розробляє група студентів школи мистецтв. А мова піде про досить посередню, хоча і гарну, ученицю старшої школи, якій не пощастило з ними зв'язатися. Чи, може, навпаки – пощастило?.</p>
+				<p>Цей дуже короткий фільм фактично був анонсом до телевізійного серіалу Азуманґа Даіо. Вдала екранізація низки оповідань Рьоґо Наріти. Він містить кілька сцен, які надалі увійшли у серіал.</p>
+				<p>Сакакібара Коічі переїжджає в містечко Йоміяма (Пекельна гора) до своїх дідуся і бабусі. Через хворобу, яка скосила його незабаром після приїзду, він пропускає місяць навчання і приходить до школи лишень в травні. Клас зустрічає його привітно, але в повітрі витає якась таємниця. Одну з його однокласниць, Місакі Мей, з якою він познайомився у лікарні, здається, ніхто окрім нього не помічає. Яка ж таємниця нависла над школою?</p>
+			</div>			
+			<div id="under-synopsis" class="col_12">
+				<hr>
+				<p>Щоб не забути: сюди ще мають піти: Проголосувати за це аніме! Поділитися на фейсбук! Це аніме на anidb! і т.п.</p>
+				<hr>
+			</div>			
+			<div class="pull-right">
+				<button id="anime-error" class="small"><i class="icon-exclamation-sign"></i> Повідомити про помилку</button>
+				<button id="anime-edit" class="small"><i class="icon-edit"></i> Редагувати інформацію</button>
+				<a title="Зміна картинки" href="#add_files" style="margin-left:20px;display:none;" id="add-fileupload-lightbox" class="icon-plus fileupload-lightbox"></a>
+			</div>
+
+		</div>
+	</article>
+</div><!-- END GRID-->
+
+<!-- ===================================== START FOOTER ===================================== -->
+
+<div class="foot-menu">
+	<footer class="foot-div">
+		<p class="pull-left">Sensetivity &copy; 2013</p>
+		<p class="pull-right"><a href="#" title="">Про сайт</a> &nbsp; <a href="#" title="">Приватність</a> &nbsp; <a href="#" title="">Допомога</a></p>
+	</footer>
+</div>
+
+<script type="text/javascript" src="js/uanidb.js"></script> 
+<script type="text/javascript">	
+$( document ).ready(function() {
+	'use strict';
+	$('.anime-title').autosize();
+	text_area_height_opera();	
+	init_genres();
+	init_studios();
+	$('.lightbox').fancybox({
+		onStart: fancyboxLoad,
+		onClosed: fancyboxClose,
+		scrolling: 'no',
+		autoCenter : true,
+		padding:30
+	});
+	$('.fileupload-lightbox').fancybox({
+		onStart: fileuploadLoad,
+		onClosed: fileuploadClose,
+		scrolling: 'no',
+		autoCenter : true,
+		padding:30
+	});
+	get_types(anime_id);
+	$('.datepicker').datepicker({
+		dateFormat: "dd.mm.yy",
+		changeMonth: true,
+		changeYear: true,
+		yearRange: "1950:"
+	});
+    $('#imgPhoto').fileupload({
+		dropZone: '#imgPhoto',
+		pasteZone: '#imgPhoto',
+		fileInput: "#fileupload",
+		maxNumberOfFiles:1,
+        url: 'http://uanidb.tk/pics/',
+        dataType: 'json',
+		add: function (e, data) {
+			var uploadFile = data.files[0];
+			if (!(/\.(gif|jpg|jpeg|png)$/i).test(uploadFile.name)) {
+				$('#files-notice').addClass('error');
+				$('#files-notice').html('Будь ласка, тільки gif, jpg, png! <a href="#close" class="icon-remove"></a>').show();
+				return;
+			}
+			if (uploadFile.size > 1048576) { // 1mb
+				$('#files-notice').addClass('error');
+				$('#files-notice').html('Максимальний розмір файлу картинки 1 Mb! <a href="#close" class="icon-remove"></a>').show();
+				return;
+			}			
+			jqXHR = data.submit()
+			.error(function (jqXHR, textStatus, errorThrown) {
+				alert(errorThrown);
+			});
+		},
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+				if(file.error){
+					$('#files-notice').addClass('error');
+					$('#files-notice').html(file.error+ '<a href="#close" class="icon-remove"></a>').show();
+					$('#progress .bar').css('width', '0');
+					return;
+				}
+				$('#files-notice').removeClass('error');
+				$('#files-notice').hide();
+				if(!$('#imgPhoto').attr('data-uploaded')) $('#imgPhoto').attr('data-uploaded', '1');
+				if(imageProportions(file.name)){
+					$("#imgPhoto").one("load", function() {
+						$('#imgPhoto').css('left', '0');
+						$('#imgPhoto').css('top', '0');
+						var diff_w=$("#imgPhoto").width()-$("#crop-holder").width();
+						var diff_h=$("#imgPhoto").height()-$("#crop-holder").height();	
+						$('#anime-image').attr('data-diff-w', diff_w);
+						$('#anime-image').attr('data-diff-h', diff_h);
+						$("#crop-iholder").width(Math.round($("#imgPhoto").width()+diff_w));
+						$("#crop-iholder").height(Math.round($("#imgPhoto").height()+diff_h));	
+						$("#crop-iholder").css("left", Math.round(-diff_w));
+						$("#crop-iholder").css("top", Math.round(-diff_h));
+					}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+file.name+'&h=365&' + new Date().getTime());
+				}else{
+					$("#imgPhoto").one("load", function() {
+						$('#imgPhoto').css('left', '0');
+						$('#imgPhoto').css('top', '0');
+						var diff_w=$("#imgPhoto").width()-$("#crop-holder").width();
+						var diff_h=$("#imgPhoto").height()-$("#crop-holder").height();	
+						$('#anime-image').attr('data-diff-w', diff_w);
+						$('#anime-image').attr('data-diff-h', diff_h);
+						$("#crop-iholder").width(Math.round($("#imgPhoto").width()+diff_w));
+						$("#crop-iholder").height(Math.round($("#imgPhoto").height()+diff_h));	
+						$("#crop-iholder").css("left", Math.round(-diff_w));
+						$("#crop-iholder").css("top", Math.round(-diff_h));
+					}).attr('src', 'http://uanidb.tk/pics/timthumb.php?src=http://uanidb.tk/pics/anime/'+file.name+ '&w=265&' + new Date().getTime());
+				}
+            });
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .bar').css(
+                'width',
+                progress + '%'
+            );
+        }
+	});
+});	
+</script>
+
+</body></html>
