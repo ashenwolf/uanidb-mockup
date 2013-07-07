@@ -1266,7 +1266,7 @@ function importData(){
 // cast
 
 function add_cast_input(obj){
-	$(obj).tokenInput("http://oilreview.x10.mx/studios.php", {
+	$(obj).tokenInput("http://oilreview.x10.mx/characters.php", {
 			prePopulate: "",
 			preventDuplicates: true,
 			tokenLimit: 1,
@@ -1288,7 +1288,7 @@ function add_cast_input(obj){
 }
 
 function add_seyuu_input(obj){
-	$(obj).tokenInput("http://oilreview.x10.mx/studios.php", {
+	$(obj).tokenInput("http://oilreview.x10.mx/characters.php", {
 			prePopulate: "",
 			preventDuplicates: true,
 			tokenLimit: 3,
