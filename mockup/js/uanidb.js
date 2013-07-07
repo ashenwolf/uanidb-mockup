@@ -1291,7 +1291,7 @@ function add_seyuu_input(obj){
 	$(obj).tokenInput("http://oilreview.x10.mx/characters.php", {
 			prePopulate: "",
 			preventDuplicates: true,
-			tokenLimit: 3,
+			tokenLimit: 10,
 			minChars: 2,
 			crossDomain: false,
 			theme: "facebook",
