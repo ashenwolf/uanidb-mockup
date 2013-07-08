@@ -654,17 +654,25 @@ div.ui-datepicker{
 }
 
 .cast-info li.token-input-token-facebook{
-	max-width:100px;
+	max-width:105px;
 	text-overflow:ellipsis;
+}
+
+.cast-td-2 li.token-input-token-facebook{
+	max-width:120px;
 }
 
 .cast-info li.token-input-token-facebook p {
 	display:block;
 	float:left;
-	max-width:80px;
+	max-width:85px;
 	text-overflow:ellipsis;
 	white-space: nowrap;
     overflow:hidden;
+}
+
+.cast-td-2 li.token-input-token-facebook p {
+	max-width:100px;
 }
 
 .cast-td-1{
@@ -673,7 +681,7 @@ div.ui-datepicker{
 }
 
 .cast-td-2{
-	width:117px;
+	width:140px;
 }
 
 .cast-image{
@@ -681,7 +689,6 @@ div.ui-datepicker{
 	width:20px !important;
 	height:25px !important;
 	vertical-align:middle;
-	//margin-right:15px;
 }
 
 .cast_sign{
