@@ -1,5 +1,9 @@
 var anime_id=1;
 var jqXHR = null;
+var genres_populate=[];
+var studios_populate=[];
+var cast_populate=[];
+var seyuu_populate=[];
 $.support.cors = true;
 
 $(document).on("click", ".cast-input", function(e) {	
@@ -327,13 +331,15 @@ $("#ANN_info").click(function (e) {
 			get_anime(anime_id);
 			//get_types(anime_id);
 			get_anime_genres(anime_id);
-			get_anime_studios(anime_id++);
+			get_anime_studios(anime_id);
+			get_anime_cast(anime_id++);
 			return false;
 		}else{
 			get_anime(anime_id); 
 			//get_types(anime_id);
 			get_anime_genres(anime_id);
 			get_anime_studios(anime_id);
+			get_anime_cast(anime_id);
 			anime_id=1; 
 			return false;
 		}
@@ -848,9 +854,6 @@ $("#anime-error").click(function (e) {
 	importData();
 });
 
-var genres_populate=[];
-var studios_populate=[];
-
 function init_genres(){
 	$('#anime-genres').tokenInput("http://oilreview.x10.mx/genres.php", {
 			prePopulate: genres_populate,
@@ -1267,7 +1270,7 @@ function importData(){
 
 function add_cast_input(obj){
 	$(obj).tokenInput("http://oilreview.x10.mx/characters.php", {
-			prePopulate: "",
+			prePopulate: cast_populate,
 			preventDuplicates: true,
 			tokenLimit: 1,
 			minChars: 2,
@@ -1312,4 +1315,42 @@ function add_seyuu_input(obj){
 function destroy_tokeninput(obj){ 
 	$(obj).find(".cast-input").tokenInput('destroy');
 	$(obj).find(".seyuu-input").tokenInput('destroy');
+}
+
+function get_anime_cast(id){		
+	$.ajax({ 
+		type: 'GET', 
+		url: 'http://oilreview.x10.mx/characters.php', 
+		data: { aid: id }, 
+		dataType: 'json',
+		cache: false,
+		async: false,
+		beforeSend: function (){
+			$('.notice').html('Працюю з базою...');
+		},
+		success: function (data) { 
+			$("#anime_cast_table").find("tr:gt(0)").remove();
+			$("#anime-cast").mCustomScrollbar("update");
+			if(data){
+				$.each(data, function(i, item) {
+					cast_populate=[];
+					cast_populate[0]=[];
+					cast_populate[0]['id']=item.character.cid;
+					cast_populate[0]['name']=item.character.name_c;	
+					$("#anime_cast_table tr").last('.cast-strip').after('<tr class="cast-info"><td class="cast-td-1"><a class="cast-image-a" href="images/anime-1.jpg"><img class="cast-image" src="images/no-anime-medium.gif" alt="cast"></a></td><td class="cast-td-2"><input name="" maxlength="40" title="" id="cast-input-add" class="cast-input anime-info" readonly="" placeholder="Персонаж" value="" /></td><td><input name="" maxlength="60" title="" id="seyuu-input-add" class="seyuu-input anime-info" readonly="" placeholder="Сейю" value="" /></td><td style="width:30px;line-height:14px;"><a title="" href="#del_cast_input" class="icon-minus-sign del-cast-input"></a></td></tr><tr class="cast-strip"><td colspan="4" title="Клікніть, щоб вставити тут персонаж"></td></tr>');
+					add_cast_input($('#cast-input-add'));
+					$("#cast-input-add").tokenInput("toggleDisabled");					
+					$("#cast-input-add").removeAttr('id');
+					$("#seyuu-input-add").removeAttr('id');
+					$("#anime-cast").mCustomScrollbar("update");			
+					//
+					//$(obj).tokenInput('destroy');
+				});
+				$('.notice').html('Все ок!');
+			}
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			$('.notice').html(jqXHR+' | '+textStatus+' | '+errorThrown);
+		}
+	});
 }
