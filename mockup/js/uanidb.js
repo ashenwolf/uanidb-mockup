@@ -1288,7 +1288,7 @@ function add_cast_input(obj){
 }
 
 function add_seyuu_input(obj){
-	$(obj).tokenInput("http://oilreview.x10.mx/characters.php", {
+	$(obj).tokenInput("http://oilreview.x10.mx/people.php", {
 			prePopulate: "",
 			preventDuplicates: true,
 			tokenLimit: 4,
