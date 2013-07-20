@@ -1292,7 +1292,7 @@ function add_cast_input(obj){
 
 function add_seyuu_input(obj){
 	$(obj).tokenInput("http://oilreview.x10.mx/people.php", {
-			prePopulate: "",
+			prePopulate: seyuu_populate,
 			preventDuplicates: true,
 			tokenLimit: 4,
 			minChars: 2,
@@ -1332,20 +1332,33 @@ function get_anime_cast(id){
 			$("#anime_cast_table").find("tr:gt(0)").remove();
 			$("#anime-cast").mCustomScrollbar("update");
 			if(data){
+				var prev=0;
 				$.each(data, function(i, item) {
-					cast_populate=[];
-					cast_populate[0]=[];
-					cast_populate[0]['id']=item.character.cid;
-					cast_populate[0]['name']=item.character.name_c;	
-					$("#anime_cast_table tr").last('.cast-strip').after('<tr class="cast-info"><td class="cast-td-1"><a class="cast-image-a" href="images/anime-1.jpg"><img class="cast-image" src="images/no-anime-medium.gif" alt="cast"></a></td><td class="cast-td-2"><input name="" maxlength="40" title="" id="cast-input-add" class="cast-input anime-info" readonly="" placeholder="Персонаж" value="" /></td><td><input name="" maxlength="60" title="" id="seyuu-input-add" class="seyuu-input anime-info" readonly="" placeholder="Сейю" value="" /></td><td style="width:30px;line-height:14px;"><a title="" href="#del_cast_input" class="icon-minus-sign del-cast-input"></a></td></tr><tr class="cast-strip"><td colspan="4" title="Клікніть, щоб вставити тут персонаж"></td></tr>');
-					add_cast_input($('#cast-input-add'));
-					$("#cast-input-add").tokenInput("toggleDisabled");					
-					$("#cast-input-add").removeAttr('id');
-					$("#seyuu-input-add").removeAttr('id');
-					$("#anime-cast").mCustomScrollbar("update");			
-					//
-					//$(obj).tokenInput('destroy');
-				});
+					if(item.character.cid!=prev){
+						$("#cast-input-add").removeAttr('id');
+						$("#seyuu-input-add").removeAttr('id');	
+						cast_populate=[];
+						cast_populate[0]=[];
+						seyuu_populate=[];
+						seyuu_populate[0]=[];						
+						cast_populate[0]['id']=item.character.cid;
+						cast_populate[0]['name']=item.character.name_c;	
+						seyuu_populate[0]['id']=item.character.seyuu.pid;
+						seyuu_populate[0]['name']=item.character.seyuu.name_p;
+						$("#anime_cast_table tr").last('.cast-strip').after('<tr class="cast-info"><td class="cast-td-1"><a class="cast-image-a" href="images/anime-1.jpg"><img class="cast-image" src="images/no-anime-medium.gif" alt="cast"></a></td><td class="cast-td-2"><input name="" maxlength="40" title="" id="cast-input-add" class="cast-input anime-info" readonly="" placeholder="Персонаж" value="" /></td><td><input name="" maxlength="60" title="" id="seyuu-input-add" class="seyuu-input anime-info" readonly="" placeholder="Сейю" value="" /></td><td style="width:30px;line-height:14px;"><a title="" href="#del_cast_input" class="icon-minus-sign del-cast-input"></a></td></tr><tr class="cast-strip"><td colspan="4" title="Клікніть, щоб вставити тут персонаж"></td></tr>');
+						add_cast_input($('#cast-input-add'));
+						$("#cast-input-add").tokenInput("toggleDisabled");							
+						add_seyuu_input($('#seyuu-input-add'));
+						$("#seyuu-input-add").tokenInput("toggleDisabled");						
+						prev=item.character.cid;
+						//$(obj).tokenInput('destroy');
+					} else {
+						$("#seyuu-input-add").tokenInput("add", {id: item.character.seyuu.pid, name: item.character.seyuu.name_p});
+					}
+				});		
+				$("#cast-input-add").removeAttr('id');
+				$("#seyuu-input-add").removeAttr('id');					
+				$("#anime-cast").mCustomScrollbar("update");
 				$('.notice').html('Все ок!');
 			}
 		},
