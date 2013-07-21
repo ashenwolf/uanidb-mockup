@@ -700,7 +700,7 @@ div.ui-datepicker{
 	margin-bottom:5px;
 }
 
-input.cast-input{
+input.cast-input, input.seyuu-input{
 	border:none;
 	box-shadow:none;
 	background:none;
@@ -718,7 +718,11 @@ input.cast-input{
 	width:100px;
 	height:20px;
 	resize: none;
-	vertical-align:inherit;
+	vertical-align:top;
+}
+
+input.seyuu-input{
+	font-weight:inherit;
 }
 
 .cast-info .gallery a{

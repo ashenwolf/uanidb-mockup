@@ -21,7 +21,7 @@ $(document).on("mouseleave", ".cast-strip", function(e) {
 });
 $(document).on("click", ".cast-strip", function(e) {
 	if($(".anime-title").attr('readonly'))return;
-	$(this).after('<tr class="cast-info new-cast"><td class="cast-td-1"><a class="cast-image-a" href="images/anime-1.jpg"><img class="cast-image" src="images/no-anime-medium.gif" alt="cast"></a></td><td class="cast-td-2"><input name="" maxlength="40" title="" class="cast-input anime-info" readonly="" placeholder="Персонаж" value="" /></td><td><input name="" maxlength="60" title="" class="seyuu-input anime-info" readonly="" placeholder="Сейю" value="" /></td><td style="width:30px;line-height:14px;"><a title="" href="#del_cast_input" class="icon-minus-sign del-cast-input"></a></td></tr><tr class="cast-strip"><td colspan="4" title="Клікніть, щоб вставити тут персонаж"></td></tr>');
+	$(this).after('<tr class="cast-info new-cast"><td class="cast-td-1"><a class="cast-image-a" href="images/anime-1.jpg"><img class="cast-image" src="images/no-anime-medium.gif" alt="cast"></a></td><td class="cast-td-2"><input name="" maxlength="40" title="" class="cast-input" readonly="" placeholder="Персонаж" value="" /></td><td><input name="" maxlength="60" title="" class="seyuu-input" readonly="" placeholder="Сейю" value="" /></td><td style="width:30px;line-height:14px;"><a title="" href="#del_cast_input" class="icon-minus-sign del-cast-input"></a></td></tr><tr class="cast-strip"><td colspan="4" title="Клікніть, щоб вставити тут персонаж"></td></tr>');
 	$('.new-cast').fadeIn(400);
 	$('.new-cast').removeClass('new-cast');
 	$("#anime-cast").mCustomScrollbar("update");
@@ -283,6 +283,9 @@ $("#anime-edit").click(function (e) {
 		}		
 		if($("#anime-studios").attr("data-changed") && $(".anime-title").attr('data-anime-id')) {				
 			update_studios($(".anime-title").attr('data-anime-id'));												
+		}
+		if($("#anime-cast").attr("data-changed") && $(".anime-title").attr('data-anime-id')) {				
+			update_cast($(".anime-title").attr ('data-anime-id'));												
 		}		
 		$(document).off("click", ".token-input-token-facebook p");
 		$(document).off("click", ".token-input-token-facebook");
@@ -1281,13 +1284,13 @@ function add_cast_input(obj){
 			noResultsText: "Не знайдено",
 			disabled: false,
 			searchDelay: 100,
-			onAdd: '',
-			onDelete: '',
+			onAdd: cast_change,
+			onDelete: cast_change,
 			allowFreeTagging: true
 	});	
 	$(obj).focus();
 	$(obj).attr('data-init','1');	
-	//if($("#anime-studios").attr("data-changed"))$("#anime-studios").removeAttr("data-changed");
+	if($("#anime-cast").attr("data-changed"))$("#anime-cast").removeAttr("data-changed");
 }
 
 function add_seyuu_input(obj){
@@ -1303,13 +1306,13 @@ function add_seyuu_input(obj){
 			noResultsText: "Не знайдено",
 			disabled: false,
 			searchDelay: 100,
-			onAdd: '',
-			onDelete: '',
+			onAdd: cast_change,
+			onDelete: cast_change,
 			allowFreeTagging: true
 	});	
 	$(obj).focus();
 	$(obj).attr('data-init','1');	
-	//if($("#anime-studios").attr("data-changed"))$("#anime-studios").removeAttr("data-changed");
+	if($("#anime-cast").attr("data-changed"))$("#anime-cast").removeAttr("data-changed");
 }
 
 function destroy_tokeninput(obj){ 
@@ -1345,7 +1348,7 @@ function get_anime_cast(id){
 						cast_populate[0]['name']=item.character.name_c;	
 						seyuu_populate[0]['id']=item.character.seyuu.pid;
 						seyuu_populate[0]['name']=item.character.seyuu.name_p;
-						$("#anime_cast_table tr").last('.cast-strip').after('<tr class="cast-info"><td class="cast-td-1"><a class="cast-image-a" href="images/anime-1.jpg"><img class="cast-image" src="images/no-anime-medium.gif" alt="cast"></a></td><td class="cast-td-2"><input name="" maxlength="40" title="" id="cast-input-add" class="cast-input anime-info" readonly="" placeholder="Персонаж" value="" /></td><td><input name="" maxlength="60" title="" id="seyuu-input-add" class="seyuu-input anime-info" readonly="" placeholder="Сейю" value="" /></td><td style="width:30px;line-height:14px;"><a title="" href="#del_cast_input" class="icon-minus-sign del-cast-input"></a></td></tr><tr class="cast-strip"><td colspan="4" title="Клікніть, щоб вставити тут персонаж"></td></tr>');
+						$("#anime_cast_table tr").last('.cast-strip').after('<tr class="cast-info"><td class="cast-td-1"><a class="cast-image-a" href="images/anime-1.jpg"><img class="cast-image" src="images/no-anime-medium.gif" alt="cast"></a></td><td class="cast-td-2"><input name="" maxlength="40" title="" id="cast-input-add" class="cast-input" readonly="" placeholder="Персонаж" value="" /></td><td><input name="" maxlength="60" title="" id="seyuu-input-add" class="seyuu-input" readonly="" placeholder="Сейю" value="" /></td><td style="width:30px;line-height:14px;"><a title="" href="#del_cast_input" class="icon-minus-sign del-cast-input"></a></td></tr><tr class="cast-strip"><td colspan="4" title="Клікніть, щоб вставити тут персонаж"></td></tr>');
 						add_cast_input($('#cast-input-add'));
 						$("#cast-input-add").tokenInput("toggleDisabled");							
 						add_seyuu_input($('#seyuu-input-add'));
@@ -1366,6 +1369,56 @@ function get_anime_cast(id){
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			$('.notice').html(jqXHR+' | '+textStatus+' | '+errorThrown);
+		}
+	});
+}
+
+function cast_change(item){
+	if(item.name.length<2){
+		$(this).tokenInput("remove", {id: item.id}); 
+		return false;
+	}
+	if(!$("#anime-cast").attr("data-changed")) {
+		$("#anime-cast").attr("data-changed","1");
+	}
+}
+
+function update_cast(id){
+	var myData={};
+	myData['anime_id']=id;
+	$('.cast-input').each(function(i, obj) {
+		var character={};
+		var cast={};
+		var seyuu={};
+		var seyuu_data={};
+		cast=$(obj).tokenInput("get");
+		seyuu=$(obj).parent().parent().find('.seyuu-input').first().tokenInput("get");		
+		character[cast[0].id]=cast[0].name;
+		for(var j=0;j<seyuu.length;j++){
+			seyuu_data[seyuu[j].id+' ']=seyuu[j].name;
+		}
+		character['seyuu']=seyuu_data;	
+		myData['character'+i]=character;
+	})	
+	$.ajax({ 
+		type: 'POST', 
+		crossDomain:true,
+		url: 'http://oilreview.x10.mx/characters.php', 
+		data: {characters_update:JSON.stringify(myData)}, 
+		dataType: 'json',
+		cache: false,
+		beforeSend: function (){
+			$('.notice').html('Працюю з базою...');
+		},
+		success: function (data) {	
+			$("#anime-cast").removeAttr("data-changed");
+			if (data=="0")$('.notice').html('Всі зміни записано!');
+			else $('.notice').html(data);
+			return 0;
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			$('.notice').html(jqXHR+' | '+textStatus+' | '+errorThrown);
+			return 1;
 		}
 	});
 }
