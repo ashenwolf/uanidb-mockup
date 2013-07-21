@@ -1385,6 +1385,7 @@ function cast_change(item){
 
 function update_cast(id){
 	var myData={};
+	var temp={};
 	myData['anime_id']=id;
 	$('.cast-input').each(function(i, obj) {
 		var character={};
@@ -1398,8 +1399,9 @@ function update_cast(id){
 			seyuu_data[seyuu[j].id+' ']=seyuu[j].name;
 		}
 		character['seyuu']=seyuu_data;	
-		myData['character'+i]=character;
-	})	
+		temp['character'+i]=character;
+	})
+	myData['characters']=temp;	
 	$.ajax({ 
 		type: 'POST', 
 		crossDomain:true,
