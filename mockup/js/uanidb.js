@@ -1358,6 +1358,7 @@ function get_anime_cast(id){
 				cast_populate=[];	
 				seyuu_populate=[];
 				$("#anime-cast").mCustomScrollbar("update");
+				if($("#anime-cast").attr("data-changed"))$("#anime-cast").removeAttr("data-changed");
 				$('.notice').html('Все ок!');
 			}
 		},
