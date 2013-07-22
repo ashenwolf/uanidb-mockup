@@ -174,7 +174,8 @@ $(document).on("click", ".token-input-token-facebook p", function() {
 });
 $(document).on("mouseenter", ".token-input-token-facebook", function() {
 	if($(this).closest('#td-studios').length) $("p",this).attr('title', 'Перейти на сторінку студії');
-	else $("p",this).attr('title', 'Перейти на сторінку жанра');
+	else if($(this).closest('#td-genres').length) $("p",this).attr('title', 'Перейти на сторінку жанра');
+	else $("p",this).attr('title', 'Перейти на сторінку');
 	$("p",this).css("text-decoration","underline");
 	$("p",this).css('cursor', 'pointer');
 });	
@@ -210,34 +211,25 @@ $("#anime-edit").click(function (e) {
 		$("#input-type").hide();		
 		$(document).off('click', '.token-input-token-facebook p');
 		$(document).on("click", ".token-input-token-facebook", function() {
-			var text=$("p",this).text();
-			if($(this).closest('#td-studios').length){
-				var input_studios=$('#anime-studios').tokenInput('get',{name: text});			
-				var selected_studio = $(input_studios).filter(function(){
-					return this.name == text;
-				});
-				if(selected_studio[0].id!=selected_studio[0].name){
-					get_studio(selected_studio[0].id);			
-					$('#studio-post').attr('data-edit', selected_studio[0].id);
+			if($(this).closest('#td-studios').length){	
+				if($(this).data().tokeninput.id!=$(this).data().tokeninput.name){
+					get_studio($(this).data().tokeninput.id);			
+					$('#studio-post').attr('data-edit', $(this).data().tokeninput.id);
 					$('#add-studio-lightbox').trigger('click');
 				}else{
 					$('#add-studio-lightbox').trigger('click');
-					$("#add_studio").attr("data-id", selected_studio[0].id);
-					$('#studio_name').val(selected_studio[0].id);
-				}			
-			}else{				
-				var input_genres=$('#anime-genres').tokenInput('get',{name: text});			
-				var selected_genre = $(input_genres).filter(function(){
-					return this.name == text;
-				});
-				if(selected_genre[0].id!=selected_genre[0].name){
-					get_genre(selected_genre[0].id);			
-					$('#genre-post').attr('data-edit', selected_genre[0].id);
+					$("#add_studio").attr("data-id", $(this).data().tokeninput.id);
+					$('#studio_name').val($(this).data().tokeninput.id);
+				}				
+			}else if($(this).closest('#td-genres').length){						
+				if($(this).data().tokeninput.id!=$(this).data().tokeninput.name){
+					get_genre($(this).data().tokeninput.id);			
+					$('#genre-post').attr('data-edit', $(this).data().tokeninput.id);
 					$('#add-genre-lightbox').trigger('click');
 				}else{
 					$('#add-genre-lightbox').trigger('click');
-					$("#add_genre").attr("data-id", selected_genre[0].id);
-					$('#ukr_name_genre').val(selected_genre[0].id);
+					$("#add_genre").attr("data-id", $(this).data().tokeninput.id);
+					$('#ukr_name_genre').val($(this).data().tokeninput.id);
 				}	
 			}
 		});	
@@ -296,7 +288,8 @@ $("#anime-edit").click(function (e) {
 		$(document).on("mouseenter", ".token-input-token-facebook", function() {
 			$(this).attr('title', '');
 			if($(this).closest('#td-studios').length) $("p",this).attr('title', 'Перейти на сторінку студії');
-			else $("p",this).attr('title', 'Перейти на сторінку жанра');
+			else if($(this).closest('#td-genres').length) $("p",this).attr('title', 'Перейти на сторінку жанра');
+			else $("p",this).attr('title', 'Перейти на сторінку');
 			$("p",this).css("text-decoration","underline");
 			$("p",this).css('cursor', 'pointer');
 		});	
@@ -855,6 +848,7 @@ function get_types(id){
 
 $("#anime-error").click(function (e) {
 	importData();
+	//alert($('.token-input-token-facebook').first().data().tokeninput.name);
 });
 
 function init_genres(){
